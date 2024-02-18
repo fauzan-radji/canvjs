@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo</title>
+    <style>
+      body {
+        background-color: #222;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demo</title>
-  <style>
-    body {
-      background-color: #222;
-    }
+      canvas {
+        outline: 1px solid #fff;
+      }
+    </style>
+  </head>
 
-    canvas {
-      outline: 1px solid #fff;
-    }
-  </style>
-</head>
+  <body>
+    <canvas id="myCanvas"></canvas>
 
-<body>
-  <canvas id="myCanvas"></canvas>
+    <script type="module">
+      import Kanvas from "./lib/index.js";
 
-  <script type="module">
-    import Kanvas from "./Kanvas.js";
-    const canvas = new Kanvas({
-      id: "myCanvas",
-      width: 400,
-      height: 400
-    });
-    canvas.circle(canvas.center, 100).fill();
-  </script>
-</body>
-
+      const canvas = new Kanvas("myCanvas", 400, 400);
+      canvas.circle(canvas.center, 100).fill();
+    </script>
+  </body>
 </html>

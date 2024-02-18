@@ -1,0 +1,29 @@
+{
+  "name": "kanvasjs",
+  "version": "1.0.0",
+  "description": "A Javascript library to work with HTML5 Canvas element.",
+  "main": "lib/index",
+  "typings": "lib/index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p .",
+    "dev": "tsc -w -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fauzan-radji/kanvasjs.git"
+  },
+  "keywords": [
+    "canvas",
+    "graphics"
+  ],
+  "author": "Fauzan Radji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fauzan-radji/kanvasjs/issues"
+  },
+  "homepage": "https://github.com/fauzan-radji/kanvasjs#readme",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

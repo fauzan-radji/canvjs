@@ -1,26 +1,31 @@
+import Vector from "./Vector.js";
+
 /**
  * A class that represent HTML5 Canvas element
- * @param {Object} canvas - properties of Canvas
- * @param {string} canvas.id - id of HTML Canvas Element
- * @param {number} canvas.width - width of the canvas element
- * @param {number} canvas.height - height of the canvas element
+ * @param {string} id - id of HTML Canvas Element
+ * @param {number} width - width of the canvas element
+ * @param {number} height - height of the canvas element
  */
 
 export default class Kanvas {
-  #fillStyle;
-  #strokeStyle;
-  #lineWidth;
-  #lineDash;
-  #lineDashOffset;
-  #textAlign;
-  #baseLine;
-  #font;
-  #globalAlpha;
+  #id: string;
+  #canvas: HTMLCanvasElement;
+  #ctx: CanvasRenderingContext2D;
+  #center: Vector;
+  #fillStyle: string | CanvasGradient | CanvasPattern;
+  #strokeStyle: string | CanvasGradient | CanvasPattern;
+  #lineWidth: number;
+  #lineDash: Iterable<number>;
+  #lineDashOffset: number;
+  #textAlign: CanvasTextAlign;
+  #textBaseLine: CanvasTextBaseline;
+  #font: string;
+  #globalAlpha: number;
 
-  constructor({ id, width, height }) {
-    this.id = id;
-    this.canvas = document.getElementById(id);
-    this.ctx = this.canvas.getContext("2d");
+  constructor(id: string, width: number, height: number) {
+    this.#id = id;
+    this.#canvas = document.getElementById(id) as HTMLCanvasElement;
+    this.#ctx = this.#canvas.getContext("2d");
     this.fillStyle = "#fff";
     this.strokeStyle = "#fff";
     this.lineWidth = 1;
@@ -37,36 +42,41 @@ export default class Kanvas {
    *
    * @return {Kanvas} this
    */
-  resize(width, height) {
+  resize(width: number, height: number): Kanvas {
     this.width = width;
     this.height = height;
 
-    this.center = {
-      x: +(this.width / 2).toFixed(4),
-      y: +(this.height / 2).toFixed(4),
-    };
+    this.#center = new Vector(
+      +(this.width / 2).toFixed(4),
+      +(this.height / 2).toFixed(4)
+    );
 
     return this;
   }
 
   /**
    * Draws an image on the canvas
-   * @param {} image - image to draw
+   * @param {CanvasImageSource} image - image to draw
    * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
    * @param {number} width - the width of the image
    * @param {number} height - the height of the image
    *
    * @return {Kanvas} this
    */
-  drawImage(image, point, width, height) {
-    this.ctx.drawImage(image, point.x, point.y, width, height);
+  drawImage(
+    image: CanvasImageSource,
+    point: Vector | { x: number; y: number },
+    width: number,
+    height: number
+  ): Kanvas {
+    this.#ctx.drawImage(image, point.x, point.y, width, height);
 
     return this;
   }
 
   /**
    * Rotates and draws an image on the canvas
-   * @param {} image - image to draw
+   * @param {CanvasImageSource} image - image to draw
    * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
    * @param {number} width - the width of the image
    * @param {number} height - the height of the image
@@ -74,7 +84,13 @@ export default class Kanvas {
    *
    * @return {Kanvas} this
    */
-  rotateAndDrawImage(image, point, width, height, angle) {
+  rotateAndDrawImage(
+    image: CanvasImageSource,
+    point: Vector | { x: number; y: number },
+    width: number,
+    height: number,
+    angle: number
+  ): Kanvas {
     this.save()
       .translate(point)
       .rotate(-angle)
@@ -99,8 +115,8 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  circle(point, radius) {
-    this.ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI);
+  circle(point: Vector | { x: number; y: number }, radius: number): Kanvas {
+    this.#ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI);
 
     return this;
   }
@@ -113,8 +129,12 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  rect(point, width, height) {
-    this.ctx.rect(point.x, point.y, width, height);
+  rect(
+    point: Vector | { x: number; y: number },
+    width: number,
+    height: number
+  ): Kanvas {
+    this.#ctx.rect(point.x, point.y, width, height);
 
     return this;
   }
@@ -126,9 +146,12 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  line(begin, end) {
-    this.ctx.moveTo(begin.x, begin.y);
-    this.ctx.lineTo(end.x, end.y);
+  line(
+    begin: Vector | { x: number; y: number },
+    end: Vector | { x: number; y: number }
+  ): Kanvas {
+    this.#ctx.moveTo(begin.x, begin.y);
+    this.#ctx.lineTo(end.x, end.y);
 
     return this;
   }
@@ -139,8 +162,8 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  moveTo(point) {
-    this.ctx.moveTo(point.x, point.y);
+  moveTo(point: Vector | { x: number; y: number }): Kanvas {
+    this.#ctx.moveTo(point.x, point.y);
 
     return this;
   }
@@ -151,8 +174,8 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  lineTo(point) {
-    this.ctx.lineTo(point.x, point.y);
+  lineTo(point: Vector | { x: number; y: number }): Kanvas {
+    this.#ctx.lineTo(point.x, point.y);
 
     return this;
   }
@@ -174,15 +197,23 @@ export default class Kanvas {
     fillStyle = this.#fillStyle,
     strokeStyle = this.#strokeStyle,
     size = 16,
-  }) {
+  }: {
+    text: string;
+    at: Vector | { x: number; y: number };
+    fillStyle?: string | CanvasGradient | CanvasPattern;
+    strokeStyle?: string | CanvasGradient | CanvasPattern;
+    size?: number;
+  }): Kanvas {
     this.beginPath();
     this.textAlign = "center";
-    this.baseLine = "center";
+    this.textBaseLine = "middle";
     this.fillStyle = fillStyle;
     this.strokeStyle = strokeStyle;
     this.font = `${size}px Arial`;
-    this.ctx.fillText(text, at.x, at.y);
-    this.ctx.strokeText(text, at.x, at.y);
+    this.#ctx.fillText(text, at.x, at.y);
+    this.#ctx.strokeText(text, at.x, at.y);
+
+    return this;
   }
 
   /**
@@ -190,8 +221,8 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  beginPath() {
-    this.ctx.beginPath();
+  beginPath(): Kanvas {
+    this.#ctx.beginPath();
 
     return this;
   }
@@ -201,8 +232,8 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  closePath() {
-    this.ctx.closePath();
+  closePath(): Kanvas {
+    this.#ctx.closePath();
 
     return this;
   }
@@ -220,11 +251,15 @@ export default class Kanvas {
     color = this.#strokeStyle,
     width = this.#lineWidth,
     dash = this.#lineDash,
-  } = {}) {
+  }: {
+    color?: string | CanvasGradient | CanvasPattern;
+    width?: number;
+    dash?: Iterable<number>;
+  } = {}): Kanvas {
     this.strokeStyle = color;
     this.lineWidth = width;
     this.lineDash = dash;
-    this.ctx.stroke();
+    this.#ctx.stroke();
 
     return this;
   }
@@ -235,9 +270,9 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  fill(color = "#fff") {
+  fill(color: string = "#fff"): Kanvas {
     this.fillStyle = color;
-    this.ctx.fill();
+    this.#ctx.fill();
 
     return this;
   }
@@ -247,8 +282,8 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  clear() {
-    this.canvas.height = this.height;
+  clear(): Kanvas {
+    this.#canvas.height = this.height;
 
     return this;
   }
@@ -259,8 +294,8 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  translate(point) {
-    this.ctx.translate(point.x, point.y);
+  translate(point: Vector | { x: number; y: number }): Kanvas {
+    this.#ctx.translate(point.x, point.y);
 
     return this;
   }
@@ -271,83 +306,109 @@ export default class Kanvas {
    *
    * @return {Kanvas} this Kanvas object
    */
-  rotate(angle) {
-    this.ctx.rotate(angle);
+  rotate(angle: number): Kanvas {
+    this.#ctx.rotate(angle);
 
     return this;
   }
 
-  save() {
-    this.ctx.save();
+  /**
+   * Saves the current canvas state
+   *
+   * @returns {Kanvas} this Kanvas object
+   */
+  save(): Kanvas {
+    this.#ctx.save();
 
     return this;
   }
 
-  restore() {
-    this.ctx.restore();
+  /**
+   * Restores the canvas state to the last saved state
+   *
+   * @returns {Kanvas} this Kanvas object
+   */
+  restore(): Kanvas {
+    this.#ctx.restore();
 
     return this;
   }
 
   set fillStyle(color) {
     this.#fillStyle = color;
-    this.ctx.fillStyle = color;
+    this.#ctx.fillStyle = color;
   }
 
   set strokeStyle(color) {
     this.#strokeStyle = color;
-    this.ctx.strokeStyle = color;
+    this.#ctx.strokeStyle = color;
   }
 
   set lineWidth(width) {
     this.#lineWidth = width;
-    this.ctx.lineWidth = width;
+    this.#ctx.lineWidth = width;
   }
 
   set lineDash(dash) {
     this.#lineDash = dash;
-    this.ctx.setLineDash(dash);
+    this.#ctx.setLineDash(dash);
   }
 
   set lineDashOffset(offset) {
     this.#lineDashOffset = offset;
-    this.ctx.lineDashOffset = offset;
+    this.#ctx.lineDashOffset = offset;
   }
 
   set width(width) {
-    this.canvas.width = width;
+    this.#canvas.width = width;
   }
 
   set height(height) {
-    this.canvas.height = height;
+    this.#canvas.height = height;
   }
 
   set textAlign(align) {
     this.#textAlign = align;
-    this.ctx.textAlign = align;
+    this.#ctx.textAlign = align;
   }
 
-  set baseLine(align) {
-    this.#baseLine = align;
-    this.ctx.baseLine = align;
+  set textBaseLine(align) {
+    this.#textBaseLine = align;
+    this.#ctx.textBaseline = align;
   }
 
   set font(font) {
     this.#font = font;
-    this.ctx.font = font;
+    this.#ctx.font = font;
   }
 
   set globalAlpha(alpha) {
     this.#globalAlpha = alpha;
-    this.ctx.globalAlpha = alpha;
+    this.#ctx.globalAlpha = alpha;
+  }
+
+  get id() {
+    return this.#id;
+  }
+
+  get canvas() {
+    return this.#canvas;
+  }
+
+  get ctx() {
+    return this.#ctx;
+  }
+
+  get center() {
+    return this.#center;
   }
 
   get width() {
-    return this.canvas.width;
+    return this.#canvas.width;
   }
 
   get height() {
-    return this.canvas.height;
+    return this.#canvas.height;
   }
 
   get fillStyle() {
@@ -374,8 +435,8 @@ export default class Kanvas {
     return this.#textAlign;
   }
 
-  get baseLine() {
-    return this.#baseLine;
+  get textBaseLine() {
+    return this.#textBaseLine;
   }
 
   get font() {
