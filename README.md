@@ -1,4 +1,4 @@
-# Kanvas.js
+# Kanvasgl
 
 A Javascript library to work with HTML5 Canvas element.
 
@@ -7,7 +7,7 @@ A Javascript library to work with HTML5 Canvas element.
 ### Installation
 
 ```bash
-$ npm install kanvasjs
+$ npm install kanvasgl
 ```
 
 ### Usage
@@ -16,11 +16,11 @@ $ npm install kanvasjs
 <canvas id="myCanvas"></canvas>
 
 <script type="module">
-  import Kanvas from "./node_modules/kanvasjs/lib/index.js";
+  import Kanvas from "./node_modules/kanvasgl/lib/index.js";
 
   const canvas = new Kanvas("myCanvas", 400, 400);
 
-  canvas.circle({ x: 200, y: 200 }, 100).fill("red");
+  canvas.circle(canvas.center, 100).fill("#00ffff");
 </script>
 ```
 

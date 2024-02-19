@@ -1,5 +1,5 @@
 {
-  "name": "kanvasjs",
+  "name": "kanvasgl",
   "version": "1.0.0",
   "description": "A Javascript library to work with HTML5 Canvas element.",
   "main": "lib/index",
