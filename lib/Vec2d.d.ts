@@ -1,0 +1,44 @@
+import Mat3 from "./Mat3.js";
+export default class Vec2d {
+    private _x;
+    private _y;
+    private _theta;
+    private _magnitude;
+    constructor(x: number, y: number);
+    set(v: Vec2d): Vec2d;
+    copy({ x, y }?: {
+        x?: number;
+        y?: number;
+    }): Vec2d;
+    add(v: Vec2d): Vec2d;
+    subtract(v: Vec2d): Vec2d;
+    multiply(scalar: number): Vec2d;
+    divide(scalar: number): Vec2d;
+    dot(v: Vec2d): number;
+    cross(v: Vec2d): number;
+    transform(m: Mat3): Vec2d;
+    translate(v: Vec2d): Vec2d;
+    rotate(theta: number): Vec2d;
+    scale(v: Vec2d): Vec2d;
+    set x(x: number);
+    get x(): number;
+    set y(y: number);
+    get y(): number;
+    set theta(theta: number);
+    get theta(): number;
+    set magnitude(magnitude: number);
+    get magnitude(): number;
+    set r(r: number);
+    get r(): number;
+    static add(v1: Vec2d, v2: Vec2d): Vec2d;
+    static subtract(v1: Vec2d, v2: Vec2d): Vec2d;
+    static multiply(v: Vec2d, scalar: number): Vec2d;
+    static divide(v: Vec2d, scalar: number): Vec2d;
+    static dot(v1: Vec2d, v2: Vec2d): number;
+    static cross(v1: Vec2d, v2: Vec2d): number;
+    static transform(v: Vec2d, m: Mat3): Vec2d;
+    static translate(v: Vec2d, translation: Vec2d): Vec2d;
+    static rotate(v: Vec2d, theta: number): Vec2d;
+    static scale(v: Vec2d, scale: Vec2d): Vec2d;
+    static fromPolar(theta: number, magnitude: number): Vec2d;
+}

@@ -1,4 +1,4 @@
-import Vector from "./Vector.js";
+import Vector from "./Vec2d.js";
 
 /**
  * A class that represent HTML5 Canvas element
@@ -332,6 +332,10 @@ export default class Kanvas {
     this.#ctx.restore();
 
     return this;
+  }
+
+  requestPointerLock() {
+    this.#canvas.requestPointerLock();
   }
 
   set fillStyle(color) {

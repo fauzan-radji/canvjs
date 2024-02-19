@@ -1,4 +1,4 @@
-import Vector from "./Vector.js";
+import Vector from "./Vec2d.js";
 /**
  * A class that represent HTML5 Canvas element
  * @param {string} id - id of HTML Canvas Element
@@ -189,6 +189,7 @@ export default class Kanvas {
      * @returns {Kanvas} this Kanvas object
      */
     restore(): Kanvas;
+    requestPointerLock(): void;
     set fillStyle(color: string | CanvasGradient | CanvasPattern);
     set strokeStyle(color: string | CanvasGradient | CanvasPattern);
     set lineWidth(width: number);
