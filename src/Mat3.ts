@@ -46,7 +46,7 @@ export default class Mat3 {
   }
 
   static translation(x: number, y: number): Mat3 {
-    return new Mat3([1, 0, 0, 0, 1, 0, x, y, 1]);
+    return new Mat3([1, 0, x, 0, 1, y, 0, 0, 1]);
   }
 
   static rotation(theta: number): Mat3 {

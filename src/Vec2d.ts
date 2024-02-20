@@ -1,4 +1,4 @@
-import Mat3 from "./Mat3.js";
+import Mat3 from "./Mat3";
 
 export default class Vec2d {
   private _x: number;
@@ -59,12 +59,12 @@ export default class Vec2d {
   }
 
   transform(m: Mat3): Vec2d {
-    const a = m.data;
-    const x = this.x;
-    const y = this.y;
+    const { x, y } = this;
+    const z = 1;
+    const data = m.data;
 
-    this.x = a[0] * x + a[1] * y + a[2];
-    this.y = a[3] * x + a[4] * y + a[5];
+    this.x = x * data[0] + y * data[1] + z * data[2];
+    this.y = x * data[3] + y * data[4] + z * data[5];
 
     return this;
   }
@@ -79,6 +79,16 @@ export default class Vec2d {
 
   scale(v: Vec2d): Vec2d {
     return this.transform(Mat3.scale(v.x, v.y));
+  }
+
+  normalize(): Vec2d {
+    const magnitude = this.magnitude;
+
+    if (magnitude !== 0) {
+      this.divide(magnitude);
+    }
+
+    return this;
   }
 
   set x(x: number) {
@@ -167,6 +177,10 @@ export default class Vec2d {
 
   static scale(v: Vec2d, scale: Vec2d): Vec2d {
     return v.copy().scale(scale);
+  }
+
+  static normalize(v: Vec2d): Vec2d {
+    return v.copy().normalize();
   }
 
   static fromPolar(theta: number, magnitude: number): Vec2d {

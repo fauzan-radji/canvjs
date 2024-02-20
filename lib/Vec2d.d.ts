@@ -1,4 +1,4 @@
-import Mat3 from "./Mat3.js";
+import Mat3 from "./Mat3";
 export default class Vec2d {
     private _x;
     private _y;
@@ -20,6 +20,7 @@ export default class Vec2d {
     translate(v: Vec2d): Vec2d;
     rotate(theta: number): Vec2d;
     scale(v: Vec2d): Vec2d;
+    normalize(): Vec2d;
     set x(x: number);
     get x(): number;
     set y(y: number);
@@ -40,5 +41,6 @@ export default class Vec2d {
     static translate(v: Vec2d, translation: Vec2d): Vec2d;
     static rotate(v: Vec2d, theta: number): Vec2d;
     static scale(v: Vec2d, scale: Vec2d): Vec2d;
+    static normalize(v: Vec2d): Vec2d;
     static fromPolar(theta: number, magnitude: number): Vec2d;
 }

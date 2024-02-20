@@ -1,4 +1,4 @@
-import Vector from "./Vec2d.js";
+import Vec2d from "./Vec2d";
 /**
  * A class that represent HTML5 Canvas element
  * @param {string} id - id of HTML Canvas Element
@@ -6,7 +6,19 @@ import Vector from "./Vec2d.js";
  * @param {number} height - height of the canvas element
  */
 export default class Kanvas {
-    #private;
+    private _id;
+    private _canvas;
+    private _ctx;
+    private _center;
+    private _fillStyle;
+    private _strokeStyle;
+    private _lineWidth;
+    private _lineDash;
+    private _lineDashOffset;
+    private _textAlign;
+    private _textBaseLine;
+    private _font;
+    private _globalAlpha;
     constructor(id: string, width: number, height: number);
     /**
      * Resizes the canvas element.
@@ -19,84 +31,84 @@ export default class Kanvas {
     /**
      * Draws an image on the canvas
      * @param {CanvasImageSource} image - image to draw
-     * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
      * @param {number} width - the width of the image
      * @param {number} height - the height of the image
      *
      * @return {Kanvas} this
      */
-    drawImage(image: CanvasImageSource, point: Vector | {
+    drawImage(image: CanvasImageSource, point: Vec2d | {
         x: number;
         y: number;
     }, width: number, height: number): Kanvas;
     /**
      * Rotates and draws an image on the canvas
      * @param {CanvasImageSource} image - image to draw
-     * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
      * @param {number} width - the width of the image
      * @param {number} height - the height of the image
      * @param {number} angle - the angle in radian
      *
      * @return {Kanvas} this
      */
-    rotateAndDrawImage(image: CanvasImageSource, point: Vector | {
+    rotateAndDrawImage(image: CanvasImageSource, point: Vec2d | {
         x: number;
         y: number;
     }, width: number, height: number, angle: number): Kanvas;
     /**
      * Draws a circle on the canvas
-     * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
      * @param {number} radius - the radius of the circle
      *
      * @return {Kanvas} this Kanvas object
      */
-    circle(point: Vector | {
+    circle(point: Vec2d | {
         x: number;
         y: number;
     }, radius: number): Kanvas;
     /**
      * Draws a rectangle on the canvas
-     * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
      * @param {number} width - the width of the rectangle
      * @param {number} height - the height of the rectangle
      *
      * @return {Kanvas} this Kanvas object
      */
-    rect(point: Vector | {
+    rect(point: Vec2d | {
         x: number;
         y: number;
     }, width: number, height: number): Kanvas;
     /**
      * Draws a line on the canvas
-     * @param {Vector | {x: number, y: number}} begin - a Vector instance or an Object that contains x and y properties
-     * @param {Vector | {x: number, y: number}} end - a Vector instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} begin - a Vec2d instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} end - a Vec2d instance or an Object that contains x and y properties
      *
      * @return {Kanvas} this Kanvas object
      */
-    line(begin: Vector | {
+    line(begin: Vec2d | {
         x: number;
         y: number;
-    }, end: Vector | {
+    }, end: Vec2d | {
         x: number;
         y: number;
     }): Kanvas;
     /**
      * Moves the current drawing position to a specified point
-     * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
      *
      * @return {Kanvas} this Kanvas object
      */
-    moveTo(point: Vector | {
+    moveTo(point: Vec2d | {
         x: number;
         y: number;
     }): Kanvas;
     /**
      * Draws a line from the current drawing position to a specified point
-     * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
      *
      * @return {Kanvas} this Kanvas object
      */
-    lineTo(point: Vector | {
+    lineTo(point: Vec2d | {
         x: number;
         y: number;
     }): Kanvas;
@@ -104,16 +116,16 @@ export default class Kanvas {
      * Draws a line from the current drawing position to a specified point
      * @param {Object} param0
      * @param {string} param0.text
-     * @param {Vector | {x: number, y: number}} param0.at
-     * @param {string} [param0.fillStyle=this.#fillStyle]
-     * @param {string} [param0.strokeStyle=this.#strokeStyle]
+     * @param {Vec2d | {x: number, y: number}} param0.at
+     * @param {string} [param0.fillStyle=this._fillStyle]
+     * @param {string} [param0.strokeStyle=this._strokeStyle]
      * @param {number} [param0.size=16]
      *
      * @return {Kanvas} this Kanvas object
      */
     text({ text, at, fillStyle, strokeStyle, size, }: {
         text: string;
-        at: Vector | {
+        at: Vec2d | {
             x: number;
             y: number;
         };
@@ -136,9 +148,9 @@ export default class Kanvas {
     /**
      * Strokes the current path
      * @param {Object} [param0={}]
-     * @param {string} [param0.color=this.#strokeStyle]
-     * @param {number} [param0.width=this.#lineWidth]
-     * @param {number[]} [param0.dash=this.#lineDash]
+     * @param {string} [param0.color=this._strokeStyle]
+     * @param {number} [param0.width=this._lineWidth]
+     * @param {number[]} [param0.dash=this._lineDash]
      *
      * @return {Kanvas} this Kanvas object
      */
@@ -162,11 +174,11 @@ export default class Kanvas {
     clear(): Kanvas;
     /**
      * Translate the canvas context
-     * @param {Vector | {x: number, y: number}} point - a Vector instance or an Object that contains x and y properties
+     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
      *
      * @return {Kanvas} this Kanvas object
      */
-    translate(point: Vector | {
+    translate(point: Vec2d | {
         x: number;
         y: number;
     }): Kanvas;
@@ -204,7 +216,7 @@ export default class Kanvas {
     get id(): string;
     get canvas(): HTMLCanvasElement;
     get ctx(): CanvasRenderingContext2D;
-    get center(): Vector;
+    get center(): Vec2d;
     get width(): number;
     get height(): number;
     get fillStyle(): string | CanvasGradient | CanvasPattern;
