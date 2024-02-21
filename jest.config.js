@@ -1,6 +1,6 @@
-module.exports = {
-  transform: { "^.+\\.ts?$": "ts-jest" },
-  testEnvironment: "node",
-  testRegex: "/tests/.*\\.(test|spec)?\\.(ts|tsx)$",
-  moduleFileExtensions: ["ts", "js"],
+export default {
+  testEnvironment: "jsdom",
+  setupFiles: ["jest-canvas-mock"],
+  testRegex: "/tests/.*\\.(test|spec)?\\.js$",
+  moduleFileExtensions: ["js"],
 };

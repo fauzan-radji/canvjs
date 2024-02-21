@@ -1,4 +1,4 @@
-import Vec2d from "./Vec2d";
+import Vec2d from "./Vec2d.js";
 
 /**
  * A class that represent HTML5 Canvas element
@@ -8,24 +8,25 @@ import Vec2d from "./Vec2d";
  */
 
 export default class Kanvas {
-  private _id: string;
-  private _canvas: HTMLCanvasElement;
-  private _ctx: CanvasRenderingContext2D;
-  private _center: Vec2d;
-  private _fillStyle: string | CanvasGradient | CanvasPattern;
-  private _strokeStyle: string | CanvasGradient | CanvasPattern;
-  private _lineWidth: number;
-  private _lineDash: Iterable<number>;
-  private _lineDashOffset: number;
-  private _textAlign: CanvasTextAlign;
-  private _textBaseLine: CanvasTextBaseline;
-  private _font: string;
-  private _globalAlpha: number;
+  #id: string;
+  #canvas: HTMLCanvasElement;
+  #context: CanvasRenderingContext2D;
+  #center: Vec2d;
+  #fillStyle: string | CanvasGradient | CanvasPattern;
+  #strokeStyle: string | CanvasGradient | CanvasPattern;
+  #lineWidth: number;
+  #lineDash: Iterable<number>;
+  #lineDashOffset: number;
+  #textAlign: CanvasTextAlign;
+  #textBaseLine: CanvasTextBaseline;
+  #font: string;
+  #globalAlpha: number;
+  #aspectRatio: number;
 
   constructor(id: string, width: number, height: number) {
-    this._id = id;
-    this._canvas = document.getElementById(id) as HTMLCanvasElement;
-    this._ctx = this._canvas.getContext("2d");
+    this.#id = id;
+    this.#canvas = document.getElementById(id) as HTMLCanvasElement;
+    this.#context = this.#canvas.getContext("2d");
     this.fillStyle = "#fff";
     this.strokeStyle = "#fff";
     this.lineWidth = 1;
@@ -46,7 +47,7 @@ export default class Kanvas {
     this.width = width;
     this.height = height;
 
-    this._center = new Vec2d(
+    this.#center = new Vec2d(
       +(this.width / 2).toFixed(4),
       +(this.height / 2).toFixed(4)
     );
@@ -69,7 +70,7 @@ export default class Kanvas {
     width: number,
     height: number
   ): Kanvas {
-    this._ctx.drawImage(image, point.x, point.y, width, height);
+    this.#context.drawImage(image, point.x, point.y, width, height);
 
     return this;
   }
@@ -116,7 +117,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   circle(point: Vec2d | { x: number; y: number }, radius: number): Kanvas {
-    this._ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI);
+    this.#context.arc(point.x, point.y, radius, 0, 2 * Math.PI);
 
     return this;
   }
@@ -134,7 +135,7 @@ export default class Kanvas {
     width: number,
     height: number
   ): Kanvas {
-    this._ctx.rect(point.x, point.y, width, height);
+    this.#context.rect(point.x, point.y, width, height);
 
     return this;
   }
@@ -150,8 +151,8 @@ export default class Kanvas {
     begin: Vec2d | { x: number; y: number },
     end: Vec2d | { x: number; y: number }
   ): Kanvas {
-    this._ctx.moveTo(begin.x, begin.y);
-    this._ctx.lineTo(end.x, end.y);
+    this.#context.moveTo(begin.x, begin.y);
+    this.#context.lineTo(end.x, end.y);
 
     return this;
   }
@@ -163,7 +164,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   moveTo(point: Vec2d | { x: number; y: number }): Kanvas {
-    this._ctx.moveTo(point.x, point.y);
+    this.#context.moveTo(point.x, point.y);
 
     return this;
   }
@@ -175,7 +176,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   lineTo(point: Vec2d | { x: number; y: number }): Kanvas {
-    this._ctx.lineTo(point.x, point.y);
+    this.#context.lineTo(point.x, point.y);
 
     return this;
   }
@@ -185,8 +186,8 @@ export default class Kanvas {
    * @param {Object} param0
    * @param {string} param0.text
    * @param {Vec2d | {x: number, y: number}} param0.at
-   * @param {string} [param0.fillStyle=this._fillStyle]
-   * @param {string} [param0.strokeStyle=this._strokeStyle]
+   * @param {string} [param0.fillStyle=this.#fillStyle]
+   * @param {string} [param0.strokeStyle=this.#strokeStyle]
    * @param {number} [param0.size=16]
    *
    * @return {Kanvas} this Kanvas object
@@ -194,8 +195,8 @@ export default class Kanvas {
   text({
     text,
     at,
-    fillStyle = this._fillStyle,
-    strokeStyle = this._strokeStyle,
+    fillStyle = this.#fillStyle,
+    strokeStyle = this.#strokeStyle,
     size = 16,
   }: {
     text: string;
@@ -210,8 +211,8 @@ export default class Kanvas {
     this.fillStyle = fillStyle;
     this.strokeStyle = strokeStyle;
     this.font = `${size}px Arial`;
-    this._ctx.fillText(text, at.x, at.y);
-    this._ctx.strokeText(text, at.x, at.y);
+    this.#context.fillText(text, at.x, at.y);
+    this.#context.strokeText(text, at.x, at.y);
 
     return this;
   }
@@ -222,7 +223,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   beginPath(): Kanvas {
-    this._ctx.beginPath();
+    this.#context.beginPath();
 
     return this;
   }
@@ -233,7 +234,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   closePath(): Kanvas {
-    this._ctx.closePath();
+    this.#context.closePath();
 
     return this;
   }
@@ -241,16 +242,16 @@ export default class Kanvas {
   /**
    * Strokes the current path
    * @param {Object} [param0={}]
-   * @param {string} [param0.color=this._strokeStyle]
-   * @param {number} [param0.width=this._lineWidth]
-   * @param {number[]} [param0.dash=this._lineDash]
+   * @param {string} [param0.color=this.#strokeStyle]
+   * @param {number} [param0.width=this.#lineWidth]
+   * @param {number[]} [param0.dash=this.#lineDash]
    *
    * @return {Kanvas} this Kanvas object
    */
   stroke({
-    color = this._strokeStyle,
-    width = this._lineWidth,
-    dash = this._lineDash,
+    color = this.#strokeStyle,
+    width = this.#lineWidth,
+    dash = this.#lineDash,
   }: {
     color?: string | CanvasGradient | CanvasPattern;
     width?: number;
@@ -259,7 +260,7 @@ export default class Kanvas {
     this.strokeStyle = color;
     this.lineWidth = width;
     this.lineDash = dash;
-    this._ctx.stroke();
+    this.#context.stroke();
 
     return this;
   }
@@ -272,7 +273,17 @@ export default class Kanvas {
    */
   fill(color: string = "#fff"): Kanvas {
     this.fillStyle = color;
-    this._ctx.fill();
+    this.#context.fill();
+
+    return this;
+  }
+
+  /** Fills the canvas with a specified color
+   * @param {string} [color="#000"] - color to fill the canvas with
+   * @return {Kanvas} this Kanvas object
+   */
+  background(color: string = "#000"): Kanvas {
+    this.#canvas.style.backgroundColor = color;
 
     return this;
   }
@@ -283,7 +294,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   clear(): Kanvas {
-    this._canvas.height = this.height;
+    this.#context.clearRect(0, 0, this.width, this.height);
 
     return this;
   }
@@ -295,7 +306,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   translate(point: Vec2d | { x: number; y: number }): Kanvas {
-    this._ctx.translate(point.x, point.y);
+    this.#context.translate(point.x, point.y);
 
     return this;
   }
@@ -307,7 +318,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   rotate(angle: number): Kanvas {
-    this._ctx.rotate(angle);
+    this.#context.rotate(angle);
 
     return this;
   }
@@ -318,7 +329,7 @@ export default class Kanvas {
    * @returns {Kanvas} this Kanvas object
    */
   save(): Kanvas {
-    this._ctx.save();
+    this.#context.save();
 
     return this;
   }
@@ -329,125 +340,131 @@ export default class Kanvas {
    * @returns {Kanvas} this Kanvas object
    */
   restore(): Kanvas {
-    this._ctx.restore();
+    this.#context.restore();
 
     return this;
   }
 
   requestPointerLock() {
-    this._canvas.requestPointerLock();
+    this.#canvas.requestPointerLock();
   }
 
   set fillStyle(color) {
-    this._fillStyle = color;
-    this._ctx.fillStyle = color;
+    this.#fillStyle = color;
+    this.#context.fillStyle = color;
   }
 
   set strokeStyle(color) {
-    this._strokeStyle = color;
-    this._ctx.strokeStyle = color;
+    this.#strokeStyle = color;
+    this.#context.strokeStyle = color;
   }
 
   set lineWidth(width) {
-    this._lineWidth = width;
-    this._ctx.lineWidth = width;
+    this.#lineWidth = width;
+    this.#context.lineWidth = width;
   }
 
   set lineDash(dash) {
-    this._lineDash = dash;
-    this._ctx.setLineDash(dash);
+    this.#lineDash = dash;
+    this.#context.setLineDash(dash);
   }
 
   set lineDashOffset(offset) {
-    this._lineDashOffset = offset;
-    this._ctx.lineDashOffset = offset;
+    this.#lineDashOffset = offset;
+    this.#context.lineDashOffset = offset;
   }
 
   set width(width) {
-    this._canvas.width = width;
+    this.#canvas.width = width;
+    this.#aspectRatio = width / this.#canvas.height;
   }
 
   set height(height) {
-    this._canvas.height = height;
+    this.#canvas.height = height;
+    this.#aspectRatio = this.#canvas.width / height;
   }
 
   set textAlign(align) {
-    this._textAlign = align;
-    this._ctx.textAlign = align;
+    this.#textAlign = align;
+    this.#context.textAlign = align;
   }
 
   set textBaseLine(align) {
-    this._textBaseLine = align;
-    this._ctx.textBaseline = align;
+    this.#textBaseLine = align;
+    this.#context.textBaseline = align;
   }
 
   set font(font) {
-    this._font = font;
-    this._ctx.font = font;
+    this.#font = font;
+    this.#context.font = font;
   }
 
   set globalAlpha(alpha) {
-    this._globalAlpha = alpha;
-    this._ctx.globalAlpha = alpha;
+    this.#globalAlpha = alpha;
+    this.#context.globalAlpha = alpha;
   }
 
   get id() {
-    return this._id;
+    return this.#id;
   }
 
   get canvas() {
-    return this._canvas;
+    return this.#canvas;
   }
 
-  get ctx() {
-    return this._ctx;
+  get context() {
+    return this.#context;
   }
 
   get center() {
-    return this._center;
+    return this.#center;
   }
 
   get width() {
-    return this._canvas.width;
+    return this.#canvas.width;
   }
 
   get height() {
-    return this._canvas.height;
+    return this.#canvas.height;
+  }
+
+  get aspectRatio() {
+    return this.#aspectRatio;
   }
 
   get fillStyle() {
-    return this._fillStyle;
+    return this.#fillStyle;
   }
 
   get strokeStyle() {
-    return this._strokeStyle;
+    return this.#strokeStyle;
   }
 
   get lineWidth() {
-    return this._lineWidth;
+    return this.#lineWidth;
   }
 
   get lineDash() {
-    return this._lineDash;
+    return this.#lineDash;
   }
 
   get lineDashOffset() {
-    return this._lineDashOffset;
+    return this.#lineDashOffset;
   }
 
   get textAlign() {
-    return this._textAlign;
+    return this.#textAlign;
   }
 
   get textBaseLine() {
-    return this._textBaseLine;
+    return this.#textBaseLine;
   }
 
   get font() {
-    return this._font;
+    return this.#font;
   }
 
   get globalAlpha() {
-    return this._globalAlpha;
+    return this.#globalAlpha;
   }
 }

@@ -1,8 +1,8 @@
-import Vec2d from "../src/Vec2d";
-import Mat3 from "../src/Mat3";
+import Vec2d from "../lib/Vec2d";
+import Mat3 from "../lib/Mat3";
 
 describe("Vec2d", () => {
-  let vec: Vec2d;
+  let vec;
 
   beforeEach(() => {
     vec = new Vec2d(2, 3);

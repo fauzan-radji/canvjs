@@ -1,4 +1,4 @@
-import Mat3 from "./Mat3";
+import Mat3 from "./Mat3.js";
 export default class Vec2d {
     private _x;
     private _y;

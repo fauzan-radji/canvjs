@@ -13,29 +13,42 @@ $ npm install kanvasgl
 ### Usage
 
 ```html
-<canvas id="myCanvas"></canvas>
+<!DOCTYPE html>
+<head>
+  <script type="importmap">
+    {
+      "imports": {
+        "kanvasgl": "./node_modules/kanvasgl/index.js"
+      }
+    }
+  </script>
+</head>
 
-<script type="module">
-  import Kanvas from "./node_modules/kanvasgl/lib/index.js";
+<body>
+  <canvas id="myCanvas"></canvas>
 
-  const canvas = new Kanvas("myCanvas", 400, 400);
+  <script type="module">
+    import Kanvas from "kanvasgl";
 
-  canvas.circle(canvas.center, 100).fill("#00ffff");
-</script>
+    const canvas = new Kanvas("myCanvas", 400, 400);
+    canvas.circle(canvas.center, 100).fill("#00ffff");
+  </script>
+</body>
 ```
 
 ## Properties and Methods
 
 ### Properties
 
-| Name   | Type                     | Description                    |
-| ------ | ------------------------ | ------------------------------ |
-| canvas | HTMLCanvasElement        | The canvas element             |
-| id     | string                   | Id of the canvas element       |
-| ctx    | CanvasRenderingContext2D | Context of the canvas element  |
-| width  | number                   | Width of the canvas element    |
-| height | number                   | Height of the canvas element   |
-| center | Vector                   | The center point of the canvas |
+| Name        | Type                     | Description                                |
+| ----------- | ------------------------ | ------------------------------------------ |
+| canvas      | HTMLCanvasElement        | The canvas element                         |
+| id          | string                   | Id of the canvas element                   |
+| ctx         | CanvasRenderingContext2D | Context of the canvas element              |
+| width       | number                   | Width of the canvas element                |
+| height      | number                   | Height of the canvas element               |
+| aspectRatio | number                   | Aspect ratio of the canvas, width / height |
+| center      | Vector                   | The center point of the canvas             |
 
 ### Methods
 
@@ -54,6 +67,7 @@ $ npm install kanvasgl
 | closePath          | Closes the current path                                             | -                                                                                                                       | `this: Kanvas` |
 | stroke             | Strokes the current path                                            |                                                                                                                         | `this: Kanvas` |
 | fill               | Fills the current path                                              | `color: string`                                                                                                         | `this: Kanvas` |
+| background         | Sets the background color of the canvas                             | `color: string`                                                                                                         | `this: Kanvas` |
 | clear              | Clears the canvas                                                   | -                                                                                                                       | `this: Kanvas` |
 | translate          | Translates the canvas context                                       | `point: Vector \| { x: number, y: number }`                                                                             | `this: Kanvas` |
 | rotate             | Rotates the canvas context                                          | `angle: number`                                                                                                         | `this: Kanvas` |

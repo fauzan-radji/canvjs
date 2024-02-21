@@ -1,4 +1,4 @@
-import Vec2d from "./Vec2d";
+import Vec2d from "./Vec2d.js";
 /**
  * A class that represent HTML5 Canvas element
  * @param {string} id - id of HTML Canvas Element
@@ -6,19 +6,7 @@ import Vec2d from "./Vec2d";
  * @param {number} height - height of the canvas element
  */
 export default class Kanvas {
-    private _id;
-    private _canvas;
-    private _ctx;
-    private _center;
-    private _fillStyle;
-    private _strokeStyle;
-    private _lineWidth;
-    private _lineDash;
-    private _lineDashOffset;
-    private _textAlign;
-    private _textBaseLine;
-    private _font;
-    private _globalAlpha;
+    #private;
     constructor(id: string, width: number, height: number);
     /**
      * Resizes the canvas element.
@@ -117,8 +105,8 @@ export default class Kanvas {
      * @param {Object} param0
      * @param {string} param0.text
      * @param {Vec2d | {x: number, y: number}} param0.at
-     * @param {string} [param0.fillStyle=this._fillStyle]
-     * @param {string} [param0.strokeStyle=this._strokeStyle]
+     * @param {string} [param0.fillStyle=this.#fillStyle]
+     * @param {string} [param0.strokeStyle=this.#strokeStyle]
      * @param {number} [param0.size=16]
      *
      * @return {Kanvas} this Kanvas object
@@ -148,9 +136,9 @@ export default class Kanvas {
     /**
      * Strokes the current path
      * @param {Object} [param0={}]
-     * @param {string} [param0.color=this._strokeStyle]
-     * @param {number} [param0.width=this._lineWidth]
-     * @param {number[]} [param0.dash=this._lineDash]
+     * @param {string} [param0.color=this.#strokeStyle]
+     * @param {number} [param0.width=this.#lineWidth]
+     * @param {number[]} [param0.dash=this.#lineDash]
      *
      * @return {Kanvas} this Kanvas object
      */
@@ -166,6 +154,11 @@ export default class Kanvas {
      * @return {Kanvas} this Kanvas object
      */
     fill(color?: string): Kanvas;
+    /** Fills the canvas with a specified color
+     * @param {string} [color="#000"] - color to fill the canvas with
+     * @return {Kanvas} this Kanvas object
+     */
+    background(color?: string): Kanvas;
     /**
      * Clears the canvas
      *
@@ -215,10 +208,11 @@ export default class Kanvas {
     set globalAlpha(alpha: number);
     get id(): string;
     get canvas(): HTMLCanvasElement;
-    get ctx(): CanvasRenderingContext2D;
+    get context(): CanvasRenderingContext2D;
     get center(): Vec2d;
     get width(): number;
     get height(): number;
+    get aspectRatio(): number;
     get fillStyle(): string | CanvasGradient | CanvasPattern;
     get strokeStyle(): string | CanvasGradient | CanvasPattern;
     get lineWidth(): number;

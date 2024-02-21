@@ -18,13 +18,20 @@
         outline: 1px solid #fff;
       }
     </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "kanvasgl": "./node_modules/kanvasgl/index.js"
+        }
+      }
+    </script>
   </head>
 
   <body>
     <canvas id="myCanvas"></canvas>
 
     <script type="module">
-      import Kanvas from "./lib/index.js";
+      import Kanvas from "kanvasgl";
 
       const canvas = new Kanvas("myCanvas", 400, 400);
       canvas.circle(canvas.center, 100).fill("#00ffff");

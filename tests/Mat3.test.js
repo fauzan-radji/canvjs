@@ -1,4 +1,4 @@
-import Mat3 from "../src/Mat3";
+import Mat3 from "../lib/Mat3.js";
 
 describe("Mat3", () => {
   it("should be defined", () => {

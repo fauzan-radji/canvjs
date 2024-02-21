@@ -94,7 +94,7 @@ export default class Mat4 {
     const q = far / (far - near);
 
     return new Mat4([
-      aspect * f,
+      (1 / aspect) * f,
       0,
       0,
       0,

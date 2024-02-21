@@ -1,4 +1,4 @@
-import Mat4 from "../src/Mat4";
+import Mat4 from "../lib/Mat4.js";
 
 describe("Mat4", () => {
   it("should be defined", () => {
@@ -94,7 +94,7 @@ describe("Mat4", () => {
   it("should create a perspective matrix correctly", () => {
     const perspective = Mat4.perspective(60, 16 / 9, 0.1, 100);
     const expected = new Mat4([
-      3.079201435678004, 0, 0, 0, 0, 1.7320508075688774, 0, 0, 0, 0,
+      0.9742785792574935, 0, 0, 0, 0, 1.7320508075688774, 0, 0, 0, 0,
       1.0010010010010009, -0.10010010010010009, 0, 0, 1, 0,
     ]);
     for (let i = 0; i < 16; i++) {
