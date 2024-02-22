@@ -4,25 +4,29 @@
 
 - [Getting Started](#getting-started)
   - [Installation](#installation)
-  - [Usage](#usage)
   - [Basic Usage](#basic-usage)
-- [Documentation](#documentation)
-  - [Kanvas](#kanvas)
+- [Usage](#usage-1)
+  - [Kanvas]
     - [Constructor](#constructor)
     - [Methods](#methods)
     - [Properties](#properties)
+- [Type Aliases](#type-aliases)
+  - [Point2d]
 
 ## Getting Started
 
 ### Installation
 
 ```bash
-$ npm install kanvasgl
+npm install kanvasgl
 ```
 
-### Usage
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+### Basic Usage
 
 ```html
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,26 +42,22 @@ $ npm install kanvasgl
   <body>
     <canvas id="myCanvas"></canvas>
 
-    <script type="module">
-      import Kanvas from "kanvasgl";
-
-      const canvas = new Kanvas("myCanvas", 400, 400);
-      canvas.circle(canvas.center, 100).fill("#00ffff");
-    </script>
+    <script type="module" src="./script.js"></script>
   </body>
 </html>
 ```
 
-### Basic Usage
-
 ```javascript
+// script.js
 import Kanvas from "kanvasgl";
 
 const canvas = new Kanvas("myCanvas", 400, 400);
 canvas.circle(canvas.center, 100).fill("#00ffff");
 ```
 
-## Documentation
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+## Usage
 
 ### Kanvas
 
@@ -65,204 +65,370 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
 #### Constructor
 
-##### `constructor(id: string, width: number, height: number)`
+**Parameters**:
 
-Creates a new instance of the Kanvas class.
+| Name   | Type     | Description                   | Required | Default |
+| ------ | -------- | ----------------------------- | -------- | ------- |
+| id     | `string` | The ID of the canvas element. | ✅       | -       |
+| width  | number   | The width of the canvas.      | ✅       | -       |
+| height | number   | The height of the canvas.     | ✅       | -       |
 
-- `id`: The ID of the canvas element.
-- `width`: The width of the canvas.
-- `height`: The height of the canvas.
+[Back to Table of Contents :arrow_up:][Table of Contents]
 
 #### Methods
 
-##### `resize(width: number, height: number): Kanvas`
+1. `resize(width, height)`
 
-Resizes the canvas element.
+   Resizes the canvas element.
 
-- `width`: The new width of the canvas.
-- `height`: The new height of the canvas.
+   **Parameters**:
 
-##### `drawImage(image: CanvasImageSource, point: Vec2d | { x: number; y: number }, width: number, height: number): Kanvas`
+   | Name   | Type   | Description                   | Required | Default |
+   | ------ | ------ | ----------------------------- | -------- | ------- |
+   | width  | number | The new width of the canvas.  | ✅       | -       |
+   | height | number | The new height of the canvas. | ✅       | -       |
 
-Draws an image on the canvas.
+   **Returns**: [Kanvas]
 
-- `image`: The image to draw.
-- `point`: A Vec2d instance or an object containing `x` and `y` properties specifying the position.
-- `width`: The width of the image.
-- `height`: The height of the image.
+   **Example**:
 
-##### `rotateAndDrawImage(image: CanvasImageSource, point: Vec2d | { x: number; y: number }, width: number, height: number, angle: number): Kanvas`
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   console.log(canvas.width); // 800
+   console.log(canvas.height); // 600
 
-Rotates and draws an image on the canvas.
+   canvas.resize(400, 300);
+   console.log(canvas.width); // 400
+   console.log(canvas.height); // 300
+   ```
 
-- `image`: The image to draw.
-- `point`: A Vec2d instance or an object containing `x` and `y` properties specifying the position.
-- `width`: The width of the image.
-- `height`: The height of the image.
-- `angle`: The angle in radians.
+2. `drawImage(image, point, width, height)`
 
-##### `circle(point: Vec2d | { x: number; y: number }, radius: number): Kanvas`
+   Draws an image on the canvas.
 
-Draws a circle on the canvas.
+   **Parameters**:
 
-- `point`: A Vec2d instance or an object containing `x` and `y` properties specifying the center of the circle.
-- `radius`: The radius of the circle.
+   | Name   | Type                | Description                                                                                | Required | Default |
+   | ------ | ------------------- | ------------------------------------------------------------------------------------------ | -------- | ------- |
+   | image  | [CanvasImageSource] | The image to draw.                                                                         | ✅       | -       |
+   | point  | [Point2d]           | A [Vec2d] instance or an object containing `x` and `y` properties specifying the position. | ✅       | -       |
+   | width  | number              | The width of the image.                                                                    | ✅       | -       |
+   | height | number              | The height of the image.                                                                   | ✅       | -       |
 
-##### `rect(point: Vec2d | { x: number; y: number }, width: number, height: number): Kanvas`
+   **Returns**: [Kanvas]
 
-Draws a rectangle on the canvas.
+   **Example**:
 
-- `point`: A Vec2d instance or an object containing `x` and `y` properties specifying the top-left corner of the rectangle.
-- `width`: The width of the rectangle.
-- `height`: The height of the rectangle.
+   <!-- TODO -->
 
-##### `line(begin: Vec2d | { x: number; y: number }, end: Vec2d | { x: number; y: number }): Kanvas`
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   ```
 
-Draws a line on the canvas.
+3. `rotateAndDrawImage(image, point, width, height, angle)`
 
-- `begin`: A Vec2d instance or an object containing `x` and `y` properties specifying the start point of the line.
-- `end`: A Vec2d instance or an object containing `x` and `y` properties specifying the end point of the line.
+   Rotates and draws an image on the canvas.
 
-##### `moveTo(point: Vec2d | { x: number; y: number }): Kanvas`
+   **Parameters**:
 
-Moves the current drawing position to a specified point.
+   | Name   | Type                | Description                                                                                | Required | Default |
+   | ------ | ------------------- | ------------------------------------------------------------------------------------------ | -------- | ------- |
+   | image  | [CanvasImageSource] | The image to draw.                                                                         | ✅       | -       |
+   | point  | [Point2d]           | A [Vec2d] instance or an object containing `x` and `y` properties specifying the position. | ✅       | -       |
+   | width  | number              | The width of the image.                                                                    | ✅       | -       |
+   | height | number              | The height of the image.                                                                   | ✅       | -       |
+   | angle  | number              | The angle in radians.                                                                      | ✅       | -       |
 
-- `point`: A Vec2d instance or an object containing `x` and `y` properties specifying the new position.
+   **Returns**: [Kanvas]
 
-##### `lineTo(point: Vec2d | { x: number; y: number }): Kanvas`
+   **Example**:
 
-Draws a line from the current drawing position to a specified point.
+   <!-- TODO -->
 
-- `point`: A Vec2d instance or an object containing `x` and `y` properties specifying the end point of the line.
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   ```
 
-##### `text(params: { text: string; at: Vec2d | { x: number; y: number }; fillStyle?: string | CanvasGradient | CanvasPattern; strokeStyle?: string | CanvasGradient | CanvasPattern; size?: number }): Kanvas`
+4. `circle(point, radius)`
 
-Draws text on the canvas.
+   Draws a circle on the canvas.
 
-- `text`: The text to draw.
-- `at`: A Vec2d instance or an object containing `x` and `y` properties specifying the position of the text.
-- `fillStyle`: Optional. The fill style for the text.
-- `strokeStyle`: Optional. The stroke style for the text.
-- `size`: Optional. The size of the text.
+   **Parameters**:
 
-##### `beginPath(): Kanvas`
+   | Name   | Type      | Description                                                                                            | Required | Default |
+   | ------ | --------- | ------------------------------------------------------------------------------------------------------ | -------- | ------- |
+   | point  | [Point2d] | A [Vec2d] instance or an object containing `x` and `y` properties specifying the center of the circle. | ✅       | -       |
+   | radius | number    | The radius of the circle.                                                                              | ✅       | -       |
 
-Begins a new path for drawing.
+   **Returns**: [Kanvas]
 
-##### `closePath(): Kanvas`
+   **Example**:
 
-Closes the current path.
+   <!-- TODO -->
 
-##### `stroke(options: { color?: string | CanvasGradient | CanvasPattern; width?: number; dash?: Iterable<number> }): Kanvas`
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   ```
 
-Strokes the current path.
+5. `rect(point, width: number, height: number)`
 
-- `color`: Optional. The color of the stroke.
-- `width`: Optional. The width of the stroke.
-- `dash`: Optional. The dash pattern for the stroke.
+   Draws a rectangle on the canvas.
 
-##### `fill(color: string = "#fff"): Kanvas`
+   **Parameters**:
 
-Fills the current path with a specified color.
+   | Name   | Type      | Description                                                                                                        | Required | Default |
+   | ------ | --------- | ------------------------------------------------------------------------------------------------------------------ | -------- | ------- |
+   | point  | [Point2d] | A [Vec2d] instance or an object containing `x` and `y` properties specifying the top-left corner of the rectangle. | ✅       | -       |
+   | width  | number    | The width of the rectangle.                                                                                        | ✅       | -       |
+   | height | number    | The height of the rectangle.                                                                                       | ✅       | -       |
 
-- `color`: Optional. The color to fill the path.
+   **Returns**: [Kanvas]
 
-##### `background(color: string = "#000"): Kanvas`
+   **Example**:
 
-Fills the canvas with a specified background color.
+   <!-- TODO -->
 
-- `color`: Optional. The color to fill the canvas background.
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   ```
 
-##### `clear(): Kanvas`
+6. `line(begin, end)`
 
-Clears the canvas.
+   Draws a line on the canvas.
 
-##### `translate(point: Vec2d | { x: number; y: number }): Kanvas`
+   **Parameters**:
 
-Translates the canvas context.
+   | Name | Type | Description | Required | Default |
+   | ---- | ---- | ----------- | -------- | ------- |
+   |      |      |             | ✅       | -       |
+   |      |      |             | ❌       | -       |
 
-- `point`: A Vec2d instance or an object containing `x` and `y` properties specifying the translation vector.
+   **Returns**: [Kanvas]
 
-##### `rotate(angle: number): Kanvas`
+   **Example**:
 
-Rotates the canvas context.
+   <!-- TODO -->
 
-- `angle`: The angle of rotation in radians.
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   ```
 
-##### `save(): Kanvas`
+   - `begin`: A [Vec2d] instance or an object containing `x` and `y` properties specifying the start point of the line.
+   - `end`: A [Vec2d] instance or an object containing `x` and `y` properties specifying the end point of the line.
 
-Saves the current canvas state.
+7. `moveTo(point)`
 
-##### `restore(): Kanvas`
+   Moves the current drawing position to a specified point.
 
-Restores the last saved canvas state.
+   **Parameters**:
 
-##### `requestPointerLock(): void`
+   | Name | Type | Description | Required | Default |
+   | ---- | ---- | ----------- | -------- | ------- |
+   |      |      |             | ✅       | -       |
+   |      |      |             | ❌       | -       |
 
-Requests pointer lock for the canvas element.
+   **Returns**: [Kanvas]
+
+   **Example**:
+
+   <!-- TODO -->
+
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   ```
+
+   - `point`: A [Vec2d] instance or an object containing `x` and `y` properties specifying the new position.
+
+8. `lineTo(point)`
+
+   Draws a line from the current drawing position to a specified point.
+
+   **Parameters**:
+
+   | Name | Type | Description | Required | Default |
+   | ---- | ---- | ----------- | -------- | ------- |
+   |      |      |             | ✅       | -       |
+   |      |      |             | ❌       | -       |
+
+   **Returns**: [Kanvas]
+
+   **Example**:
+
+   <!-- TODO -->
+
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   ```
+
+   - `point`: A [Vec2d] instance or an object containing `x` and `y` properties specifying the end point of the line.
+
+9. `text(params: { text: string; at; fillStyle?: string | CanvasGradient | CanvasPattern; strokeStyle?: string | CanvasGradient | CanvasPattern; size?: number })`
+
+   Draws text on the canvas.
+
+   **Parameters**:
+
+   | Name | Type | Description | Required | Default |
+   | ---- | ---- | ----------- | -------- | ------- |
+   |      |      |             | ✅       | -       |
+   |      |      |             | ❌       | -       |
+
+   **Returns**: [Kanvas]
+
+   **Example**:
+
+   <!-- TODO -->
+
+   ```javascript
+   const canvas = new Kanvas("myCanvas", 800, 600);
+   ```
+
+   - `text`: The text to draw.
+   - `at`: A [Vec2d] instance or an object containing `x` and `y` properties specifying the position of the text.
+   - `fillStyle`: Optional. The fill style for the text.
+   - `strokeStyle`: Optional. The stroke style for the text.
+   - `size`: Optional. The size of the text.
+
+10. `beginPath()`
+
+    Begins a new path for drawing.
+
+11. `closePath()`
+
+    Closes the current path.
+
+12. `stroke(options: { color?: string | CanvasGradient | CanvasPattern; width?: number; dash?: Iterable<number> })`
+
+    Strokes the current path.
+
+    - `color`: Optional. The color of the stroke.
+    - `width`: Optional. The width of the stroke.
+    - `dash`: Optional. The dash pattern for the stroke.
+
+13. `fill(color: string = "#fff")`
+
+    Fills the current path with a specified color.
+
+    - `color`: Optional. The color to fill the path.
+
+14. `background(color: string = "#000")`
+
+    Fills the canvas with a specified background color.
+
+    - `color`: Optional. The color to fill the canvas background.
+
+15. `clear()`
+
+    Clears the canvas.
+
+16. `translate(point)`
+
+    Translates the canvas context.
+
+    - `point`: A [Vec2d] instance or an object containing `x` and `y` properties specifying the translation vector.
+
+17. `rotate(angle: number)`
+
+    Rotates the canvas context.
+
+    - `angle`: The angle of rotation in radians.
+
+18. `save()`
+
+    Saves the current canvas state.
+
+19. `restore()`
+
+    Restores the last saved canvas state.
+
+20. `requestPointerLock(): void`
+
+    Requests pointer lock for the canvas element.
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
 
 #### Properties
 
-##### `fillStyle: string | CanvasGradient | CanvasPattern`
+1. `fillStyle: string | CanvasGradient | CanvasPattern`
 
-The fill style used for drawing shapes.
+   The fill style used for drawing shapes.
 
-##### `strokeStyle: string | CanvasGradient | CanvasPattern`
+2. `strokeStyle: string | CanvasGradient | CanvasPattern`
 
-The stroke style used for drawing shapes.
+   The stroke style used for drawing shapes.
 
-##### `lineWidth: number`
+3. `lineWidth: number`
 
-The line width used for drawing lines and borders.
+   The line width used for drawing lines and borders.
 
-##### `lineDash: Iterable<number>`
+4. `lineDash: Iterable<number>`
 
-The line dash pattern used for drawing dashed lines.
+   The line dash pattern used for drawing dashed lines.
 
-##### `lineDashOffset: number`
+5. `lineDashOffset: number`
 
-The line dash offset used for drawing dashed lines.
+   The line dash offset used for drawing dashed lines.
 
-##### `width: number`
+6. `width: number`
 
-The width of the canvas.
+   The width of the canvas.
 
-##### `height: number`
+7. `height: number`
 
-The height of the canvas.
+   The height of the canvas.
 
-##### `textAlign: CanvasTextAlign`
+8. `textAlign: CanvasTextAlign`
 
-The text alignment used for drawing text.
+   The text alignment used for drawing text.
 
-##### `textBaseline: CanvasTextBaseline`
+9. `textBaseline: CanvasTextBaseline`
 
-The text baseline used for drawing text.
+   The text baseline used for drawing text.
 
-##### `font: string`
+10. `font: string`
 
-The font used for drawing text.
+    The font used for drawing text.
 
-##### `globalAlpha: number`
+11. `globalAlpha: number`
 
-The global alpha value used for drawing shapes and images.
+    The global alpha value used for drawing shapes and images.
 
-##### `id: string`
+12. `id: string`
 
-The ID of the canvas element.
+    The ID of the canvas element.
 
-##### `canvas: HTMLCanvasElement`
+13. `canvas: HTMLCanvasElement`
 
-The HTML canvas element.
+    The HTML canvas element.
 
-##### `context: CanvasRenderingContext2D`
+14. `context: CanvasRenderingContext2D`
 
-The 2D rendering context of the canvas.
+    The 2D rendering context of the canvas.
 
-##### `center: Vec2d`
+15. `center: Vec2d`
 
-The center point of the canvas.
+    The center point of the canvas.
 
-##### `aspectRatio: number`
+16. `aspectRatio: number`
 
-The aspect ratio of the canvas.
+    The aspect ratio of the canvas.
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+## Type Aliases
+
+### Point2d
+
+Represents a point in 2D space.
+
+```typescript
+type Point2d = Vec2d | { x: number; y: number };
+```
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+[Table of Contents]: #table-of-contents
+[CanvasImageSource]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#getting_images_to_draw
+[Point2d]: #point2d
+[Kanvas]: #kanvas
+[Vec2d]: #vec2d

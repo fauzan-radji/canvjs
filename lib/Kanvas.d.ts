@@ -1,4 +1,4 @@
-import Vec2d from "./Vec2d.js";
+import Vec2d, { Point2d } from "./Vec2d.js";
 /**
  * Represents a canvas element and provides methods for drawing shapes and images on it.
  */
@@ -21,92 +21,68 @@ export default class Kanvas {
     /**
      * Draws an image on the canvas
      * @param {CanvasImageSource} image - image to draw
-     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} point - a Vec2d instance or an Object that contains x and y properties
      * @param {number} width - the width of the image
      * @param {number} height - the height of the image
      *
      * @return {Kanvas} this
      */
-    drawImage(image: CanvasImageSource, point: Vec2d | {
-        x: number;
-        y: number;
-    }, width: number, height: number): Kanvas;
+    drawImage(image: CanvasImageSource, point: Point2d, width: number, height: number): Kanvas;
     /**
      * Rotates and draws an image on the canvas
      * @param {CanvasImageSource} image - image to draw
-     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} point - a Vec2d instance or an Object that contains x and y properties
      * @param {number} width - the width of the image
      * @param {number} height - the height of the image
      * @param {number} angle - the angle in radian
      *
      * @return {Kanvas} this
      */
-    rotateAndDrawImage(image: CanvasImageSource, point: Vec2d | {
-        x: number;
-        y: number;
-    }, width: number, height: number, angle: number): Kanvas;
+    rotateAndDrawImage(image: CanvasImageSource, point: Point2d, width: number, height: number, angle: number): Kanvas;
     /**
      * Draws a circle on the canvas
-     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} point - a Vec2d instance or an Object that contains x and y properties
      * @param {number} radius - the radius of the circle
      *
      * @return {Kanvas} this Kanvas object
      */
-    circle(point: Vec2d | {
-        x: number;
-        y: number;
-    }, radius: number): Kanvas;
+    circle(point: Point2d, radius: number): Kanvas;
     /**
      * Draws a rectangle on the canvas
-     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} point - a Vec2d instance or an Object that contains x and y properties
      * @param {number} width - the width of the rectangle
      * @param {number} height - the height of the rectangle
      *
      * @return {Kanvas} this Kanvas object
      */
-    rect(point: Vec2d | {
-        x: number;
-        y: number;
-    }, width: number, height: number): Kanvas;
+    rect(point: Point2d, width: number, height: number): Kanvas;
     /**
      * Draws a line on the canvas
-     * @param {Vec2d | {x: number, y: number}} begin - a Vec2d instance or an Object that contains x and y properties
-     * @param {Vec2d | {x: number, y: number}} end - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} begin - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} end - a Vec2d instance or an Object that contains x and y properties
      *
      * @return {Kanvas} this Kanvas object
      */
-    line(begin: Vec2d | {
-        x: number;
-        y: number;
-    }, end: Vec2d | {
-        x: number;
-        y: number;
-    }): Kanvas;
+    line(begin: Point2d, end: Point2d): Kanvas;
     /**
      * Moves the current drawing position to a specified point
-     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} point - a Vec2d instance or an Object that contains x and y properties
      *
      * @return {Kanvas} this Kanvas object
      */
-    moveTo(point: Vec2d | {
-        x: number;
-        y: number;
-    }): Kanvas;
+    moveTo(point: Point2d): Kanvas;
     /**
      * Draws a line from the current drawing position to a specified point
-     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} point - a Vec2d instance or an Object that contains x and y properties
      *
      * @return {Kanvas} this Kanvas object
      */
-    lineTo(point: Vec2d | {
-        x: number;
-        y: number;
-    }): Kanvas;
+    lineTo(point: Point2d): Kanvas;
     /**
      * Draws a line from the current drawing position to a specified point
      * @param {Object} param0
      * @param {string} param0.text
-     * @param {Vec2d | {x: number, y: number}} param0.at
+     * @param {Point2d} param0.at
      * @param {string} [param0.fillStyle=this.#fillStyle]
      * @param {string} [param0.strokeStyle=this.#strokeStyle]
      * @param {number} [param0.size=16]
@@ -115,10 +91,7 @@ export default class Kanvas {
      */
     text({ text, at, fillStyle, strokeStyle, size, }: {
         text: string;
-        at: Vec2d | {
-            x: number;
-            y: number;
-        };
+        at: Point2d;
         fillStyle?: string | CanvasGradient | CanvasPattern;
         strokeStyle?: string | CanvasGradient | CanvasPattern;
         size?: number;
@@ -169,14 +142,11 @@ export default class Kanvas {
     clear(): Kanvas;
     /**
      * Translate the canvas context
-     * @param {Vec2d | {x: number, y: number}} point - a Vec2d instance or an Object that contains x and y properties
+     * @param {Point2d} point - a Vec2d instance or an Object that contains x and y properties
      *
      * @return {Kanvas} this Kanvas object
      */
-    translate(point: Vec2d | {
-        x: number;
-        y: number;
-    }): Kanvas;
+    translate(point: Point2d): Kanvas;
     /**
      * Rotates the canvas context
      * @param {number} angle - angle in radian
@@ -198,6 +168,8 @@ export default class Kanvas {
     restore(): Kanvas;
     /**
      * Requests the pointer lock for the canvas element.
+     *
+     * @returns {void}
      */
     requestPointerLock(): void;
     set fillStyle(color: string | CanvasGradient | CanvasPattern);

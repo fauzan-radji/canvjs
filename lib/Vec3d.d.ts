@@ -1,5 +1,10 @@
 import Mat4 from "./Mat4.js";
 import Vec2d from "./Vec2d.js";
+export type Point3d = Vec3d | {
+    x: number;
+    y: number;
+    z: number;
+};
 /**
  * Represents a 3-dimensional vector.
  */
@@ -37,10 +42,10 @@ export default class Vec3d {
     constructor(x: number, y: number, z: number);
     /**
      * Sets the vector to the values of another vector.
-     * @param {Vec3d} v - The vector to copy.
+     * @param {Point3d} v - The vector to copy.
      * @returns {Vec3d} The modified vector.
      */
-    set(v: Vec3d): Vec3d;
+    set(v: Point3d): Vec3d;
     /**
      * Creates a copy of the vector.
      * @param {Object} [options={}] - The optional values to override in the copied vector.
@@ -56,16 +61,16 @@ export default class Vec3d {
     }): Vec3d;
     /**
      * Adds another vector to this vector.
-     * @param {Vec3d} v - The vector to add.
+     * @param {Point3d} v - The vector to add.
      * @returns {Vec3d} The modified vector.
      */
-    add(v: Vec3d): Vec3d;
+    add(v: Point3d): Vec3d;
     /**
      * Subtracts another vector from this vector.
-     * @param {Vec3d} v - The vector to subtract.
+     * @param {Point3d} v - The vector to subtract.
      * @returns {Vec3d} The modified vector.
      */
-    subtract(v: Vec3d): Vec3d;
+    subtract(v: Point3d): Vec3d;
     /**
      * Multiplies the vector by a scalar value.
      * @param {number} scalar - The scalar value to multiply by.
@@ -80,10 +85,16 @@ export default class Vec3d {
     divide(scalar: number): Vec3d;
     /**
      * Calculates the dot product of this vector and another vector.
-     * @param {Vec3d} v - The other vector.
+     * @param {Point3d} v - The other vector.
      * @returns {number} The dot product.
      */
-    dot(v: Vec3d): number;
+    dot(v: Point3d): number;
+    /**
+     * Calculates the cross product of this vector and another vector.
+     * @param {Point3d} v - The other vector.
+     * @returns {Vec3d} The cross product.
+     */
+    cross(v: Point3d): Vec3d;
     /**
      * Transforms the vector by a 4x4 matrix.
      * @param {Mat4} m - The transformation matrix.
@@ -103,10 +114,10 @@ export default class Vec3d {
     project(fieldOfView: number, aspectRatio: number, near: number, far: number, width: number, height: number): Vec2d;
     /**
      * Translates the vector by another vector.
-     * @param {Vec3d} v - The translation vector.
+     * @param {Point3d} v - The translation vector.
      * @returns {Vec3d} The modified vector.
      */
-    translate(v: Vec3d): Vec3d;
+    translate(v: Point3d): Vec3d;
     /**
      * Rotates the vector around the x-axis.
      * @param {number} theta - The rotation angle in radians.
@@ -127,10 +138,10 @@ export default class Vec3d {
     rotateZ(theta: number): Vec3d;
     /**
      * Scales the vector by another vector.
-     * @param {Vec3d} v - The scaling vector.
+     * @param {Point3d} v - The scaling vector.
      * @returns {Vec3d} The modified vector.
      */
-    scale(v: Vec3d): Vec3d;
+    scale(v: Point3d): Vec3d;
     /**
      * Normalizes the vector to have a magnitude of 1.
      * @returns {Vec3d} The modified vector.
@@ -175,22 +186,22 @@ export default class Vec3d {
      * Sets the angle in the x-y plane.
      * @param {number} theta - The angle in radians.
      */
-    set theta(theta: number);
+    set phi(phi: number);
     /**
      * Gets the angle in the x-y plane.
      * @returns {number} The angle in radians.
      */
-    get theta(): number;
+    get phi(): number;
     /**
      * Sets the angle in the x-z plane.
-     * @param {number} phi - The angle in radians.
+     * @param {number} theta - The angle in radians.
      */
-    set phi(phi: number);
+    set theta(theta: number);
     /**
      * Gets the angle in the x-z plane.
      * @returns {number} The angle in radians.
      */
-    get phi(): number;
+    get theta(): number;
     /**
      * Sets the magnitude of the vector.
      * @param {number} magnitude - The magnitude.
@@ -213,100 +224,100 @@ export default class Vec3d {
     get r(): number;
     /**
      * Adds two vectors together without modifying the original vectors.
-     * @param {Vec3d} v1 - The first vector.
-     * @param {Vec3d} v2 - The second vector.
+     * @param {Point3d} v1 - The first vector.
+     * @param {Point3d} v2 - The second vector.
      * @returns {Vec3d} The sum of the two vectors.
      */
-    static add(v1: Vec3d, v2: Vec3d): Vec3d;
+    static add(v1: Point3d, v2: Point3d): Vec3d;
     /**
      * Subtracts one vector from another without modifying the original vectors.
-     * @param {Vec3d} v1 - The vector to subtract from.
-     * @param {Vec3d} v2 - The vector to subtract.
+     * @param {Point3d} v1 - The vector to subtract from.
+     * @param {Point3d} v2 - The vector to subtract.
      * @returns {Vec3d} The difference between the two vectors.
      */
-    static subtract(v1: Vec3d, v2: Vec3d): Vec3d;
+    static subtract(v1: Point3d, v2: Point3d): Vec3d;
     /**
      * Multiplies a vector by a scalar value without modifying the original vector.
-     * @param {Vec3d} v - The vector to multiply.
+     * @param {Point3d} v - The vector to multiply.
      * @param {number} scalar - The scalar value.
      * @returns {Vec3d} The scaled vector.
      */
-    static multiply(v: Vec3d, scalar: number): Vec3d;
+    static multiply(v: Point3d, scalar: number): Vec3d;
     /**
      * Divides a vector by a scalar value without modifying the original vector.
-     * @param {Vec3d} v - The vector to divide.
+     * @param {Point3d} v - The vector to divide.
      * @param {number} scalar - The scalar value.
      * @returns The divided vector.
      */
-    static divide(v: Vec3d, scalar: number): Vec3d;
+    static divide(v: Point3d, scalar: number): Vec3d;
     /**
      * Calculates the dot product of two vectors.
-     * @param {Vec3d} v1 - The first vector.
-     * @param {Vec3d} v2 - The second vector.
+     * @param {Point3d} v1 - The first vector.
+     * @param {Point3d} v2 - The second vector.
      * @returns {number} The dot product of the two vectors.
      */
-    static dot(v1: Vec3d, v2: Vec3d): number;
+    static dot(v1: Point3d, v2: Point3d): number;
     /**
      * Calculates the cross product of two vectors.
-     * @param {Vec3d} v1 - The first vector.
-     * @param {Vec3d} v2 - The second vector.
+     * @param {Point3d} v1 - The first vector.
+     * @param {Point3d} v2 - The second vector.
      * @returns {Vec3d} The cross product of the two vectors.
      */
-    static cross(v1: Vec3d, v2: Vec3d): Vec3d;
+    static cross(v1: Point3d, v2: Point3d): Vec3d;
     /**
      * Transforms a vector by a 4x4 matrix without modifying the original vector.
-     * @param {Vec3d} v - The vector to transform.
+     * @param {Point3d} v - The vector to transform.
      * @param {Mat4} m - The transformation matrix.
      * @returns {Vec3d} The transformed vector.
      */
-    static transform(v: Vec3d, m: Mat4): Vec3d;
+    static transform(v: Point3d, m: Mat4): Vec3d;
     /**
      * Translates a vector by another vector without modifying the original vector.
-     * @param {Vec3d} v - The vector to translate.
-     * @param {Vec3d} translation - The translation vector.
+     * @param {Point3d} v - The vector to translate.
+     * @param {Point3d} translation - The translation vector.
      * @returns {Vec3d} The translated vector.
      */
-    static translate(v: Vec3d, translation: Vec3d): Vec3d;
+    static translate(v: Point3d, translation: Point3d): Vec3d;
     /**
      * Rotates a vector around the x-axis without modifying the original vector.
-     * @param {Vec3d} v - The vector to rotate.
+     * @param {Point3d} v - The vector to rotate.
      * @param {number} theta - The rotation angle in radians.
      * @returns {Vec3d} The rotated vector.
      */
-    static rotateX(v: Vec3d, theta: number): Vec3d;
+    static rotateX(v: Point3d, theta: number): Vec3d;
     /**
      * Rotates a vector around the y-axis without modifying the original vector.
-     * @param {Vec3d} v - The vector to rotate.
+     * @param {Point3d} v - The vector to rotate.
      * @param {number} theta - The rotation angle in radians.
      * @returns {Vec3d} The rotated vector.
      */
-    static rotateY(v: Vec3d, theta: number): Vec3d;
+    static rotateY(v: Point3d, theta: number): Vec3d;
     /**
      * Rotates a vector around the z-axis without modifying the original vector.
-     * @param {Vec3d} v - The vector to rotate.
+     * @param {Point3d} v - The vector to rotate.
      * @param {number} theta - The rotation angle in radians.
      * @returns {Vec3d} The rotated vector.
      */
-    static rotateZ(v: Vec3d, theta: number): Vec3d;
+    static rotateZ(v: Point3d, theta: number): Vec3d;
     /**
      * Scales a vector by another vector without modifying the original vector.
-     * @param {Vec3d} v - The vector to scale.
+     * @param {Point3d} v - The vector to scale.
      * @param {number} scale - The scaling vector.
      * @returns {Vec3d} The scaled vector.
      */
-    static scale(v: Vec3d, scale: Vec3d): Vec3d;
+    static scale(v: Point3d, scale: Point3d): Vec3d;
     /**
      * Normalizes a vector to have a magnitude of 1 without modifying the original vector.
-     * @param {Vec3d} v - The vector to normalize.
+     * @param {Point3d} v - The vector to normalize.
      * @returns {Vec3d} The normalized vector.
      */
-    static normalize(v: Vec3d): Vec3d;
+    static normalize(v: Point3d): Vec3d;
     /**
      * Creates a 3-dimensional vector from polar coordinates.
+     * @param {number} magnitude - The magnitude of the vector.
      * @param {number} theta - The angle in the x-y plane.
      * @param {number} phi - The angle in the x-z plane.
-     * @param {number} magnitude - The magnitude of the vector.
      * @returns {Vec3d} The created vector.
      */
-    static fromPolar(theta: number, phi: number, magnitude: number): Vec3d;
+    static fromPolar(magnitude: number, theta: number, phi: number): Vec3d;
 }

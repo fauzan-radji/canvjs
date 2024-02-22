@@ -1,4 +1,8 @@
 import Mat3 from "./Mat3.js";
+export type Point2d = Vec2d | {
+    x: number;
+    y: number;
+};
 /**
  * Represents a 2D vector.
  */
@@ -27,10 +31,10 @@ export default class Vec2d {
     constructor(x: number, y: number);
     /**
      * Sets the values of this vector to the values of another vector.
-     * @param {Vec2d} v - The vector to copy from.
+     * @param {Point2d} v - The vector to copy from.
      * @returns {Vec2d} The modified Vec2d instance.
      */
-    set(v: Vec2d): Vec2d;
+    set(v: Point2d): Vec2d;
     /**
      * Creates a copy of this vector.
      * @param {Object} [options={}] - The options for copying the Vec2d instance.
@@ -45,17 +49,17 @@ export default class Vec2d {
     /**
      * Adds the given vector to this vector.
      *
-     * @param {Vec2d} v - The vector to be added.
+     * @param {Point2d} v - The vector to be added.
      * @returns {Vec2d} The resulting vector after addition.
      */
-    add(v: Vec2d): Vec2d;
+    add(v: Point2d): Vec2d;
     /**
      * Subtracts the given vector from this vector.
      *
-     * @param {Vec2d} v - The vector to be subtracted.
+     * @param {Point2d} v - The vector to be subtracted.
      * @returns {Vec2d} The resulting vector after subtraction.
      */
-    subtract(v: Vec2d): Vec2d;
+    subtract(v: Point2d): Vec2d;
     /**
      * Multiplies this vector by a scalar value.
      *
@@ -73,17 +77,17 @@ export default class Vec2d {
     /**
      * Calculates the dot product of this vector and another vector.
      *
-     * @param {Vec2d} v - The other vector.
+     * @param {Point2d} v - The other vector.
      * @returns {number} The dot product of the two vectors.
      */
-    dot(v: Vec2d): number;
+    dot(v: Point2d): number;
     /**
      * Calculates the cross product of this vector and another vector.
      *
-     * @param {Vec2d} v - The other vector.
+     * @param {Point2d} v - The other vector.
      * @returns {number} The cross product of the two vectors.
      */
-    cross(v: Vec2d): number;
+    cross(v: Point2d): number;
     /**
      * Transforms this vector by a 3x3 matrix.
      *
@@ -94,10 +98,10 @@ export default class Vec2d {
     /**
      * Translates this vector by another vector.
      *
-     * @param {Vec2d} v - The translation vector.
+     * @param {Point2d} v - The translation vector.
      * @returns {Vec2d} The resulting translated vector.
      */
-    translate(v: Vec2d): Vec2d;
+    translate(v: Point2d): Vec2d;
     /**
      * Rotates this vector by an angle (in radians).
      *
@@ -108,10 +112,10 @@ export default class Vec2d {
     /**
      * Scales this vector by another vector.
      *
-     * @param {Vec2d} v - The scaling vector.
+     * @param {Point2d} v - The scaling vector.
      * @returns {Vec2d} The resulting scaled vector.
      */
-    scale(v: Vec2d): Vec2d;
+    scale(v: Point2d): Vec2d;
     /**
      * Normalizes this vector to have a magnitude of 1.
      *
@@ -171,90 +175,90 @@ export default class Vec2d {
     /**
      * Adds two vectors together without modifying the original vectors.
      *
-     * @param {Vec2d} v1 - The first vector.
-     * @param {Vec2d} v2 - The second vector.
+     * @param {Point2d} v1 - The first vector.
+     * @param {Point2d} v2 - The second vector.
      * @returns {Vec2d} The resulting vector after addition.
      */
-    static add(v1: Vec2d, v2: Vec2d): Vec2d;
+    static add(v1: Point2d, v2: Point2d): Vec2d;
     /**
      * Subtracts one vector from another without modifying the original vectors.
      *
-     * @param {Vec2d} v1 - The first vector.
-     * @param {Vec2d} v2 - The second vector.
+     * @param {Point2d} v1 - The first vector.
+     * @param {Point2d} v2 - The second vector.
      * @returns {Vec2d} The resulting vector after subtraction.
      */
-    static subtract(v1: Vec2d, v2: Vec2d): Vec2d;
+    static subtract(v1: Point2d, v2: Point2d): Vec2d;
     /**
      * Multiplies a vector by a scalar value without modifying the original vector.
      *
-     * @param {Vec2d} v - The vector.
+     * @param {Point2d} v - The vector.
      * @param {number} scalar - The scalar value.
      * @returns {Vec2d} The resulting vector after multiplication.
      */
-    static multiply(v: Vec2d, scalar: number): Vec2d;
+    static multiply(v: Point2d, scalar: number): Vec2d;
     /**
      * Divides a vector by a scalar value without modifying the original vector.
      *
-     * @param {Vec2d} v - The vector.
+     * @param {Point2d} v - The vector.
      * @param {number} scalar - The scalar value.
      * @returns {Vec2d} The resulting vector after division.
      */
-    static divide(v: Vec2d, scalar: number): Vec2d;
+    static divide(v: Point2d, scalar: number): Vec2d;
     /**
      * Calculates the dot product of two vectors.
      *
-     * @param {Vec2d} v1 - The first vector.
-     * @param {Vec2d} v2 - The second vector.
+     * @param {Point2d} v1 - The first vector.
+     * @param {Point2d} v2 - The second vector.
      * @returns {number} The dot product of the two vectors.
      */
-    static dot(v1: Vec2d, v2: Vec2d): number;
+    static dot(v1: Point2d, v2: Point2d): number;
     /**
      * Calculates the cross product of two vectors.
      *
-     * @param {Vec2d} v1 - The first vector.
-     * @param {Vec2d} v2 - The second vector.
+     * @param {Point2d} v1 - The first vector.
+     * @param {Point2d} v2 - The second vector.
      * @returns {number} The cross product of the two vectors.
      */
-    static cross(v1: Vec2d, v2: Vec2d): number;
+    static cross(v1: Point2d, v2: Point2d): number;
     /**
      * Transforms a vector by a 3x3 matrix without modifying the original vector.
      *
-     * @param {Vec2d} v - The vector.
+     * @param {Point2d} v - The vector.
      * @param {Mat3} m - The transformation matrix.
      * @returns {Vec2d} The resulting transformed vector.
      */
-    static transform(v: Vec2d, m: Mat3): Vec2d;
+    static transform(v: Point2d, m: Mat3): Vec2d;
     /**
      * Translates a vector by another vector without modifying the original vector.
      *
-     * @param {Vec2d} v - The vector.
-     * @param {Vec2d} translation - The translation vector.
+     * @param {Point2d} v - The vector.
+     * @param {Point2d} translation - The translation vector.
      * @returns {Vec2d} The resulting translated vector.
      */
-    static translate(v: Vec2d, translation: Vec2d): Vec2d;
+    static translate(v: Point2d, translation: Point2d): Vec2d;
     /**
      * Rotates a vector by an angle (in radians) without modifying the original vector.
      *
-     * @param {Vec2d} v - The vector.
+     * @param {Point2d} v - The vector.
      * @param {number} theta - The rotation angle (in radians).
      * @returns {Vec2d} The resulting rotated vector.
      */
-    static rotate(v: Vec2d, theta: number): Vec2d;
+    static rotate(v: Point2d, theta: number): Vec2d;
     /**
      * Scales a vector by another vector without modifying the original vector.
      *
-     * @param {Vec2d} v - The vector.
-     * @param {Vec2d} scale - The scaling vector.
+     * @param {Point2d} v - The vector.
+     * @param {Point2d} scale - The scaling vector.
      * @returns {Vec2d} The resulting scaled vector.
      */
-    static scale(v: Vec2d, scale: Vec2d): Vec2d;
+    static scale(v: Point2d, scale: Point2d): Vec2d;
     /**
      * Normalizes a vector to have a magnitude of 1 without modifying the original vector.
      *
-     * @param {Vec2d} v - The vector.
+     * @param {Point2d} v - The vector.
      * @returns {Vec2d} The normalized vector.
      */
-    static normalize(v: Vec2d): Vec2d;
+    static normalize(v: Point2d): Vec2d;
     /**
      * Creates a vector from polar coordinates.
      *

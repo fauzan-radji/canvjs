@@ -1,6 +1,8 @@
 import Mat4 from "./Mat4.js";
 import Vec2d from "./Vec2d.js";
 
+export type Point3d = Vec3d | { x: number; y: number; z: number };
+
 /**
  * Represents a 3-dimensional vector.
  */
@@ -44,10 +46,10 @@ export default class Vec3d {
 
   /**
    * Sets the vector to the values of another vector.
-   * @param {Vec3d} v - The vector to copy.
+   * @param {Point3d} v - The vector to copy.
    * @returns {Vec3d} The modified vector.
    */
-  set(v: Vec3d): Vec3d {
+  set(v: Point3d): Vec3d {
     this.x = v.x;
     this.y = v.y;
     this.z = v.z;
@@ -73,10 +75,10 @@ export default class Vec3d {
 
   /**
    * Adds another vector to this vector.
-   * @param {Vec3d} v - The vector to add.
+   * @param {Point3d} v - The vector to add.
    * @returns {Vec3d} The modified vector.
    */
-  add(v: Vec3d): Vec3d {
+  add(v: Point3d): Vec3d {
     this.x += v.x;
     this.y += v.y;
     this.z += v.z;
@@ -86,10 +88,10 @@ export default class Vec3d {
 
   /**
    * Subtracts another vector from this vector.
-   * @param {Vec3d} v - The vector to subtract.
+   * @param {Point3d} v - The vector to subtract.
    * @returns {Vec3d} The modified vector.
    */
-  subtract(v: Vec3d): Vec3d {
+  subtract(v: Point3d): Vec3d {
     this.x -= v.x;
     this.y -= v.y;
     this.z -= v.z;
@@ -125,11 +127,26 @@ export default class Vec3d {
 
   /**
    * Calculates the dot product of this vector and another vector.
-   * @param {Vec3d} v - The other vector.
+   * @param {Point3d} v - The other vector.
    * @returns {number} The dot product.
    */
-  dot(v: Vec3d): number {
+  dot(v: Point3d): number {
     return this.x * v.x + this.y * v.y + this.z * v.z;
+  }
+
+  /**
+   * Calculates the cross product of this vector and another vector.
+   * @param {Point3d} v - The other vector.
+   * @returns {Vec3d} The cross product.
+   */
+  cross(v: Point3d): Vec3d {
+    const { x, y, z } = this;
+
+    this.x = y * v.z - z * v.y;
+    this.y = z * v.x - x * v.z;
+    this.z = x * v.y - y * v.x;
+
+    return this;
   }
 
   /**
@@ -181,10 +198,10 @@ export default class Vec3d {
 
   /**
    * Translates the vector by another vector.
-   * @param {Vec3d} v - The translation vector.
+   * @param {Point3d} v - The translation vector.
    * @returns {Vec3d} The modified vector.
    */
-  translate(v: Vec3d): Vec3d {
+  translate(v: Point3d): Vec3d {
     return this.transform(Mat4.translation(v.x, v.y, v.z));
   }
 
@@ -217,10 +234,10 @@ export default class Vec3d {
 
   /**
    * Scales the vector by another vector.
-   * @param {Vec3d} v - The scaling vector.
+   * @param {Point3d} v - The scaling vector.
    * @returns {Vec3d} The modified vector.
    */
-  scale(v: Vec3d): Vec3d {
+  scale(v: Point3d): Vec3d {
     return this.transform(Mat4.scale(v.x, v.y, v.z));
   }
 
@@ -253,8 +270,8 @@ export default class Vec3d {
   set x(x: number) {
     this._x = x;
     this._magnitude = Math.sqrt(x ** 2 + this._y ** 2 + this._z ** 2);
-    this._theta = Math.atan2(this._y, x);
-    this._phi = Math.acos(this._z / this._magnitude);
+    this._phi = Math.atan2(this._y, x);
+    this._theta = Math.acos(this._z / this._magnitude);
   }
 
   /**
@@ -272,8 +289,8 @@ export default class Vec3d {
   set y(y: number) {
     this._y = y;
     this._magnitude = Math.sqrt(this._x ** 2 + y ** 2 + this._z ** 2);
-    this._theta = Math.atan2(y, this._x);
-    this._phi = Math.acos(this._z / this._magnitude);
+    this._phi = Math.atan2(y, this._x);
+    this._theta = Math.acos(this._z / this._magnitude);
   }
 
   /**
@@ -291,7 +308,7 @@ export default class Vec3d {
   set z(z: number) {
     this._z = z;
     this._magnitude = Math.sqrt(this._x ** 2 + this._y ** 2 + z ** 2);
-    this._phi = Math.acos(z / this._magnitude);
+    this._theta = Math.acos(z / this._magnitude);
   }
 
   /**
@@ -306,37 +323,37 @@ export default class Vec3d {
    * Sets the angle in the x-y plane.
    * @param {number} theta - The angle in radians.
    */
-  set theta(theta: number) {
-    this._theta = theta;
-    this._x = this._magnitude * Math.cos(theta) * Math.sin(this._phi);
-    this._y = this._magnitude * Math.sin(theta) * Math.sin(this._phi);
+  set phi(phi: number) {
+    this._phi = phi;
+    this._x = this._magnitude * Math.cos(phi) * Math.sin(this._theta);
+    this._y = this._magnitude * Math.sin(phi) * Math.sin(this._theta);
   }
 
   /**
    * Gets the angle in the x-y plane.
    * @returns {number} The angle in radians.
    */
-  get theta(): number {
-    return this._theta;
+  get phi(): number {
+    return this._phi;
   }
 
   /**
    * Sets the angle in the x-z plane.
-   * @param {number} phi - The angle in radians.
+   * @param {number} theta - The angle in radians.
    */
-  set phi(phi: number) {
-    this._phi = phi;
-    this._x = this._magnitude * Math.cos(this._theta) * Math.sin(phi);
-    this._y = this._magnitude * Math.sin(this._theta) * Math.sin(phi);
-    this._z = this._magnitude * Math.cos(phi);
+  set theta(theta: number) {
+    this._theta = theta;
+    this._x = this._magnitude * Math.cos(this._phi) * Math.sin(theta);
+    this._y = this._magnitude * Math.sin(this._phi) * Math.sin(theta);
+    this._z = this._magnitude * Math.cos(theta);
   }
 
   /**
    * Gets the angle in the x-z plane.
    * @returns {number} The angle in radians.
    */
-  get phi(): number {
-    return this._phi;
+  get theta(): number {
+    return this._theta;
   }
 
   /**
@@ -345,9 +362,9 @@ export default class Vec3d {
    */
   set magnitude(magnitude: number) {
     this._magnitude = magnitude;
-    this._x = magnitude * Math.cos(this._theta) * Math.sin(this._phi);
-    this._y = magnitude * Math.sin(this._theta) * Math.sin(this._phi);
-    this._z = magnitude * Math.cos(this._phi);
+    this._x = magnitude * Math.cos(this._phi) * Math.sin(this._theta);
+    this._y = magnitude * Math.sin(this._phi) * Math.sin(this._theta);
+    this._z = magnitude * Math.cos(this._theta);
   }
 
   /**
@@ -376,61 +393,61 @@ export default class Vec3d {
 
   /**
    * Adds two vectors together without modifying the original vectors.
-   * @param {Vec3d} v1 - The first vector.
-   * @param {Vec3d} v2 - The second vector.
+   * @param {Point3d} v1 - The first vector.
+   * @param {Point3d} v2 - The second vector.
    * @returns {Vec3d} The sum of the two vectors.
    */
-  static add(v1: Vec3d, v2: Vec3d): Vec3d {
-    return v1.copy().add(v2);
+  static add(v1: Point3d, v2: Point3d): Vec3d {
+    return new Vec3d(v1.x, v1.y, v1.z).add(v2);
   }
 
   /**
    * Subtracts one vector from another without modifying the original vectors.
-   * @param {Vec3d} v1 - The vector to subtract from.
-   * @param {Vec3d} v2 - The vector to subtract.
+   * @param {Point3d} v1 - The vector to subtract from.
+   * @param {Point3d} v2 - The vector to subtract.
    * @returns {Vec3d} The difference between the two vectors.
    */
-  static subtract(v1: Vec3d, v2: Vec3d): Vec3d {
-    return v1.copy().subtract(v2);
+  static subtract(v1: Point3d, v2: Point3d): Vec3d {
+    return new Vec3d(v1.x, v1.y, v1.z).subtract(v2);
   }
 
   /**
    * Multiplies a vector by a scalar value without modifying the original vector.
-   * @param {Vec3d} v - The vector to multiply.
+   * @param {Point3d} v - The vector to multiply.
    * @param {number} scalar - The scalar value.
    * @returns {Vec3d} The scaled vector.
    */
-  static multiply(v: Vec3d, scalar: number): Vec3d {
-    return v.copy().multiply(scalar);
+  static multiply(v: Point3d, scalar: number): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).multiply(scalar);
   }
 
   /**
    * Divides a vector by a scalar value without modifying the original vector.
-   * @param {Vec3d} v - The vector to divide.
+   * @param {Point3d} v - The vector to divide.
    * @param {number} scalar - The scalar value.
    * @returns The divided vector.
    */
-  static divide(v: Vec3d, scalar: number): Vec3d {
-    return v.copy().divide(scalar);
+  static divide(v: Point3d, scalar: number): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).divide(scalar);
   }
 
   /**
    * Calculates the dot product of two vectors.
-   * @param {Vec3d} v1 - The first vector.
-   * @param {Vec3d} v2 - The second vector.
+   * @param {Point3d} v1 - The first vector.
+   * @param {Point3d} v2 - The second vector.
    * @returns {number} The dot product of the two vectors.
    */
-  static dot(v1: Vec3d, v2: Vec3d): number {
-    return v1.dot(v2);
+  static dot(v1: Point3d, v2: Point3d): number {
+    return new Vec3d(v1.x, v1.y, v1.z).dot(v2);
   }
 
   /**
    * Calculates the cross product of two vectors.
-   * @param {Vec3d} v1 - The first vector.
-   * @param {Vec3d} v2 - The second vector.
+   * @param {Point3d} v1 - The first vector.
+   * @param {Point3d} v2 - The second vector.
    * @returns {Vec3d} The cross product of the two vectors.
    */
-  static cross(v1: Vec3d, v2: Vec3d): Vec3d {
+  static cross(v1: Point3d, v2: Point3d): Vec3d {
     return new Vec3d(
       v1.y * v2.z - v1.z * v2.y,
       v1.z * v2.x - v1.x * v2.z,
@@ -440,85 +457,85 @@ export default class Vec3d {
 
   /**
    * Transforms a vector by a 4x4 matrix without modifying the original vector.
-   * @param {Vec3d} v - The vector to transform.
+   * @param {Point3d} v - The vector to transform.
    * @param {Mat4} m - The transformation matrix.
    * @returns {Vec3d} The transformed vector.
    */
-  static transform(v: Vec3d, m: Mat4): Vec3d {
-    return v.copy().transform(m);
+  static transform(v: Point3d, m: Mat4): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).transform(m);
   }
 
   /**
    * Translates a vector by another vector without modifying the original vector.
-   * @param {Vec3d} v - The vector to translate.
-   * @param {Vec3d} translation - The translation vector.
+   * @param {Point3d} v - The vector to translate.
+   * @param {Point3d} translation - The translation vector.
    * @returns {Vec3d} The translated vector.
    */
-  static translate(v: Vec3d, translation: Vec3d): Vec3d {
-    return v.copy().translate(translation);
+  static translate(v: Point3d, translation: Point3d): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).translate(translation);
   }
 
   /**
    * Rotates a vector around the x-axis without modifying the original vector.
-   * @param {Vec3d} v - The vector to rotate.
+   * @param {Point3d} v - The vector to rotate.
    * @param {number} theta - The rotation angle in radians.
    * @returns {Vec3d} The rotated vector.
    */
-  static rotateX(v: Vec3d, theta: number): Vec3d {
-    return v.copy().rotateX(theta);
+  static rotateX(v: Point3d, theta: number): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).rotateX(theta);
   }
 
   /**
    * Rotates a vector around the y-axis without modifying the original vector.
-   * @param {Vec3d} v - The vector to rotate.
+   * @param {Point3d} v - The vector to rotate.
    * @param {number} theta - The rotation angle in radians.
    * @returns {Vec3d} The rotated vector.
    */
-  static rotateY(v: Vec3d, theta: number): Vec3d {
-    return v.copy().rotateY(theta);
+  static rotateY(v: Point3d, theta: number): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).rotateY(theta);
   }
 
   /**
    * Rotates a vector around the z-axis without modifying the original vector.
-   * @param {Vec3d} v - The vector to rotate.
+   * @param {Point3d} v - The vector to rotate.
    * @param {number} theta - The rotation angle in radians.
    * @returns {Vec3d} The rotated vector.
    */
-  static rotateZ(v: Vec3d, theta: number): Vec3d {
-    return v.copy().rotateZ(theta);
+  static rotateZ(v: Point3d, theta: number): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).rotateZ(theta);
   }
 
   /**
    * Scales a vector by another vector without modifying the original vector.
-   * @param {Vec3d} v - The vector to scale.
+   * @param {Point3d} v - The vector to scale.
    * @param {number} scale - The scaling vector.
    * @returns {Vec3d} The scaled vector.
    */
-  static scale(v: Vec3d, scale: Vec3d): Vec3d {
-    return v.copy().scale(scale);
+  static scale(v: Point3d, scale: Point3d): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).scale(scale);
   }
 
   /**
    * Normalizes a vector to have a magnitude of 1 without modifying the original vector.
-   * @param {Vec3d} v - The vector to normalize.
+   * @param {Point3d} v - The vector to normalize.
    * @returns {Vec3d} The normalized vector.
    */
-  static normalize(v: Vec3d): Vec3d {
-    return v.copy().normalize();
+  static normalize(v: Point3d): Vec3d {
+    return new Vec3d(v.x, v.y, v.z).normalize();
   }
 
   /**
    * Creates a 3-dimensional vector from polar coordinates.
+   * @param {number} magnitude - The magnitude of the vector.
    * @param {number} theta - The angle in the x-y plane.
    * @param {number} phi - The angle in the x-z plane.
-   * @param {number} magnitude - The magnitude of the vector.
    * @returns {Vec3d} The created vector.
    */
-  static fromPolar(theta: number, phi: number, magnitude: number): Vec3d {
+  static fromPolar(magnitude: number, theta: number, phi: number): Vec3d {
     return new Vec3d(
-      magnitude * Math.cos(theta) * Math.sin(phi),
-      magnitude * Math.sin(theta) * Math.sin(phi),
-      magnitude * Math.cos(phi)
+      magnitude * Math.cos(phi) * Math.sin(theta),
+      magnitude * Math.sin(phi) * Math.sin(theta),
+      magnitude * Math.cos(theta)
     );
   }
 }
