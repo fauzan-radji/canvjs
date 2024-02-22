@@ -1,19 +1,21 @@
 import Vec2d from "./Vec2d.js";
 /**
- * A class that represent HTML5 Canvas element
- * @param {string} id - id of HTML Canvas Element
- * @param {number} width - width of the canvas element
- * @param {number} height - height of the canvas element
+ * Represents a canvas element and provides methods for drawing shapes and images on it.
  */
 export default class Kanvas {
     #private;
+    /**
+     * Creates a new instance of the Kanvas class.
+     * @param {string} id - The ID of the canvas element.
+     * @param {number} width - The width of the canvas.
+     * @param {number} height - The height of the canvas.
+     */
     constructor(id: string, width: number, height: number);
     /**
      * Resizes the canvas element.
-     * @param {number} width
-     * @param {number} height
-     *
-     * @return {Kanvas} this
+     * @param {number} width - The new width of the canvas.
+     * @param {number} height - The new height of the canvas.
+     * @returns {Kanvas} The updated Kanvas object.
      */
     resize(width: number, height: number): Kanvas;
     /**
@@ -194,32 +196,139 @@ export default class Kanvas {
      * @returns {Kanvas} this Kanvas object
      */
     restore(): Kanvas;
+    /**
+     * Requests the pointer lock for the canvas element.
+     */
     requestPointerLock(): void;
     set fillStyle(color: string | CanvasGradient | CanvasPattern);
-    set strokeStyle(color: string | CanvasGradient | CanvasPattern);
-    set lineWidth(width: number);
-    set lineDash(dash: Iterable<number>);
-    set lineDashOffset(offset: number);
-    set width(width: number);
-    set height(height: number);
-    set textAlign(align: CanvasTextAlign);
-    set textBaseLine(align: CanvasTextBaseline);
-    set font(font: string);
-    set globalAlpha(alpha: number);
+    /**
+     * Sets the stroke style used for drawing shapes.
+     * @param {string | CanvasGradient | CanvasPattern} value - The new stroke style.
+     */
+    set strokeStyle(value: string | CanvasGradient | CanvasPattern);
+    /**
+     * Sets the line width used for drawing lines and borders.
+     * @param {number} value - The new line width.
+     */
+    set lineWidth(value: number);
+    /**
+     * Sets the line dash pattern used for drawing dashed lines.
+     * @param {Iterable<number>} value - The new line dash pattern.
+     */
+    set lineDash(value: Iterable<number>);
+    /**
+     * Sets the line dash offset used for drawing dashed lines.
+     * @param {number} value - The new line dash offset.
+     */
+    set lineDashOffset(value: number);
+    /**
+     * Sets the width of the canvas.
+     * @param {number} value - The new width of the canvas.
+     */
+    set width(value: number);
+    /**
+     * Sets the height of the canvas.
+     * @param {number} value - The new height of the canvas.
+     */
+    set height(value: number);
+    /**
+     * Sets the text alignment used for drawing text.
+     * @param {CanvasTextAlign} value - The new text alignment.
+     */
+    set textAlign(value: CanvasTextAlign);
+    /**
+     * Sets the text baseline used for drawing text.
+     * @param {CanvasTextBaseline} value - The new text baseline.
+     */
+    set textBaseline(value: CanvasTextBaseline);
+    /**
+     * Sets the font used for drawing text.
+     * @param {string} value - The new font.
+     */
+    set font(value: string);
+    /**
+     * Sets the global alpha value used for drawing shapes and images.
+     * @param {number} value - The new global alpha value.
+     */
+    set globalAlpha(value: number);
+    /**
+     * Gets the ID of the canvas element.
+     * @returns {string} The ID of the canvas element.
+     */
     get id(): string;
+    /**
+     * Gets the HTML canvas element.
+     * @returns {HTMLCanvasElement} The HTML canvas element.
+     */
     get canvas(): HTMLCanvasElement;
+    /**
+     * Gets the 2D rendering context of the canvas.
+     * @returns {CanvasRenderingContext2D} The 2D rendering context of the canvas.
+     */
     get context(): CanvasRenderingContext2D;
+    /**
+     * Gets the center point of the canvas.
+     * @returns {Vec2d} The center point of the canvas.
+     */
     get center(): Vec2d;
+    /**
+     * Gets the width of the canvas.
+     * @returns {number} The width of the canvas.
+     */
     get width(): number;
+    /**
+     * Gets the height of the canvas.
+     * @returns {number} The height of the canvas.
+     */
     get height(): number;
+    /**
+     * Gets the aspect ratio of the canvas.
+     * @returns {number} The aspect ratio of the canvas.
+     */
     get aspectRatio(): number;
+    /**
+     * Gets the fill style used for drawing shapes.
+     * @returns {string | CanvasGradient | CanvasPattern} The fill style used for drawing shapes.
+     */
     get fillStyle(): string | CanvasGradient | CanvasPattern;
+    /**
+     * Gets the stroke style used for drawing shapes.
+     * @returns {string | CanvasGradient | CanvasPattern} The stroke style used for drawing shapes.
+     */
     get strokeStyle(): string | CanvasGradient | CanvasPattern;
+    /**
+     * Gets the line width used for drawing lines and borders.
+     * @returns {number} The line width used for drawing lines and borders.
+     */
     get lineWidth(): number;
+    /**
+     * Gets the line dash pattern used for drawing dashed lines.
+     * @returns {Iterable<number>} The line dash pattern used for drawing dashed lines.
+     */
     get lineDash(): Iterable<number>;
+    /**
+     * Gets the line dash offset used for drawing dashed lines.
+     * @returns {number} The line dash offset used for drawing dashed lines.
+     */
     get lineDashOffset(): number;
+    /**
+     * Gets the text alignment used for drawing text.
+     * @returns {CanvasTextAlign} The text alignment used for drawing text.
+     */
     get textAlign(): CanvasTextAlign;
-    get textBaseLine(): CanvasTextBaseline;
+    /**
+     * Gets the text baseline used for drawing text.
+     * @returns {CanvasTextBaseline} The text baseline used for drawing text.
+     */
+    get textBaseline(): CanvasTextBaseline;
+    /**
+     * Gets the font used for drawing text.
+     * @returns {string} The font used for drawing text.
+     */
     get font(): string;
+    /**
+     * Gets the global alpha value used for drawing shapes and images.
+     * @returns {number} The global alpha value used for drawing shapes and images.
+     */
     get globalAlpha(): number;
 }

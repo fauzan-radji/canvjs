@@ -1,7 +1,7 @@
 {
   "name": "kanvasgl",
   "version": "1.0.0",
-  "description": "A Javascript library to work with HTML5 Canvas element.",
+  "description": "A Javascript library to do Computer Graphics on the HTML5 Canvas element.",
   "main": "index.js",
   "types": "lib/index.js",
   "type": "module",
