@@ -1,4 +1,6 @@
 import Vec2d, { Point2d } from "./Vec2d.js";
+export type Color = string | CanvasGradient | CanvasPattern;
+export type CSSColor = string;
 /**
  * Represents a canvas element and provides methods for drawing shapes and images on it.
  */
@@ -92,8 +94,8 @@ export default class Kanvas {
     text({ text, at, fillStyle, strokeStyle, size, }: {
         text: string;
         at: Point2d;
-        fillStyle?: string | CanvasGradient | CanvasPattern;
-        strokeStyle?: string | CanvasGradient | CanvasPattern;
+        fillStyle?: Color;
+        strokeStyle?: Color;
         size?: number;
     }): Kanvas;
     /**
@@ -111,29 +113,29 @@ export default class Kanvas {
     /**
      * Strokes the current path
      * @param {Object} [param0={}]
-     * @param {string} [param0.color=this.#strokeStyle]
+     * @param {Color} [param0.color=this.#strokeStyle]
      * @param {number} [param0.width=this.#lineWidth]
-     * @param {number[]} [param0.dash=this.#lineDash]
+     * @param {Iterable<number>} [param0.dash=this.#lineDash]
      *
      * @return {Kanvas} this Kanvas object
      */
     stroke({ color, width, dash, }?: {
-        color?: string | CanvasGradient | CanvasPattern;
+        color?: Color;
         width?: number;
         dash?: Iterable<number>;
     }): Kanvas;
     /**
      * Fills the current path
-     * @param {string} [color="#fff"] - color of the fill
+     * @param {Color} [color=this.#fillStyle] - color of the fill
      *
      * @return {Kanvas} this Kanvas object
      */
-    fill(color?: string): Kanvas;
+    fill(color?: Color): Kanvas;
     /** Fills the canvas with a specified color
-     * @param {string} [color="#000"] - color to fill the canvas with
+     * @param {CSSColor} [color="#000"] - color to fill the canvas with
      * @return {Kanvas} this Kanvas object
      */
-    background(color?: string): Kanvas;
+    background(color?: CSSColor): Kanvas;
     /**
      * Clears the canvas
      *
@@ -169,15 +171,15 @@ export default class Kanvas {
     /**
      * Requests the pointer lock for the canvas element.
      *
-     * @returns {void}
+     * @returns {Kanvas}
      */
-    requestPointerLock(): void;
-    set fillStyle(color: string | CanvasGradient | CanvasPattern);
+    requestPointerLock(): Kanvas;
+    set fillStyle(color: Color);
     /**
      * Sets the stroke style used for drawing shapes.
-     * @param {string | CanvasGradient | CanvasPattern} value - The new stroke style.
+     * @param {Color} value - The new stroke style.
      */
-    set strokeStyle(value: string | CanvasGradient | CanvasPattern);
+    set strokeStyle(value: Color);
     /**
      * Sets the line width used for drawing lines and borders.
      * @param {number} value - The new line width.
@@ -260,14 +262,14 @@ export default class Kanvas {
     get aspectRatio(): number;
     /**
      * Gets the fill style used for drawing shapes.
-     * @returns {string | CanvasGradient | CanvasPattern} The fill style used for drawing shapes.
+     * @returns {Color} The fill style used for drawing shapes.
      */
-    get fillStyle(): string | CanvasGradient | CanvasPattern;
+    get fillStyle(): Color;
     /**
      * Gets the stroke style used for drawing shapes.
-     * @returns {string | CanvasGradient | CanvasPattern} The stroke style used for drawing shapes.
+     * @returns {Color} The stroke style used for drawing shapes.
      */
-    get strokeStyle(): string | CanvasGradient | CanvasPattern;
+    get strokeStyle(): Color;
     /**
      * Gets the line width used for drawing lines and borders.
      * @returns {number} The line width used for drawing lines and borders.

@@ -2,15 +2,13 @@
 
 A Javascript library to do Computer Graphics on the HTML5 Canvas element.
 
-## Basic Usage
-
-### Installation
+## Installation
 
 ```bash
-$ npm install kanvasgl
+npm install kanvasgl
 ```
 
-### Usage
+## Basic Usage
 
 ```html
 <!DOCTYPE html>

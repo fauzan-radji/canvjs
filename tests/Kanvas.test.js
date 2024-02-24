@@ -81,83 +81,83 @@ describe("Kanvas", () => {
     expect(kanvas.globalAlpha).toBeDefined();
   });
 
-  it("should have a resize method", () => {
+  it("should have a resize() method", () => {
     expect(kanvas.resize).toBeDefined();
   });
 
-  it("should have a drawImage method", () => {
+  it("should have a drawImage() method", () => {
     expect(kanvas.drawImage).toBeDefined();
   });
 
-  it("should have a rotateAndDrawImage method", () => {
+  it("should have a rotateAndDrawImage() method", () => {
     expect(kanvas.rotateAndDrawImage).toBeDefined();
   });
 
-  it("should have a circle method", () => {
+  it("should have a circle() method", () => {
     expect(kanvas.circle).toBeDefined();
   });
 
-  it("should have a rect method", () => {
+  it("should have a rect() method", () => {
     expect(kanvas.rect).toBeDefined();
   });
 
-  it("should have a line method", () => {
+  it("should have a line() method", () => {
     expect(kanvas.line).toBeDefined();
   });
 
-  it("should have a moveTo method", () => {
+  it("should have a moveTo() method", () => {
     expect(kanvas.moveTo).toBeDefined();
   });
 
-  it("should have a lineTo method", () => {
+  it("should have a lineTo() method", () => {
     expect(kanvas.lineTo).toBeDefined();
   });
 
-  it("should have a text method", () => {
+  it("should have a text() method", () => {
     expect(kanvas.text).toBeDefined();
   });
 
-  it("should have a beginPath method", () => {
+  it("should have a beginPath() method", () => {
     expect(kanvas.beginPath).toBeDefined();
   });
 
-  it("should have a closePath method", () => {
+  it("should have a closePath() method", () => {
     expect(kanvas.closePath).toBeDefined();
   });
 
-  it("should have a stroke method", () => {
+  it("should have a stroke() method", () => {
     expect(kanvas.stroke).toBeDefined();
   });
 
-  it("should have a fill method", () => {
+  it("should have a fill() method", () => {
     expect(kanvas.fill).toBeDefined();
   });
 
-  it("should have a background method", () => {
+  it("should have a background() method", () => {
     expect(kanvas.background).toBeDefined();
   });
 
-  it("should have a clear method", () => {
+  it("should have a clear() method", () => {
     expect(kanvas.clear).toBeDefined();
   });
 
-  it("should have a translate method", () => {
+  it("should have a translate() method", () => {
     expect(kanvas.translate).toBeDefined();
   });
 
-  it("should have a rotate method", () => {
+  it("should have a rotate() method", () => {
     expect(kanvas.rotate).toBeDefined();
   });
 
-  it("should have a save method", () => {
+  it("should have a save() method", () => {
     expect(kanvas.save).toBeDefined();
   });
 
-  it("should have a restore method", () => {
+  it("should have a restore() method", () => {
     expect(kanvas.restore).toBeDefined();
   });
 
-  it("should have a requestPointerLock method", () => {
+  it("should have a requestPointerLock() method", () => {
     expect(kanvas.requestPointerLock).toBeDefined();
   });
 
