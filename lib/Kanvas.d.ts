@@ -196,16 +196,6 @@ export default class Kanvas {
      */
     set lineDashOffset(value: number);
     /**
-     * Sets the width of the canvas.
-     * @param {number} value - The new width of the canvas.
-     */
-    set width(value: number);
-    /**
-     * Sets the height of the canvas.
-     * @param {number} value - The new height of the canvas.
-     */
-    set height(value: number);
-    /**
      * Sets the text alignment used for drawing text.
      * @param {CanvasTextAlign} value - The new text alignment.
      */

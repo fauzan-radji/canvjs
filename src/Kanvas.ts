@@ -107,13 +107,11 @@ export default class Kanvas {
    * @returns {Kanvas} The updated Kanvas object.
    */
   resize(width: number, height: number): Kanvas {
-    this.width = width;
-    this.height = height;
+    this.#canvas.width = width;
+    this.#canvas.height = height;
+    this.#aspectRatio = width / height;
 
-    this.#center = new Vec2d(
-      +(this.width / 2).toFixed(4),
-      +(this.height / 2).toFixed(4)
-    );
+    this.#center = new Vec2d(+(width / 2).toFixed(4), +(height / 2).toFixed(4));
 
     return this;
   }
@@ -451,24 +449,6 @@ export default class Kanvas {
   set lineDashOffset(value: number) {
     this.#lineDashOffset = value;
     this.#context.lineDashOffset = value;
-  }
-
-  /**
-   * Sets the width of the canvas.
-   * @param {number} value - The new width of the canvas.
-   */
-  set width(value: number) {
-    this.#canvas.width = value;
-    this.#aspectRatio = value / this.#canvas.height;
-  }
-
-  /**
-   * Sets the height of the canvas.
-   * @param {number} value - The new height of the canvas.
-   */
-  set height(value: number) {
-    this.#canvas.height = value;
-    this.#aspectRatio = this.#canvas.width / value;
   }
 
   /**

@@ -12,6 +12,7 @@
     - [Properties](#properties)
 - [Type Aliases](#type-aliases)
   - [Point2d]
+  - [Color]
 
 ## Getting Started
 
@@ -469,69 +470,24 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
 #### Properties
 
-1. `fillStyle: string | CanvasGradient | CanvasPattern`
-
-   The fill style used for drawing shapes.
-
-2. `strokeStyle: string | CanvasGradient | CanvasPattern`
-
-   The stroke style used for drawing shapes.
-
-3. `lineWidth: number`
-
-   The line width used for drawing lines and borders.
-
-4. `lineDash: Iterable<number>`
-
-   The line dash pattern used for drawing dashed lines.
-
-5. `lineDashOffset: number`
-
-   The line dash offset used for drawing dashed lines.
-
-6. `width: number`
-
-   The width of the canvas.
-
-7. `height: number`
-
-   The height of the canvas.
-
-8. `textAlign: CanvasTextAlign`
-
-   The text alignment used for drawing text.
-
-9. `textBaseline: CanvasTextBaseline`
-
-   The text baseline used for drawing text.
-
-10. `font: string`
-
-    The font used for drawing text.
-
-11. `globalAlpha: number`
-
-    The global alpha value used for drawing shapes and images.
-
-12. `id: string`
-
-    The ID of the canvas element.
-
-13. `canvas: HTMLCanvasElement`
-
-    The HTML canvas element.
-
-14. `context: CanvasRenderingContext2D`
-
-    The 2D rendering context of the canvas.
-
-15. `center: Vec2d`
-
-    The center point of the canvas.
-
-16. `aspectRatio: number`
-
-    The aspect ratio of the canvas.
+| Name           | Type                                                   | Description                                                | Setter                        | Getter |
+| -------------- | ------------------------------------------------------ | ---------------------------------------------------------- | ----------------------------- | ------ |
+| width          | `number`                                               | The width of the canvas.                                   | ❌ _(use `resize()` instead)_ | ✅     |
+| height         | `number`                                               | The height of the canvas.                                  | ❌ _(use `resize()` instead)_ | ✅     |
+| fillStyle      | [`Color`][Color]                                       | The fill style used for drawing shapes.                    | ✅                            | ✅     |
+| strokeStyle    | [`Color`][Color]                                       | The stroke style used for drawing shapes.                  | ✅                            | ✅     |
+| lineWidth      | `number`                                               | The line width used for drawing lines and borders.         | ✅                            | ✅     |
+| lineDash       | `Iterable<number>`                                     | The line dash pattern used for drawing dashed lines.       | ✅                            | ✅     |
+| lineDashOffset | `number`                                               | The line dash offset used for drawing dashed lines.        | ✅                            | ✅     |
+| textAlign      | [`CanvasTextAlign`][CanvasTextAlign]                   | The text alignment used for drawing text.                  | ✅                            | ✅     |
+| textBaseline   | [`CanvasTextBaseline`][CanvasTextBaseline]             | The text baseline used for drawing text.                   | ✅                            | ✅     |
+| font           | `string`                                               | The font used for drawing text.                            | ✅                            | ✅     |
+| globalAlpha    | `number`                                               | The global alpha value used for drawing shapes and images. | ✅                            | ✅     |
+| id             | `string`                                               | The ID of the canvas element.                              | ❌                            | ✅     |
+| canvas         | [`HTMLCanvasElement`][HTMLCanvasElement]               | The HTML canvas element.                                   | ❌                            | ✅     |
+| context        | [`CanvasRenderingContext2D`][CanvasRenderingContext2D] | The 2D rendering context of the canvas.                    | ❌                            | ✅     |
+| center         | [`Vec2d`][Vec2d]                                       | The center point of the canvas.                            | ❌                            | ✅     |
+| aspectRatio    | `number`                                               | The aspect ratio of the canvas.                            | ❌                            | ✅     |
 
 [Back to Table of Contents :arrow_up:][Table of Contents]
 
@@ -558,10 +514,14 @@ type Color = string | CanvasGradient | CanvasPattern;
 [Back to Table of Contents :arrow_up:][Table of Contents]
 
 [Table of Contents]: #table-of-contents
-[CanvasImageSource]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#getting_images_to_draw
 [CanvasGradient]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient
+[CanvasImageSource]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#getting_images_to_draw
 [CanvasPattern]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasPattern
+[CanvasRenderingContext2D]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+[CanvasTextAlign]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/textAlign
+[CanvasTextBaseline]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/textBaseline
 [CSSColor]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
+[HTMLCanvasElement]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement
 [Point2d]: #point2d
 [Kanvas]: #kanvas
 [Vec2d]: #vec2d
