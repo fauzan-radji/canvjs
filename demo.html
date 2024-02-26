@@ -9,13 +9,21 @@
       body {
         background-color: #222;
         display: flex;
+        /* flex-direction: column; */
         justify-content: center;
         align-items: center;
+        gap: 20px;
         height: 100vh;
       }
 
       canvas {
         outline: 1px solid #fff;
+      }
+
+      #controller {
+        color: white;
+        font-size: 20px;
+        text-align: right;
       }
     </style>
     <script type="importmap">
@@ -28,13 +36,171 @@
   </head>
 
   <body>
+    <div id="controller">
+      <table>
+        <tr>
+          <td><label for="x">X</label></td>
+          <td>:</td>
+          <td>-200</td>
+          <td>
+            <input
+              type="range"
+              id="x"
+              name="x"
+              min="-200"
+              max="200"
+              value="0"
+            />
+          </td>
+          <td>200</td>
+        </tr>
+        <tr>
+          <td><label for="y">Y</label></td>
+          <td>:</td>
+          <td>-200</td>
+          <td>
+            <input
+              type="range"
+              id="y"
+              name="y"
+              min="-200"
+              max="200"
+              value="0"
+            />
+          </td>
+          <td>200</td>
+        </tr>
+        <tr>
+          <td><label for="z">Z</label></td>
+          <td>:</td>
+          <td>80</td>
+          <td>
+            <input
+              type="range"
+              id="z"
+              name="z"
+              min="80"
+              max="400"
+              value="200"
+            />
+          </td>
+          <td>400</td>
+        </tr>
+        <tr>
+          <td><label for="fov">Field of View</label></td>
+          <td>:</td>
+          <td>60</td>
+          <td>
+            <input
+              type="range"
+              id="fov"
+              name="fov"
+              min="60"
+              max="170"
+              value="120"
+            />
+          </td>
+          <td>170</td>
+        </tr>
+      </table>
+    </div>
     <canvas id="myCanvas"></canvas>
 
     <script type="module">
-      import Kanvas from "kanvasgl";
+      import Kanvas, { Vec3d } from "kanvasgl";
 
-      const canvas = new Kanvas("myCanvas", 400, 400);
-      canvas.circle(canvas.center, 100).fill("#00ffff");
+      const xRange = document.getElementById("x");
+      const yRange = document.getElementById("y");
+      const zRange = document.getElementById("z");
+      const fieldOfViewRange = document.getElementById("fov");
+
+      const zNear = 0.1;
+      const zFar = 1000;
+      let x = 0;
+      let y = 0;
+      let z = 200;
+      let fieldOfView = 120;
+
+      xRange.addEventListener("input", (e) => {
+        x = Number(e.target.value);
+      });
+
+      yRange.addEventListener("input", (e) => {
+        y = Number(e.target.value);
+      });
+
+      zRange.addEventListener("input", (e) => {
+        z = Number(e.target.value);
+      });
+
+      fieldOfViewRange.addEventListener("input", (e) => {
+        fieldOfView = Number(e.target.value);
+      });
+
+      const canvas = new Kanvas("myCanvas", 600, 600);
+
+      const vertices = [
+        new Vec3d(-50, -50, -50),
+        new Vec3d(50, -50, -50),
+        new Vec3d(50, 50, -50),
+        new Vec3d(-50, 50, -50),
+        new Vec3d(-50, -50, 50),
+        new Vec3d(50, -50, 50),
+        new Vec3d(50, 50, 50),
+        new Vec3d(-50, 50, 50),
+      ];
+      const edges = [
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [3, 0],
+        [4, 5],
+        [5, 6],
+        [6, 7],
+        [7, 4],
+        [0, 4],
+        [1, 5],
+        [2, 6],
+        [3, 7],
+      ];
+      const projectedVertices = [];
+
+      function draw() {
+        canvas.clear();
+
+        for (let i = 0; i < vertices.length; i++) {
+          const vertex = vertices[i];
+          vertex.rotateY(0.01);
+
+          const projected = vertex
+            .copy()
+            .translate({ x, y, z })
+            .project(
+              fieldOfView,
+              canvas.aspectRatio,
+              zNear,
+              zFar,
+              canvas.width,
+              canvas.height
+            )
+            .translate(canvas.center);
+
+          projectedVertices[i] = projected;
+        }
+
+        canvas.beginPath();
+        for (const edge of edges) {
+          const start = projectedVertices[edge[0]];
+          const end = projectedVertices[edge[1]];
+
+          canvas.line(start, end);
+        }
+        canvas.closePath().stroke("white");
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
     </script>
   </body>
 </html>

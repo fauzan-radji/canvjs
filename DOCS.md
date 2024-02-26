@@ -2,17 +2,24 @@
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-  - [Installation](#installation)
-  - [Basic Usage](#basic-usage)
-- [Usage](#usage-1)
-  - [Kanvas]
-    - [Constructor](#constructor)
-    - [Methods](#methods)
-    - [Properties](#properties)
-- [Type Aliases](#type-aliases)
-  - [Point2d]
-  - [Color]
+- [KanvasGL](#kanvasgl)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+    - [Installation](#installation)
+    - [Basic Usage](#basic-usage)
+  - [Usage](#usage)
+    - [Kanvas](#kanvas)
+      - [Constructor](#constructor)
+      - [Methods](#methods)
+      - [Properties](#properties)
+    - [Vec2d](#vec2d)
+      - [Constructor](#constructor-1)
+      - [Methods](#methods-1)
+      - [Properties](#properties-1)
+      - [Static Methods](#static-methods)
+  - [Type Aliases](#type-aliases)
+    - [Point2d](#point2d)
+    - [Color](#color)
 
 ## Getting Started
 
@@ -89,7 +96,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | `width`  | number | The new width of the canvas.  | ✅       | -       |
    | `height` | number | The new height of the canvas. | ✅       | -       |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -116,7 +123,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | `width`  | number              | The width of the image.                                                                    | ✅       | -       |
    | `height` | number              | The height of the image.                                                                   | ✅       | -       |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -140,7 +147,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | `height` | number              | The height of the image.                                                                   | ✅       | -       |
    | `angle`  | number              | The angle in radians.                                                                      | ✅       | -       |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -161,7 +168,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | `point`  | [Point2d] | A [Vec2d] instance or an object containing `x` and `y` properties specifying the center of the circle. | ✅       | -       |
    | `radius` | number    | The radius of the circle.                                                                              | ✅       | -       |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -183,7 +190,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | `width`  | number    | The width of the rectangle.                                                                                        | ✅       | -       |
    | `height` | number    | The height of the rectangle.                                                                                       | ✅       | -       |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -204,7 +211,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | `begin` | [Point2d] | A [Vec2d] instance or an object containing `x` and `y` properties specifying the start point of the line. | ✅       | -       |
    | `end`   | [Point2d] | A [Vec2d] instance or an object containing `x` and `y` properties specifying the end point of the line.   | ✅       | -       |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -224,7 +231,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | ------- | --------- | ---------------------------------------------------------------------------------------------- | -------- | ------- |
    | `point` | [Point2d] | A [Vec2d] instance or an object containing `x` and `y` properties specifying the new position. | ✅       | -       |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -244,7 +251,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | ------- | --------- | ------------------------------------------------------------------------------------------------------- | -------- | ------- |
    | `point` | [Point2d] | A [Vec2d] instance or an object containing `x` and `y` properties specifying the end point of the line. | ✅       | -       |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -269,7 +276,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
    | `params.strokeStyle` | [Color]   | The stroke style for the text.                                                                         | ❌       | `this.strokeStyle` |
    | `params.size`        | number    | The size of the text.                                                                                  | ❌       | 16                 |
 
-   **Returns**: [Kanvas]
+   **Returns**: [`Kanvas`][Kanvas]
 
    **Example**:
 
@@ -283,7 +290,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     Begins a new path for drawing.
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -297,7 +304,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     Closes the current path.
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -320,7 +327,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
     | `options.width` | number           | The width of the stroke.         | ❌       | `this.lineWidth`   |
     | `options.dash`  | Iterable<number> | The dash pattern for the stroke. | ❌       | `this.lineDash`    |
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -340,7 +347,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
     | ------- | ------- | --------------------------- | -------- | ---------------- |
     | `color` | [Color] | The color to fill the path. | ❌       | `this.fillStyle` |
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -360,7 +367,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
     | ------- | ---------- | ---------------------------------------- | -------- | ------- |
     | `color` | [CSSColor] | The color to fill the canvas background. | ❌       | `#000`  |
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -374,7 +381,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     Clears the canvas.
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -394,7 +401,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
     | ------- | --------- | ---------------------------------------------------------------------------------------------------- | -------- | ------- |
     | `point` | [Point2d] | A [Vec2d] instance or an object containing `x` and `y` properties specifying the translation vector. | ✅       | -       |
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -414,7 +421,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
     | ------- | ------ | --------------------------------- | -------- | ------- |
     | `angle` | number | The angle of rotation in radians. | ✅       | -       |
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -428,7 +435,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     Saves the current canvas state.
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -442,7 +449,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     Restores the last saved canvas state.
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -456,7 +463,7 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     Requests pointer lock for the canvas element.
 
-    **Returns**: [Kanvas]
+    **Returns**: [`Kanvas`][Kanvas]
 
     **Example**:
 
@@ -491,6 +498,648 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
 [Back to Table of Contents :arrow_up:][Table of Contents]
 
+### Vec2d
+
+Represents a 2D vector.
+
+#### Constructor
+
+**Parameters**:
+
+| Name | Type   | Description                    | Required | Default |
+| ---- | ------ | ------------------------------ | -------- | ------- |
+| `x`  | number | The x-coordinate of the point. | ✅       | -       |
+| `y`  | number | The y-coordinate of the point. | ✅       | -       |
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Methods
+
+1. `set(v)`
+
+   Sets the values of this vector to the values of another vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description              | Required | Default |
+   | ---- | --------- | ------------------------ | -------- | ------- |
+   | `v`  | [Point2d] | The vector to copy from. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   vector.set({ x: 5, y: 6 });
+   console.log(vector); // Vec2d { x: 5, y: 6 }
+   ```
+
+2. `copy({ x, y })`
+
+   Creates a copy of this vector.
+
+   **Parameters**:
+
+   | Name        | Type   | Description                                    | Required | Default                    |
+   | ----------- | ------ | ---------------------------------------------- | -------- | -------------------------- |
+   | `options`   | Object | The options for copying the Vec2d instance.    | ❌       | `{ x: this.x, y: this.y }` |
+   | `options.x` | number | The x-coordinate of the copied Vec2d instance. | ❌       | `this.x`                   |
+   | `options.y` | number | The y-coordinate of the copied Vec2d instance. | ❌       | `this.y`                   |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   const copy = vector.copy();
+   console.log(copy); // Vec2d { x: 3, y: 4 }
+
+   const copy2 = vector.copy({ x: 5 });
+   console.log(copy2); // Vec2d { x: 5, y: 4 }
+
+   const copy3 = vector.copy({ y: 6 });
+   console.log(copy3); // Vec2d { x: 3, y: 6 }
+
+   const copy4 = vector.copy({ x: 5, y: 6 });
+   console.log(copy4); // Vec2d { x: 5, y: 6 }
+   ```
+
+3. `add(v)`
+
+   Adds the given vector to this vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v`  | [Point2d] | The vector to add. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   vector.add({ x: 5, y: 6 });
+   console.log(vector); // Vec2d { x: 8, y: 10 }
+
+   const vector2 = new Vec2d(3, 4);
+   const vector3 = new Vec2d(5, 6);
+   vector2.add(vector3);
+   console.log(vector2); // Vec2d { x: 8, y: 10 }
+   ```
+
+4. `subtract(v)`
+
+   Subtracts the given vector from this vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description             | Required | Default |
+   | ---- | --------- | ----------------------- | -------- | ------- |
+   | `v`  | [Point2d] | The vector to subtract. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   vector.subtract({ x: 5, y: 6 });
+   console.log(vector); // Vec2d { x: -2, y: -2 }
+
+   const vector2 = new Vec2d(3, 4);
+   const vector3 = new Vec2d(5, 6);
+   vector2.subtract(vector3);
+   console.log(vector2); // Vec2d { x: -2, y: -2 }
+   ```
+
+5. `multiply(scalar)`
+
+   Multiplies this vector by a scalar value.
+
+   **Parameters**:
+
+   | Name     | Type   | Description                      | Required | Default |
+   | -------- | ------ | -------------------------------- | -------- | ------- |
+   | `scalar` | number | The scalar value to multiply by. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   vector.multiply(2);
+   console.log(vector); // Vec2d { x: 6, y: 8 }
+   ```
+
+6. `divide(scalar)`
+
+   Divides this vector by a scalar value.
+
+   **Parameters**:
+
+   | Name     | Type   | Description                    | Required | Default |
+   | -------- | ------ | ------------------------------ | -------- | ------- |
+   | `scalar` | number | The scalar value to divide by. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   vector.divide(2);
+   console.log(vector); // Vec2d { x: 1.5, y: 2 }
+   ```
+
+7. `dot(v)`
+
+   Calculates the dot product of this vector and another vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description       | Required | Default |
+   | ---- | --------- | ----------------- | -------- | ------- |
+   | `v`  | [Point2d] | The other vector. | ✅       | -       |
+
+   **Returns**: `number`
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   const dotProduct = vector.dot({ x: 5, y: 6 });
+   console.log(dotProduct); // 39
+
+   const vector2 = new Vec2d(3, 4);
+   const dotProduct2 = vector.dot(vector2);
+   console.log(dotProduct2); // 25
+   ```
+
+8. `cross(v)`
+
+   Calculates the cross product of this vector and another vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description       | Required | Default |
+   | ---- | --------- | ----------------- | -------- | ------- |
+   | `v`  | [Point2d] | The other vector. | ✅       | -       |
+
+   **Returns**: `number`
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   const crossProduct = vector.cross({ x: 5, y: 6 });
+   console.log(crossProduct); // -2
+
+   const vector2 = new Vec2d(3, 4);
+   const crossProduct2 = vector.cross(vector2);
+   console.log(crossProduct2); // 0
+   ```
+
+9. `transform(m)`
+
+   Transforms this vector by a 3x3 matrix.
+
+   **Parameters**:
+
+   | Name | Type           | Description                | Required | Default |
+   | ---- | -------------- | -------------------------- | -------- | ------- |
+   | `m`  | [`Mat3`][Mat3] | The transformation matrix. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec2d(3, 4);
+   const matrix = new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1);
+   vector.transform(matrix);
+   console.log(vector); // Vec2d { x: 8, y: 10 }
+   ```
+
+10. `translate(v)`
+
+    Translates this vector by another vector.
+
+    **Parameters**:
+
+    | Name | Type      | Description            | Required | Default |
+    | ---- | --------- | ---------------------- | -------- | ------- |
+    | `v`  | [Point2d] | The translation vector | ✅       | -       |
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec2d(3, 4);
+    vector.translate({ x: 5, y: 6 });
+    console.log(vector); // Vec2d { x: 8, y: 10 }
+
+    const vector2 = new Vec2d(3, 4);
+    const vector3 = new Vec2d(5, 6);
+    vector2.translate(vector3);
+    console.log(vector2); // Vec2d { x: 8, y: 10 }
+    ```
+
+11. `rotate(theta)`
+
+    Rotates this vector by an angle (in radians).
+
+    **Parameters**:
+
+    | Name    | Type   | Description               | Required | Default |
+    | ------- | ------ | ------------------------- | -------- | ------- |
+    | `theta` | number | The rotation angle (rads) | ✅       | -       |
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec2d(3, 4);
+    vector.rotate(Math.PI / 2);
+    console.log(vector); // Vec2d { x: -4, y: 3 }
+    ```
+
+12. `scale(v)`
+
+    Scales this vector by another vector.
+
+    **Parameters**:
+
+    | Name | Type      | Description        | Required | Default |
+    | ---- | --------- | ------------------ | -------- | ------- |
+    | `v`  | [Point2d] | The scaling vector | ✅       | -       |
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec2d(3, 4);
+    vector.scale({ x: 5, y: 6 });
+    console.log(vector); // Vec2d { x: 15, y: 24 }
+
+    const vector2 = new Vec2d(3, 4);
+    const vector3 = new Vec2d(5, 6);
+    vector2.scale(vector3);
+    console.log(vector2); // Vec2d { x: 15, y: 24 }
+    ```
+
+13. `normalize()`
+
+    Normalizes this vector to have a magnitude of 1.
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec2d(3, 4);
+    vector.normalize();
+    console.log(vector); // Vec2d { x: 0.6, y: 0.8 }
+    ```
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Properties
+
+| Name      | Type     | Description                                                        | Setter | Getter |
+| --------- | -------- | ------------------------------------------------------------------ | ------ | ------ |
+| x         | `number` | The x-coordinate of the vector.                                    | ✅     | ✅     |
+| y         | `number` | The y-coordinate of the vector.                                    | ✅     | ✅     |
+| theta     | `number` | The angle (in radians) between the vector and the positive x-axis. | ✅     | ✅     |
+| magnitude | `number` | The magnitude (length) of the vector.                              | ✅     | ✅     |
+| r         | `number` | The magnitude (length) of the vector (alias for `magnitude`).      | ✅     | ✅     |
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Static Methods
+
+1. `add(v1, v2)`
+
+   Adds two vectors together without modifying the original vectors.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v1` | [Point2d] | The first vector.  | ✅       | -       |
+   | `v2` | [Point2d] | The second vector. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec2d.add(new Vec2d(3, 4), new Vec2d(5, 6));
+   console.log(vector); // Vec2d { x: 8, y: 10 }
+
+   const vector2 = Vec2d.add(new Vec2d(3, 4), { x: 5, y: 6 });
+   console.log(vector2); // Vec2d { x: 8, y: 10 }
+
+   const vector3 = Vec2d.add({ x: 3, y: 4 }, new Vec2d(5, 6));
+   console.log(vector3); // Vec2d { x: 8, y: 10 }
+
+   const vector4 = Vec2d.add({ x: 3, y: 4 }, { x: 5, y: 6 });
+   console.log(vector4); // Vec2d { x: 8, y: 10 }
+   ```
+
+2. `subtract(v1, v2)`
+
+   Subtracts one vector from another without modifying the original vectors.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v1` | [Point2d] | The first vector.  | ✅       | -       |
+   | `v2` | [Point2d] | The second vector. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec2d.subtract(new Vec2d(3, 4), new Vec2d(5, 6));
+   console.log(vector); // Vec2d { x: -2, y: -2 }
+
+   const vector2 = Vec2d.subtract(new Vec2d(3, 4), { x: 5, y: 6 });
+   console.log(vector2); // Vec2d { x: -2, y: -2 }
+
+   const vector3 = Vec2d.subtract({ x: 3, y: 4 }, new Vec2d(5, 6));
+   console.log(vector3); // Vec2d { x: -2, y: -2 }
+
+   const vector4 = Vec2d.subtract({ x: 3, y: 4 }, { x: 5, y: 6 });
+   console.log(vector4); // Vec2d { x: -2, y: -2 }
+   ```
+
+3. `multiply(v, scalar)`
+
+   Multiplies a vector by a scalar value without modifying the original vector.
+
+   **Parameters**:
+
+   | Name     | Type      | Description       | Required | Default |
+   | -------- | --------- | ----------------- | -------- | ------- |
+   | `v`      | [Point2d] | The vector.       | ✅       | -       |
+   | `scalar` | number    | The scalar value. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec2d.multiply(new Vec2d(3, 4), 2);
+   console.log(vector); // Vec2d { x: 6, y: 8 }
+
+   const vector2 = Vec2d.multiply({ x: 3, y: 4 }, 2);
+   console.log(vector2); // Vec2d { x: 6, y: 8 }
+   ```
+
+4. `divide(v, scalar)`
+
+   Divides a vector by a scalar value without modifying the original vector.
+
+   **Parameters**:
+
+   | Name     | Type      | Description       | Required | Default |
+   | -------- | --------- | ----------------- | -------- | ------- |
+   | `v`      | [Point2d] | The vector.       | ✅       | -       |
+   | `scalar` | number    | The scalar value. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec2d.divide(new Vec2d(3, 4), 2);
+   console.log(vector); // Vec2d { x: 1.5, y: 2 }
+
+   const vector2 = Vec2d.divide({ x: 3, y: 4 }, 2);
+   console.log(vector2); // Vec2d { x: 1.5, y: 2 }
+   ```
+
+5. `dot(v1, v2)`
+
+   Calculates the dot product of two vectors.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v1` | [Point2d] | The first vector.  | ✅       | -       |
+   | `v2` | [Point2d] | The second vector. | ✅       | -       |
+
+   **Returns**: `number`
+
+   **Example**:
+
+   ```javascript
+   const dotProduct = Vec2d.dot(new Vec2d(3, 4), new Vec2d(5, 6));
+   console.log(dotProduct); // 39
+
+   const dotProduct2 = Vec2d.dot(new Vec2d(3, 4), { x: 5, y: 6 });
+   console.log(dotProduct2); // 39
+
+   const dotProduct3 = Vec2d.dot({ x: 3, y: 4 }, new Vec2d(5, 6));
+   console.log(dotProduct3); // 39
+
+   const dotProduct4 = Vec2d.dot({ x: 3, y: 4 }, { x: 5, y: 6 });
+   console.log(dotProduct4); // 39
+   ```
+
+6. `cross(v1, v2)`
+
+   Calculates the cross product of two vectors.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v1` | [Point2d] | The first vector.  | ✅       | -       |
+   | `v2` | [Point2d] | The second vector. | ✅       | -       |
+
+   **Returns**: `number`
+
+   **Example**:
+
+   ```javascript
+   const crossProduct = Vec2d.cross(new Vec2d(3, 4), new Vec2d(5, 6));
+   console.log(crossProduct); // -2
+
+   const crossProduct2 = Vec2d.cross(new Vec2d(3, 4), { x: 5, y: 6 });
+   console.log(crossProduct2); // -2
+
+   const crossProduct3 = Vec2d.cross({ x: 3, y: 4 }, new Vec2d(5, 6));
+   console.log(crossProduct3); // -2
+
+   const crossProduct4 = Vec2d.cross({ x: 3, y: 4 }, { x: 5, y: 6 });
+   console.log(crossProduct4); // -2
+   ```
+
+7. `transform(v, m)`
+
+   Transforms a vector by a 3x3 matrix without modifying the original vector.
+
+   **Parameters**:
+
+   | Name | Type           | Description                | Required | Default |
+   | ---- | -------------- | -------------------------- | -------- | ------- |
+   | `v`  | [Point2d]      | The vector.                | ✅       | -       |
+   | `m`  | [`Mat3`][Mat3] | The transformation matrix. | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec2d.transform(
+     new Vec2d(3, 4),
+     new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1)
+   );
+   console.log(vector); // Vec2d { x: 8, y: 10 }
+
+   const vector2 = Vec2d.transform(
+     { x: 3, y: 4 },
+     new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1)
+   );
+   ```
+
+8. `translate(v, translation)`
+
+   Translates a vector by another vector without modifying the original vector.
+
+   **Parameters**:
+
+   | Name          | Type      | Description            | Required | Default |
+   | ------------- | --------- | ---------------------- | -------- | ------- |
+   | `v`           | [Point2d] | The vector.            | ✅       | -       |
+   | `translation` | [Point2d] | The translation vector | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec2d.translate(new Vec2d(3, 4), new Vec2d(5, 6));
+   console.log(vector); // Vec2d { x: 8, y: 10 }
+
+   const vector2 = Vec2d.translate(new Vec2d(3, 4), { x: 5, y: 6 });
+   console.log(vector2); // Vec2d { x: 8, y: 10 }
+
+   const vector3 = Vec2d.translate({ x: 3, y: 4 }, new Vec2d(5, 6));
+   console.log(vector3); // Vec2d { x: 8, y: 10 }
+
+   const vector4 = Vec2d.translate({ x: 3, y: 4 }, { x: 5, y: 6 });
+   console.log(vector4); // Vec2d { x: 8, y: 10 }
+   ```
+
+9. `rotate(v, theta)`
+
+   Rotates a vector by an angle (in radians) without modifying the original vector.
+
+   **Parameters**:
+
+   | Name    | Type      | Description               | Required | Default |
+   | ------- | --------- | ------------------------- | -------- | ------- |
+   | `v`     | [Point2d] | The vector.               | ✅       | -       |
+   | `theta` | number    | The rotation angle (rads) | ✅       | -       |
+
+   **Returns**: [`Vec2d`][Vec2d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec2d.rotate(new Vec2d(3, 4), Math.PI / 2);
+   console.log(vector); // Vec2d { x: -4, y: 3 }
+
+   const vector2 = Vec2d.rotate({ x: 3, y: 4 }, Math.PI / 2);
+   console.log(vector2); // Vec2d { x: -4, y: 3 }
+   ```
+
+10. `scale(v, scale)`
+
+    Scales a vector by another vector without modifying the original vector.
+
+    **Parameters**:
+
+    | Name    | Type      | Description        | Required | Default |
+    | ------- | --------- | ------------------ | -------- | ------- |
+    | `v`     | [Point2d] | The vector.        | ✅       | -       |
+    | `scale` | [Point2d] | The scaling vector | ✅       | -       |
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = Vec2d.scale(new Vec2d(3, 4), new Vec2d(5, 6));
+    console.log(vector); // Vec2d { x: 15, y: 24 }
+
+    const vector2 = Vec2d.scale(new Vec2d(3, 4), { x: 5, y: 6 });
+    console.log(vector2); // Vec2d { x: 15, y: 24 }
+
+    const vector3 = Vec2d.scale({ x: 3, y: 4 }, new Vec2d(5, 6));
+    console.log(vector3); // Vec2d { x: 15, y: 24 }
+
+    const vector4 = Vec2d.scale({ x: 3, y: 4 }, { x: 5, y: 6 });
+    console.log(vector4); // Vec2d { x: 15, y: 24 }
+    ```
+
+11. `normalize(v)`
+
+    Normalizes a vector to have a magnitude of 1 without modifying the original vector.
+
+    **Parameters**:
+
+    | Name | Type      | Description | Required | Default |
+    | ---- | --------- | ----------- | -------- | ------- |
+    | `v`  | [Point2d] | The vector. | ✅       | -       |
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = Vec2d.normalize(new Vec2d(3, 4));
+    console.log(vector); // Vec2d { x: 0.6, y: 0.8 }
+
+    const vector2 = Vec2d.normalize({ x: 3, y: 4 });
+    console.log(vector2); // Vec2d { x: 0.6, y: 0.8 }
+    ```
+
+12. `fromPolar(theta, magnitude)`
+
+    Creates a vector from polar coordinates.
+
+    **Parameters**:
+
+    | Name        | Type   | Description                                                        | Required | Default |
+    | ----------- | ------ | ------------------------------------------------------------------ | -------- | ------- |
+    | `theta`     | number | The angle (in radians) between the vector and the positive x-axis. | ✅       | -       |
+    | `magnitude` | number | The magnitude (length) of the vector.                              | ✅       | -       |
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = Vec2d.fromPolar(Math.PI / 2, 5);
+    console.log(vector); // Vec2d { x: 0, y: 5 }
+    ```
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
 ## Type Aliases
 
 ### Point2d
@@ -522,7 +1171,8 @@ type Color = string | CanvasGradient | CanvasPattern;
 [CanvasTextBaseline]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/textBaseline
 [CSSColor]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
 [HTMLCanvasElement]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement
-[Point2d]: #point2d
 [Kanvas]: #kanvas
+[Mat3]: #mat3
 [Vec2d]: #vec2d
+[Point2d]: #point2d
 [Color]: #color

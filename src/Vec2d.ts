@@ -9,19 +9,19 @@ export default class Vec2d {
   /**
    * The x-coordinate of the vector.
    */
-  private _x: number;
+  #x: number;
   /**
    * The y-coordinate of the vector.
    */
-  private _y: number;
+  #y: number;
   /**
    * The angle (in radians) between the vector and the positive x-axis.
    */
-  private _theta: number;
+  #theta: number;
   /**
    * The magnitude (length) of the vector.
    */
-  private _magnitude: number;
+  #magnitude: number;
 
   /**
    * Creates a new Vec2d instance.
@@ -195,9 +195,9 @@ export default class Vec2d {
    * @param {number} x - The x-coordinate of the vector.
    */
   set x(x: number) {
-    this._x = x;
-    this._theta = Math.atan2(this._y, x);
-    this._magnitude = Math.sqrt(x ** 2 + this._y ** 2);
+    this.#x = x;
+    this.#theta = Math.atan2(this.#y, x);
+    this.#magnitude = Math.sqrt(x ** 2 + this.#y ** 2);
   }
 
   /**
@@ -205,7 +205,7 @@ export default class Vec2d {
    * @returns {number} The x-coordinate of the vector.
    */
   get x(): number {
-    return this._x;
+    return this.#x;
   }
 
   /**
@@ -213,9 +213,9 @@ export default class Vec2d {
    * @param {number} y - The y-coordinate of the vector.
    */
   set y(y: number) {
-    this._y = y;
-    this._theta = Math.atan2(y, this._x);
-    this._magnitude = Math.sqrt(this._x ** 2 + y ** 2);
+    this.#y = y;
+    this.#theta = Math.atan2(y, this.#x);
+    this.#magnitude = Math.sqrt(this.#x ** 2 + y ** 2);
   }
 
   /**
@@ -223,7 +223,7 @@ export default class Vec2d {
    * @returns {number} The y-coordinate of the vector.
    */
   get y(): number {
-    return this._y;
+    return this.#y;
   }
 
   /**
@@ -231,9 +231,9 @@ export default class Vec2d {
    * @param {number} theta - The angle (in radians) between the vector and the positive x-axis.
    */
   set theta(theta: number) {
-    this._theta = theta;
-    this._x = this._magnitude * Math.cos(theta);
-    this._y = this._magnitude * Math.sin(theta);
+    this.#theta = theta;
+    this.#x = this.#magnitude * Math.cos(theta);
+    this.#y = this.#magnitude * Math.sin(theta);
   }
 
   /**
@@ -241,7 +241,7 @@ export default class Vec2d {
    * @returns {number} The angle (in radians) between the vector and the positive x-axis.
    */
   get theta(): number {
-    return this._theta;
+    return this.#theta;
   }
 
   /**
@@ -249,9 +249,9 @@ export default class Vec2d {
    * @param {number} magnitude - The magnitude (length) of the vector.
    */
   set magnitude(magnitude: number) {
-    this._magnitude = magnitude;
-    this._x = magnitude * Math.cos(this._theta);
-    this._y = magnitude * Math.sin(this._theta);
+    this.#magnitude = magnitude;
+    this.#x = magnitude * Math.cos(this.#theta);
+    this.#y = magnitude * Math.sin(this.#theta);
   }
 
   /**
@@ -259,7 +259,7 @@ export default class Vec2d {
    * @returns {number} The magnitude (length) of the vector.
    */
   get magnitude(): number {
-    return this._magnitude;
+    return this.#magnitude;
   }
 
   /**

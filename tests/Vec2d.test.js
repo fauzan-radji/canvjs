@@ -60,7 +60,7 @@ describe("Vec2d", () => {
   });
 
   it("should transform the vector correctly using a matrix", () => {
-    const matrix = new Mat3([2, 0, 0, 2, 1, 0, 0, 0, 1]);
+    const matrix = new Mat3(2, 0, 0, 2, 1, 0, 0, 0, 1);
     vec.transform(matrix);
     expect(vec.x).toBe(4);
     expect(vec.y).toBe(7);
@@ -171,7 +171,7 @@ describe("Vec2d", () => {
 
   it("should transform the vector correctly using a matrix (static method)", () => {
     const v = new Vec2d(2, 3);
-    const matrix = new Mat3([2, 0, 0, 0, 1, 0, 0, 0, 1]);
+    const matrix = new Mat3(2, 0, 0, 0, 1, 0, 0, 0, 1);
     const result = Vec2d.transform(v, matrix);
     expect(result.x).toBe(4);
     expect(result.y).toBe(3);

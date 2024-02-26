@@ -2,23 +2,77 @@
  * Represents a 3x3 matrix.
  */
 export default class Mat3 {
-  private _data: number[];
+  private _data: [
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number
+  ];
 
   /**
    * Creates a new Mat3 instance.
-   * @param {number[]?} matrix - The initial matrix data. Defaults to the identity matrix.
+   * @param {number} [i1j1] - The value at the first row and first column.
+   * @param {number} [i1j2] - The value at the first row and second column.
+   * @param {number} [i1j3] - The value at the first row and third column.
+   * @param {number} [i2j1] - The value at the second row and first column.
+   * @param {number} [i2j2] - The value at the second row and second column.
+   * @param {number} [i2j3] - The value at the second row and third column.
+   * @param {number} [i3j1] - The value at the third row and first column.
+   * @param {number} [i3j2] - The value at the third row and second column.
+   * @param {number} [i3j3] - The value at the third row and third column.
    */
-  constructor(matrix: number[] = [1, 0, 0, 0, 1, 0, 0, 0, 1]) {
-    this._data = matrix;
+  constructor(
+    i1j1: number,
+    i1j2: number,
+    i1j3: number,
+    i2j1: number,
+    i2j2: number,
+    i2j3: number,
+    i3j1: number,
+    i3j2: number,
+    i3j3: number
+  ) {
+    this._data = [i1j1, i1j2, i1j3, i2j1, i2j2, i2j3, i3j1, i3j2, i3j3];
   }
 
   /**
    * Sets the matrix data.
-   * @param {number[]} data - The new matrix data.
+   * @param {number} i1j1 - The value at the first row and first column.
+   * @param {number} i1j2 - The value at the first row and second column.
+   * @param {number} i1j3 - The value at the first row and third column.
+   * @param {number} i2j1 - The value at the second row and first column.
+   * @param {number} i2j2 - The value at the second row and second column.
+   * @param {number} i2j3 - The value at the second row and third column.
+   * @param {number} i3j1 - The value at the third row and first column.
+   * @param {number} i3j2 - The value at the third row and second column.
+   * @param {number} i3j3 - The value at the third row and third column.
    * @returns {Mat3} The modified Mat3 instance.
    */
-  set(data: number[]): Mat3 {
-    this._data = data;
+  set(
+    i1j1: number,
+    i1j2: number,
+    i1j3: number,
+    i2j1: number,
+    i2j2: number,
+    i2j3: number,
+    i3j1: number,
+    i3j2: number,
+    i3j3: number
+  ): Mat3 {
+    this._data[0] = i1j1;
+    this._data[1] = i1j2;
+    this._data[2] = i1j3;
+    this._data[3] = i2j1;
+    this._data[4] = i2j2;
+    this._data[5] = i2j3;
+    this._data[6] = i3j1;
+    this._data[7] = i3j2;
+    this._data[8] = i3j3;
 
     return this;
   }
@@ -28,7 +82,7 @@ export default class Mat3 {
    * @returns {Mat3} A new Mat3 instance with the same matrix data.
    */
   copy(): Mat3 {
-    return new Mat3().set(this._data);
+    return new Mat3(...this._data);
   }
 
   /**
@@ -39,7 +93,17 @@ export default class Mat3 {
   multiply(m: Mat3): Mat3 {
     const a = this._data;
     const b = m._data;
-    const c = new Array(9);
+    const c: [
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number
+    ] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     c[0] = a[0] * b[0] + a[1] * b[3] + a[2] * b[6];
     c[1] = a[0] * b[1] + a[1] * b[4] + a[2] * b[7];
@@ -71,7 +135,7 @@ export default class Mat3 {
    * @returns {Mat3} A new Mat3 instance representing the identity matrix.
    */
   static identity(): Mat3 {
-    return new Mat3();
+    return new Mat3(1, 0, 0, 0, 1, 0, 0, 0, 1);
   }
 
   /**
@@ -81,7 +145,7 @@ export default class Mat3 {
    * @returns {Mat3} A new Mat3 instance representing the translation matrix.
    */
   static translation(x: number, y: number): Mat3 {
-    return new Mat3([1, 0, x, 0, 1, y, 0, 0, 1]);
+    return new Mat3(1, 0, x, 0, 1, y, 0, 0, 1);
   }
 
   /**
@@ -93,7 +157,7 @@ export default class Mat3 {
     const c = Math.cos(theta);
     const s = Math.sin(theta);
 
-    return new Mat3([c, -s, 0, s, c, 0, 0, 0, 1]);
+    return new Mat3(c, -s, 0, s, c, 0, 0, 0, 1);
   }
 
   /**
@@ -103,6 +167,6 @@ export default class Mat3 {
    * @returns {Mat3} A new Mat3 instance representing the scaling matrix.
    */
   static scale(x: number, y: number): Mat3 {
-    return new Mat3([x, 0, 0, 0, y, 0, 0, 0, 1]);
+    return new Mat3(x, 0, 0, 0, y, 0, 0, 0, 1);
   }
 }

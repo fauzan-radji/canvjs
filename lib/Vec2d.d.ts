@@ -7,22 +7,7 @@ export type Point2d = Vec2d | {
  * Represents a 2D vector.
  */
 export default class Vec2d {
-    /**
-     * The x-coordinate of the vector.
-     */
-    private _x;
-    /**
-     * The y-coordinate of the vector.
-     */
-    private _y;
-    /**
-     * The angle (in radians) between the vector and the positive x-axis.
-     */
-    private _theta;
-    /**
-     * The magnitude (length) of the vector.
-     */
-    private _magnitude;
+    #private;
     /**
      * Creates a new Vec2d instance.
      * @param {number} x - The x-coordinate of the vector.

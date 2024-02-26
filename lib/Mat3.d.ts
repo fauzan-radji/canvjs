@@ -5,15 +5,31 @@ export default class Mat3 {
     private _data;
     /**
      * Creates a new Mat3 instance.
-     * @param {number[]?} matrix - The initial matrix data. Defaults to the identity matrix.
+     * @param {number} [i1j1] - The value at the first row and first column.
+     * @param {number} [i1j2] - The value at the first row and second column.
+     * @param {number} [i1j3] - The value at the first row and third column.
+     * @param {number} [i2j1] - The value at the second row and first column.
+     * @param {number} [i2j2] - The value at the second row and second column.
+     * @param {number} [i2j3] - The value at the second row and third column.
+     * @param {number} [i3j1] - The value at the third row and first column.
+     * @param {number} [i3j2] - The value at the third row and second column.
+     * @param {number} [i3j3] - The value at the third row and third column.
      */
-    constructor(matrix?: number[]);
+    constructor(i1j1: number, i1j2: number, i1j3: number, i2j1: number, i2j2: number, i2j3: number, i3j1: number, i3j2: number, i3j3: number);
     /**
      * Sets the matrix data.
-     * @param {number[]} data - The new matrix data.
+     * @param {number} i1j1 - The value at the first row and first column.
+     * @param {number} i1j2 - The value at the first row and second column.
+     * @param {number} i1j3 - The value at the first row and third column.
+     * @param {number} i2j1 - The value at the second row and first column.
+     * @param {number} i2j2 - The value at the second row and second column.
+     * @param {number} i2j3 - The value at the second row and third column.
+     * @param {number} i3j1 - The value at the third row and first column.
+     * @param {number} i3j2 - The value at the third row and second column.
+     * @param {number} i3j3 - The value at the third row and third column.
      * @returns {Mat3} The modified Mat3 instance.
      */
-    set(data: number[]): Mat3;
+    set(i1j1: number, i1j2: number, i1j3: number, i2j1: number, i2j2: number, i2j3: number, i3j1: number, i3j2: number, i3j3: number): Mat3;
     /**
      * Creates a copy of the Mat3 instance.
      * @returns {Mat3} A new Mat3 instance with the same matrix data.
