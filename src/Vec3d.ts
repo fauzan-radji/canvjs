@@ -10,27 +10,27 @@ export default class Vec3d {
   /**
    * The x-coordinate of the vector.
    */
-  private _x: number;
+  #x: number = 0;
   /**
    * The y-coordinate of the vector.
    */
-  private _y: number;
+  #y: number = 0;
   /**
    * The z-coordinate of the vector.
    */
-  private _z: number;
+  #z: number = 0;
   /**
    * The angle in the x-y plane.
    */
-  private _theta: number;
+  #theta: number = 0;
   /**
    * The angle in the x-z plane.
    */
-  private _phi: number;
+  #phi: number = 0;
   /**
    * The magnitude of the vector.
    */
-  private _magnitude: number;
+  #magnitude: number = 0;
 
   /**
    * Creates a new Vec3d instance.
@@ -268,10 +268,10 @@ export default class Vec3d {
    * @param {number} x - The x-coordinate.
    */
   set x(x: number) {
-    this._x = x;
-    this._magnitude = Math.sqrt(x ** 2 + this._y ** 2 + this._z ** 2);
-    this._phi = Math.atan2(this._y, x);
-    this._theta = Math.acos(this._z / this._magnitude);
+    this.#x = x;
+    this.#magnitude = Math.sqrt(x ** 2 + this.#y ** 2 + this.#z ** 2);
+    this.#phi = Math.atan2(this.#y, x);
+    this.#theta = Math.acos(this.#z / this.#magnitude);
   }
 
   /**
@@ -279,7 +279,7 @@ export default class Vec3d {
    * @returns {number} The x-coordinate.
    */
   get x(): number {
-    return this._x;
+    return this.#x;
   }
 
   /**
@@ -287,10 +287,10 @@ export default class Vec3d {
    * @param {number} y - The y-coordinate.
    */
   set y(y: number) {
-    this._y = y;
-    this._magnitude = Math.sqrt(this._x ** 2 + y ** 2 + this._z ** 2);
-    this._phi = Math.atan2(y, this._x);
-    this._theta = Math.acos(this._z / this._magnitude);
+    this.#y = y;
+    this.#magnitude = Math.sqrt(this.#x ** 2 + y ** 2 + this.#z ** 2);
+    this.#phi = Math.atan2(y, this.#x);
+    this.#theta = Math.acos(this.#z / this.#magnitude);
   }
 
   /**
@@ -298,7 +298,7 @@ export default class Vec3d {
    * @returns {number} The y-coordinate.
    */
   get y(): number {
-    return this._y;
+    return this.#y;
   }
 
   /**
@@ -306,9 +306,9 @@ export default class Vec3d {
    * @param {number} z - The z-coordinate.
    */
   set z(z: number) {
-    this._z = z;
-    this._magnitude = Math.sqrt(this._x ** 2 + this._y ** 2 + z ** 2);
-    this._theta = Math.acos(z / this._magnitude);
+    this.#z = z;
+    this.#magnitude = Math.sqrt(this.#x ** 2 + this.#y ** 2 + z ** 2);
+    this.#theta = Math.acos(z / this.#magnitude);
   }
 
   /**
@@ -316,7 +316,7 @@ export default class Vec3d {
    * @returns {number} The z-coordinate.
    */
   get z(): number {
-    return this._z;
+    return this.#z;
   }
 
   /**
@@ -324,9 +324,9 @@ export default class Vec3d {
    * @param {number} theta - The angle in radians.
    */
   set phi(phi: number) {
-    this._phi = phi;
-    this._x = this._magnitude * Math.cos(phi) * Math.sin(this._theta);
-    this._y = this._magnitude * Math.sin(phi) * Math.sin(this._theta);
+    this.#phi = phi;
+    this.#x = this.#magnitude * Math.cos(phi) * Math.sin(this.#theta);
+    this.#y = this.#magnitude * Math.sin(phi) * Math.sin(this.#theta);
   }
 
   /**
@@ -334,7 +334,7 @@ export default class Vec3d {
    * @returns {number} The angle in radians.
    */
   get phi(): number {
-    return this._phi;
+    return this.#phi;
   }
 
   /**
@@ -342,10 +342,10 @@ export default class Vec3d {
    * @param {number} theta - The angle in radians.
    */
   set theta(theta: number) {
-    this._theta = theta;
-    this._x = this._magnitude * Math.cos(this._phi) * Math.sin(theta);
-    this._y = this._magnitude * Math.sin(this._phi) * Math.sin(theta);
-    this._z = this._magnitude * Math.cos(theta);
+    this.#theta = theta;
+    this.#x = this.#magnitude * Math.cos(this.#phi) * Math.sin(theta);
+    this.#y = this.#magnitude * Math.sin(this.#phi) * Math.sin(theta);
+    this.#z = this.#magnitude * Math.cos(theta);
   }
 
   /**
@@ -353,7 +353,7 @@ export default class Vec3d {
    * @returns {number} The angle in radians.
    */
   get theta(): number {
-    return this._theta;
+    return this.#theta;
   }
 
   /**
@@ -361,10 +361,10 @@ export default class Vec3d {
    * @param {number} magnitude - The magnitude.
    */
   set magnitude(magnitude: number) {
-    this._magnitude = magnitude;
-    this._x = magnitude * Math.cos(this._phi) * Math.sin(this._theta);
-    this._y = magnitude * Math.sin(this._phi) * Math.sin(this._theta);
-    this._z = magnitude * Math.cos(this._theta);
+    this.#magnitude = magnitude;
+    this.#x = magnitude * Math.cos(this.#phi) * Math.sin(this.#theta);
+    this.#y = magnitude * Math.sin(this.#phi) * Math.sin(this.#theta);
+    this.#z = magnitude * Math.cos(this.#theta);
   }
 
   /**
@@ -372,7 +372,7 @@ export default class Vec3d {
    * @returns {number} The magnitude.
    */
   get magnitude(): number {
-    return this._magnitude;
+    return this.#magnitude;
   }
 
   /**

@@ -9,19 +9,19 @@ export default class Vec2d {
   /**
    * The x-coordinate of the vector.
    */
-  #x: number;
+  #x: number = 0;
   /**
    * The y-coordinate of the vector.
    */
-  #y: number;
+  #y: number = 0;
   /**
    * The angle (in radians) between the vector and the positive x-axis.
    */
-  #theta: number;
+  #theta: number = 0;
   /**
    * The magnitude (length) of the vector.
    */
-  #magnitude: number;
+  #magnitude: number = 0;
 
   /**
    * Creates a new Vec2d instance.

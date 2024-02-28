@@ -9,30 +9,7 @@ export type Point3d = Vec3d | {
  * Represents a 3-dimensional vector.
  */
 export default class Vec3d {
-    /**
-     * The x-coordinate of the vector.
-     */
-    private _x;
-    /**
-     * The y-coordinate of the vector.
-     */
-    private _y;
-    /**
-     * The z-coordinate of the vector.
-     */
-    private _z;
-    /**
-     * The angle in the x-y plane.
-     */
-    private _theta;
-    /**
-     * The angle in the x-z plane.
-     */
-    private _phi;
-    /**
-     * The magnitude of the vector.
-     */
-    private _magnitude;
+    #private;
     /**
      * Creates a new Vec3d instance.
      * @param {number} x - The x-coordinate of the vector.

@@ -20,62 +20,62 @@ export default class Kanvas {
   /**
    * The 2D rendering context of the canvas.
    */
-  #context: CanvasRenderingContext2D;
+  #context: CanvasRenderingContext2D | null;
 
   /**
    * The center point of the canvas.
    */
-  #center: Vec2d;
+  #center: Vec2d = new Vec2d(0, 0);
 
   /**
    * The fill style used for drawing shapes.
    */
-  #fillStyle: Color;
+  #fillStyle: Color = "#fff";
 
   /**
    * The stroke style used for drawing shapes.
    */
-  #strokeStyle: Color;
+  #strokeStyle: Color = "#fff";
 
   /**
    * The line width used for drawing lines and borders.
    */
-  #lineWidth: number;
+  #lineWidth: number = 1;
 
   /**
    * The line dash pattern used for drawing dashed lines.
    */
-  #lineDash: Iterable<number>;
+  #lineDash: Iterable<number> = [];
 
   /**
    * The line dash offset used for drawing dashed lines.
    */
-  #lineDashOffset: number;
+  #lineDashOffset: number = 0;
 
   /**
    * The text alignment used for drawing text.
    */
-  #textAlign: CanvasTextAlign;
+  #textAlign: CanvasTextAlign = "start";
 
   /**
    * The text baseline used for drawing text.
    */
-  #textBaseline: CanvasTextBaseline;
+  #textBaseline: CanvasTextBaseline = "alphabetic";
 
   /**
    * The font used for drawing text.
    */
-  #font: string;
+  #font: string = "10px sans-serif";
 
   /**
    * The global alpha value used for drawing shapes and images.
    */
-  #globalAlpha: number;
+  #globalAlpha: number = 1;
 
   /**
    * The aspect ratio of the canvas.
    */
-  #aspectRatio: number;
+  #aspectRatio: number = 1;
 
   /**
    * Creates a new instance of the Kanvas class.
@@ -131,7 +131,7 @@ export default class Kanvas {
     width: number,
     height: number
   ): Kanvas {
-    this.#context.drawImage(image, point.x, point.y, width, height);
+    this.context.drawImage(image, point.x, point.y, width, height);
 
     return this;
   }
@@ -178,7 +178,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   circle(point: Point2d, radius: number): Kanvas {
-    this.#context.arc(point.x, point.y, radius, 0, 2 * Math.PI);
+    this.context.arc(point.x, point.y, radius, 0, 2 * Math.PI);
 
     return this;
   }
@@ -192,7 +192,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   rect(point: Point2d, width: number, height: number): Kanvas {
-    this.#context.rect(point.x, point.y, width, height);
+    this.context.rect(point.x, point.y, width, height);
 
     return this;
   }
@@ -205,8 +205,8 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   line(begin: Point2d, end: Point2d): Kanvas {
-    this.#context.moveTo(begin.x, begin.y);
-    this.#context.lineTo(end.x, end.y);
+    this.context.moveTo(begin.x, begin.y);
+    this.context.lineTo(end.x, end.y);
 
     return this;
   }
@@ -218,7 +218,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   moveTo(point: Point2d): Kanvas {
-    this.#context.moveTo(point.x, point.y);
+    this.context.moveTo(point.x, point.y);
 
     return this;
   }
@@ -230,7 +230,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   lineTo(point: Point2d): Kanvas {
-    this.#context.lineTo(point.x, point.y);
+    this.context.lineTo(point.x, point.y);
 
     return this;
   }
@@ -265,8 +265,8 @@ export default class Kanvas {
     this.fillStyle = fillStyle;
     this.strokeStyle = strokeStyle;
     this.font = `${size}px Arial`;
-    this.#context.fillText(text, at.x, at.y);
-    this.#context.strokeText(text, at.x, at.y);
+    this.context.fillText(text, at.x, at.y);
+    this.context.strokeText(text, at.x, at.y);
 
     return this;
   }
@@ -277,7 +277,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   beginPath(): Kanvas {
-    this.#context.beginPath();
+    this.context.beginPath();
 
     return this;
   }
@@ -288,7 +288,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   closePath(): Kanvas {
-    this.#context.closePath();
+    this.context.closePath();
 
     return this;
   }
@@ -314,7 +314,7 @@ export default class Kanvas {
     this.strokeStyle = color;
     this.lineWidth = width;
     this.lineDash = dash;
-    this.#context.stroke();
+    this.context.stroke();
 
     return this;
   }
@@ -327,7 +327,7 @@ export default class Kanvas {
    */
   fill(color: Color = this.#fillStyle): Kanvas {
     this.fillStyle = color;
-    this.#context.fill();
+    this.context.fill();
 
     return this;
   }
@@ -348,7 +348,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   clear(): Kanvas {
-    this.#context.clearRect(0, 0, this.width, this.height);
+    this.context.clearRect(0, 0, this.width, this.height);
 
     return this;
   }
@@ -360,7 +360,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   translate(point: Point2d): Kanvas {
-    this.#context.translate(point.x, point.y);
+    this.context.translate(point.x, point.y);
 
     return this;
   }
@@ -372,7 +372,7 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   rotate(angle: number): Kanvas {
-    this.#context.rotate(angle);
+    this.context.rotate(angle);
 
     return this;
   }
@@ -383,7 +383,7 @@ export default class Kanvas {
    * @returns {Kanvas} this Kanvas object
    */
   save(): Kanvas {
-    this.#context.save();
+    this.context.save();
 
     return this;
   }
@@ -394,7 +394,7 @@ export default class Kanvas {
    * @returns {Kanvas} this Kanvas object
    */
   restore(): Kanvas {
-    this.#context.restore();
+    this.context.restore();
 
     return this;
   }
@@ -412,7 +412,7 @@ export default class Kanvas {
 
   set fillStyle(color) {
     this.#fillStyle = color;
-    this.#context.fillStyle = color;
+    this.context.fillStyle = color;
   }
 
   /**
@@ -421,7 +421,7 @@ export default class Kanvas {
    */
   set strokeStyle(value: Color) {
     this.#strokeStyle = value;
-    this.#context.strokeStyle = value;
+    this.context.strokeStyle = value;
   }
 
   /**
@@ -430,7 +430,7 @@ export default class Kanvas {
    */
   set lineWidth(value: number) {
     this.#lineWidth = value;
-    this.#context.lineWidth = value;
+    this.context.lineWidth = value;
   }
 
   /**
@@ -439,7 +439,7 @@ export default class Kanvas {
    */
   set lineDash(value: Iterable<number>) {
     this.#lineDash = value;
-    this.#context.setLineDash(Array.from(value));
+    this.context.setLineDash(Array.from(value));
   }
 
   /**
@@ -448,7 +448,7 @@ export default class Kanvas {
    */
   set lineDashOffset(value: number) {
     this.#lineDashOffset = value;
-    this.#context.lineDashOffset = value;
+    this.context.lineDashOffset = value;
   }
 
   /**
@@ -457,7 +457,7 @@ export default class Kanvas {
    */
   set textAlign(value: CanvasTextAlign) {
     this.#textAlign = value;
-    this.#context.textAlign = value;
+    this.context.textAlign = value;
   }
 
   /**
@@ -466,7 +466,7 @@ export default class Kanvas {
    */
   set textBaseline(value: CanvasTextBaseline) {
     this.#textBaseline = value;
-    this.#context.textBaseline = value;
+    this.context.textBaseline = value;
   }
 
   /**
@@ -475,7 +475,7 @@ export default class Kanvas {
    */
   set font(value: string) {
     this.#font = value;
-    this.#context.font = value;
+    this.context.font = value;
   }
 
   /**
@@ -484,7 +484,7 @@ export default class Kanvas {
    */
   set globalAlpha(value: number) {
     this.#globalAlpha = value;
-    this.#context.globalAlpha = value;
+    this.context.globalAlpha = value;
   }
 
   /**
@@ -508,6 +508,10 @@ export default class Kanvas {
    * @returns {CanvasRenderingContext2D} The 2D rendering context of the canvas.
    */
   get context(): CanvasRenderingContext2D {
+    if (!this.#context) {
+      throw new Error("CanvasRenderingContext2D is null");
+    }
+
     return this.#context;
   }
 
