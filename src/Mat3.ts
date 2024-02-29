@@ -2,7 +2,7 @@
  * Represents a 3x3 matrix.
  */
 export default class Mat3 {
-  private _data: [
+  #data: [
     number,
     number,
     number,
@@ -37,7 +37,7 @@ export default class Mat3 {
     i3j2: number,
     i3j3: number
   ) {
-    this._data = [i1j1, i1j2, i1j3, i2j1, i2j2, i2j3, i3j1, i3j2, i3j3];
+    this.#data = [i1j1, i1j2, i1j3, i2j1, i2j2, i2j3, i3j1, i3j2, i3j3];
   }
 
   /**
@@ -64,15 +64,15 @@ export default class Mat3 {
     i3j2: number,
     i3j3: number
   ): Mat3 {
-    this._data[0] = i1j1;
-    this._data[1] = i1j2;
-    this._data[2] = i1j3;
-    this._data[3] = i2j1;
-    this._data[4] = i2j2;
-    this._data[5] = i2j3;
-    this._data[6] = i3j1;
-    this._data[7] = i3j2;
-    this._data[8] = i3j3;
+    this.#data[0] = i1j1;
+    this.#data[1] = i1j2;
+    this.#data[2] = i1j3;
+    this.#data[3] = i2j1;
+    this.#data[4] = i2j2;
+    this.#data[5] = i2j3;
+    this.#data[6] = i3j1;
+    this.#data[7] = i3j2;
+    this.#data[8] = i3j3;
 
     return this;
   }
@@ -82,7 +82,7 @@ export default class Mat3 {
    * @returns {Mat3} A new Mat3 instance with the same matrix data.
    */
   copy(): Mat3 {
-    return new Mat3(...this._data);
+    return new Mat3(...this.#data);
   }
 
   /**
@@ -91,8 +91,8 @@ export default class Mat3 {
    * @returns {Mat3} The modified Mat3 instance.
    */
   multiply(m: Mat3): Mat3 {
-    const a = this._data;
-    const b = m._data;
+    const a = this.#data;
+    const b = m.#data;
     const c: [
       number,
       number,
@@ -117,7 +117,7 @@ export default class Mat3 {
     c[7] = a[6] * b[1] + a[7] * b[4] + a[8] * b[7];
     c[8] = a[6] * b[2] + a[7] * b[5] + a[8] * b[8];
 
-    this._data = c;
+    this.#data = c;
 
     return this;
   }
@@ -127,7 +127,7 @@ export default class Mat3 {
    * @returns {number[]} The matrix data.
    */
   get data(): number[] {
-    return this._data;
+    return this.#data;
   }
 
   /**

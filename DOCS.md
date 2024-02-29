@@ -12,11 +12,16 @@
       - [Constructor](#constructor)
       - [Methods](#methods)
       - [Properties](#properties)
-    - [Vec2d](#vec2d)
+    - [Mat3](#mat3)
       - [Constructor](#constructor-1)
       - [Methods](#methods-1)
       - [Properties](#properties-1)
       - [Static Methods](#static-methods)
+    - [Vec2d](#vec2d)
+      - [Constructor](#constructor-2)
+      - [Methods](#methods-2)
+      - [Properties](#properties-2)
+      - [Static Methods](#static-methods-1)
   - [Type Aliases](#type-aliases)
     - [Point2d](#point2d)
     - [Color](#color)
@@ -172,10 +177,10 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
    **Example**:
 
-   <!-- TODO -->
-
    ```javascript
    const canvas = new Kanvas("myCanvas", 800, 600);
+   canvas.circle(canvas.center, 100).fill("#00ffff");
+   canvas.circle({ x: 200, y: 200 }, 50).fill("#ff00ff");
    ```
 
 5. `rect(point, width, height)`
@@ -194,10 +199,10 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
    **Example**:
 
-   <!-- TODO -->
-
    ```javascript
    const canvas = new Kanvas("myCanvas", 800, 600);
+   canvas.rect(canvas.center, 200, 150).fill("#00ffff");
+   canvas.rect({ x: 100, y: 100 }, 200, 150).fill("#ff00ff");
    ```
 
 6. `line(begin, end)`
@@ -215,10 +220,9 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
    **Example**:
 
-   <!-- TODO -->
-
    ```javascript
    const canvas = new Kanvas("myCanvas", 800, 600);
+   canvas.line(canvas.center, { x: 200, y: 200 }).stroke();
    ```
 
 7. `moveTo(point)`
@@ -235,10 +239,9 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
    **Example**:
 
-   <!-- TODO -->
-
    ```javascript
    const canvas = new Kanvas("myCanvas", 800, 600);
+   canvas.moveTo({ x: 200, y: 200 });
    ```
 
 8. `lineTo(point)`
@@ -255,10 +258,14 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
    **Example**:
 
-   <!-- TODO -->
-
    ```javascript
    const canvas = new Kanvas("myCanvas", 800, 600);
+   canvas
+     .moveTo({ x: 200, y: 200 })
+     .lineTo({ x: 300, y: 300 })
+     .lineTo({ x: 400, y: 200 })
+     .lineTo({ x: 200, y: 200 })
+     .stroke();
    ```
 
 9. `text({ text, at, fillStyle?, strokeStyle?, size? })`
@@ -294,10 +301,17 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     **Example**:
 
-    <!-- TODO -->
-
     ```javascript
     const canvas = new Kanvas("myCanvas", 800, 600);
+    canvas
+      .beginPath()
+      .moveTo({ x: 200, y: 200 })
+      .lineTo({ x: 300, y: 300 })
+      .lineTo({ x: 400, y: 200 })
+      .lineTo({ x: 200, y: 200 })
+      .stroke();
+
+    canvas.beginPath().circle({ x: 200, y: 200 }, 50).fill("#00ffff");
     ```
 
 11. `closePath()`
@@ -308,10 +322,29 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     **Example**:
 
-    <!-- TODO -->
-
     ```javascript
     const canvas = new Kanvas("myCanvas", 800, 600);
+
+    canvas
+      .beginPath()
+      .moveTo({ x: 200, y: 200 })
+      .lineTo({ x: 300, y: 300 })
+      .lineTo({ x: 400, y: 200 })
+      .lineTo({ x: 200, y: 200 })
+      .closePath()
+      .stroke();
+
+    canvas
+      .beginPath()
+      .circle({ x: 200, y: 200 }, 50)
+      .closePath()
+      .fill("#00ffff");
+
+    canvas
+      .beginPath()
+      .rect({ x: 100, y: 100 }, 200, 150)
+      .closePath()
+      .fill("#ff00ff");
     ```
 
 12. `stroke({ color?, width?, dash? })`
@@ -331,10 +364,18 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     **Example**:
 
-    <!-- TODO -->
-
     ```javascript
     const canvas = new Kanvas("myCanvas", 800, 600);
+
+    canvas
+      .beginPath()
+      .circle({ x: 200, y: 200 }, 50)
+      .stroke({ color: "#00ffff", width: 5 });
+
+    canvas
+      .beginPath()
+      .rect({ x: 100, y: 100 }, 200, 150)
+      .stroke({ color: "#ff00ff", width: 3, dash: [5, 5] });
     ```
 
 13. `fill(color?)`
@@ -351,10 +392,21 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     **Example**:
 
-    <!-- TODO -->
-
     ```javascript
     const canvas = new Kanvas("myCanvas", 800, 600);
+
+    canvas.beginPath().circle({ x: 200, y: 200 }, 50).fill("#00ffff");
+
+    canvas.beginPath().rect({ x: 100, y: 100 }, 200, 150).fill("#ff00ff");
+
+    canvas
+      .beginPath()
+      .moveTo({ x: 200, y: 200 })
+      .lineTo({ x: 300, y: 300 })
+      .lineTo({ x: 400, y: 200 })
+      .lineTo({ x: 200, y: 200 })
+      .closePath()
+      .fill("#00ffff");
     ```
 
 14. `background(color: CSSColor = "#000")`
@@ -371,10 +423,10 @@ Represents a canvas element and provides methods for drawing shapes and images o
 
     **Example**:
 
-    <!-- TODO -->
-
     ```javascript
     const canvas = new Kanvas("myCanvas", 800, 600);
+
+    canvas.background("#fff");
     ```
 
 15. `clear()`
@@ -495,6 +547,179 @@ Represents a canvas element and provides methods for drawing shapes and images o
 | context        | [`CanvasRenderingContext2D`][CanvasRenderingContext2D] | The 2D rendering context of the canvas.                    | ❌                            | ✅     |
 | center         | [`Vec2d`][Vec2d]                                       | The center point of the canvas.                            | ❌                            | ✅     |
 | aspectRatio    | `number`                                               | The aspect ratio of the canvas.                            | ❌                            | ✅     |
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+### Mat3
+
+Represents a 3x3 matrix.
+
+#### Constructor
+
+**Parameters**:
+
+| Name   | Type   | Description                                    | Required | Default |
+| ------ | ------ | ---------------------------------------------- | -------- | ------- |
+| `i1j1` | number | The value at the first row and first column.   | ✅       | -       |
+| `i1j2` | number | The value at the first row and second column.  | ✅       | -       |
+| `i1j3` | number | The value at the first row and third column.   | ✅       | -       |
+| `i2j1` | number | The value at the second row and first column.  | ✅       | -       |
+| `i2j2` | number | The value at the second row and second column. | ✅       | -       |
+| `i2j3` | number | The value at the second row and third column.  | ✅       | -       |
+| `i3j1` | number | The value at the third row and first column.   | ✅       | -       |
+| `i3j2` | number | The value at the third row and second column.  | ✅       | -       |
+| `i3j3` | number | The value at the third row and third column.   | ✅       | -       |
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Methods
+
+1. `set(i1j1, i1j2, i1j3, i2j1, i2j2, i2j3, i3j1, i3j2, i3j3)`
+
+   Sets the matrix data.
+
+   **Parameters**:
+
+   | Name   | Type   | Description                                    | Required | Default |
+   | ------ | ------ | ---------------------------------------------- | -------- | ------- |
+   | `i1j1` | number | The value at the first row and first column.   | ✅       | -       |
+   | `i1j2` | number | The value at the first row and second column.  | ✅       | -       |
+   | `i1j3` | number | The value at the first row and third column.   | ✅       | -       |
+   | `i2j1` | number | The value at the second row and first column.  | ✅       | -       |
+   | `i2j2` | number | The value at the second row and second column. | ✅       | -       |
+   | `i2j3` | number | The value at the second row and third column.  | ✅       | -       |
+   | `i3j1` | number | The value at the third row and first column.   | ✅       | -       |
+   | `i3j2` | number | The value at the third row and second column.  | ✅       | -       |
+   | `i3j3` | number | The value at the third row and third column.   | ✅       | -       |
+
+   **Returns**: [`Mat3`][Mat3]
+
+   **Example**:
+
+   ```javascript
+   const matrix = new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1);
+   matrix.set(2, 0, 0, 0, 2, 0, 5, 6, 1);
+   console.log(matrix); // Mat3 { _data: [2, 0, 0, 0, 2, 0, 5, 6, 1] }
+   ```
+
+2. `copy()`
+
+   Creates a copy of the Mat3 instance.
+
+   **Returns**: [`Mat3`][Mat3]
+
+   **Example**:
+
+   ```javascript
+   const matrix = new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1);
+   const copy = matrix.copy();
+   console.log(copy); // Mat3 { _data: [1, 0, 0, 0, 1, 0, 5, 6, 1] }
+   ```
+
+3. `multiply(m)`
+
+   Multiplies the current matrix with another matrix.
+
+   **Parameters**:
+
+   | Name | Type   | Description             | Required | Default |
+   | ---- | ------ | ----------------------- | -------- | ------- |
+   | `m`  | [Mat3] | The matrix to multiply. | ✅       | -       |
+
+   **Returns**: [`Mat3`][Mat3]
+
+   **Example**:
+
+   ```javascript
+   const matrix = new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1);
+   const matrix2 = new Mat3(2, 0, 0, 0, 2, 0, 5, 6, 1);
+   matrix.multiply(matrix2);
+   console.log(matrix); // Mat3 { _data: [2, 0, 0, 0, 2, 0, 15, 18, 1] }
+   ```
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Properties
+
+| Name | Type     | Description      | Setter | Getter |
+| ---- | -------- | ---------------- | ------ | ------ |
+| data | `number` | The matrix data. | ❌     | ✅     |
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Static Methods
+
+1. `identity()`
+
+   Creates an identity matrix.
+
+   **Returns**: [`Mat3`][Mat3]
+
+   **Example**:
+
+   ```javascript
+   const identityMatrix = Mat3.identity();
+   console.log(identityMatrix); // Mat3 { _data: [1, 0, 0, 0, 1, 0, 0, 0, 1] }
+   ```
+
+2. `translation(x, y)`
+
+   Creates a translation matrix.
+
+   **Parameters**:
+
+   | Name | Type   | Description                       | Required | Default |
+   | ---- | ------ | --------------------------------- | -------- | ------- |
+   | `x`  | number | The translation along the x-axis. | ✅       | -       |
+   | `y`  | number | The translation along the y-axis. | ✅       | -       |
+
+   **Returns**: [`Mat3`][Mat3]
+
+   **Example**:
+
+   ```javascript
+   const translationMatrix = Mat3.translation(5, 6);
+   console.log(translationMatrix); // Mat3 { _data: [1, 0, 0, 0, 1, 0, 5, 6, 1] }
+   ```
+
+3. `rotation(theta)`
+
+   Creates a rotation matrix.
+
+   **Parameters**:
+
+   | Name    | Type   | Description                    | Required | Default |
+   | ------- | ------ | ------------------------------ | -------- | ------- |
+   | `theta` | number | The rotation angle in radians. | ✅       | -       |
+
+   **Returns**: [`Mat3`][Mat3]
+
+   **Example**:
+
+   ```javascript
+   const rotationMatrix = Mat3.rotation(Math.PI / 2);
+   console.log(rotationMatrix); // Mat3 { _data: [0, 1, 0, -1, 0, 0, 0, 0, 1] }
+   ```
+
+4. `scale(x, y)`
+
+   Creates a scaling matrix.
+
+   **Parameters**:
+
+   | Name | Type   | Description                          | Required | Default |
+   | ---- | ------ | ------------------------------------ | -------- | ------- |
+   | `x`  | number | The scaling factor along the x-axis. | ✅       | -       |
+   | `y`  | number | The scaling factor along the y-axis. | ✅       | -       |
+
+   **Returns**: [`Mat3`][Mat3]
+
+   **Example**:
+
+   ```javascript
+   const scalingMatrix = Mat3.scale(2, 3);
+   console.log(scalingMatrix); // Mat3 { _data: [2, 0, 0, 0, 3, 0, 0, 0, 1] }
+   ```
 
 [Back to Table of Contents :arrow_up:][Table of Contents]
 

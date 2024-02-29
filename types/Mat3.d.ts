@@ -2,7 +2,7 @@
  * Represents a 3x3 matrix.
  */
 export default class Mat3 {
-    private _data;
+    #private;
     /**
      * Creates a new Mat3 instance.
      * @param {number} [i1j1] - The value at the first row and first column.
