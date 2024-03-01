@@ -94,7 +94,7 @@ describe("Vec3d", () => {
   });
 
   it("should transform the vector by a 4x4 matrix", () => {
-    const matrix = new Mat4([2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 1, 1, 1]);
+    const matrix = new Mat4(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 1, 1, 1);
     vec.transform(matrix);
     expect(vec.x).toBe(3);
     expect(vec.y).toBe(5);

@@ -3,25 +3,136 @@
  */
 export default class Mat4 {
   /** The matrix data. */
-  private _data: number[];
+  #data: [
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number
+  ];
 
   /**
    * Creates a new Mat4 instance.
-   * @param {number[]} matrix - The initial matrix data. Defaults to the identity matrix.
+   * @param {number} [i1j1] - The value at the first row and first column.
+   * @param {number} [i1j2] - The value at the first row and second column.
+   * @param {number} [i1j3] - The value at the first row and third column.
+   * @param {number} [i1j4] - The value at the first row and fourth column.
+   * @param {number} [i2j1] - The value at the second row and first column.
+   * @param {number} [i2j2] - The value at the second row and second column.
+   * @param {number} [i2j3] - The value at the second row and third column.
+   * @param {number} [i2j4] - The value at the second row and fourth column.
+   * @param {number} [i3j1] - The value at the third row and first column.
+   * @param {number} [i3j2] - The value at the third row and second column.
+   * @param {number} [i3j3] - The value at the third row and third column.
+   * @param {number} [i3j4] - The value at the third row and fourth column.
+   * @param {number} [i4j1] - The value at the fourth row and first column.
+   * @param {number} [i4j2] - The value at the fourth row and second column.
+   * @param {number} [i4j3] - The value at the fourth row and third column.
+   * @param {number} [i4j4] - The value at the fourth row and fourth column.
    */
   constructor(
-    matrix: number[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    i1j1: number,
+    i1j2: number,
+    i1j3: number,
+    i1j4: number,
+    i2j1: number,
+    i2j2: number,
+    i2j3: number,
+    i2j4: number,
+    i3j1: number,
+    i3j2: number,
+    i3j3: number,
+    i3j4: number,
+    i4j1: number,
+    i4j2: number,
+    i4j3: number,
+    i4j4: number
   ) {
-    this._data = matrix;
+    this.#data = [
+      i1j1,
+      i1j2,
+      i1j3,
+      i1j4,
+      i2j1,
+      i2j2,
+      i2j3,
+      i2j4,
+      i3j1,
+      i3j2,
+      i3j3,
+      i3j4,
+      i4j1,
+      i4j2,
+      i4j3,
+      i4j4,
+    ];
   }
 
   /**
    * Sets the matrix data.
-   * @param {number[]} data - The new matrix data.
+   * @param {number} i1j1 - The value at the first row and first column.
+   * @param {number} i1j2 - The value at the first row and second column.
+   * @param {number} i1j3 - The value at the first row and third column.
+   * @param {number} i1j4 - The value at the first row and fourth column.
+   * @param {number} i2j1 - The value at the second row and first column.
+   * @param {number} i2j2 - The value at the second row and second column.
+   * @param {number} i2j3 - The value at the second row and third column.
+   * @param {number} i2j4 - The value at the second row and fourth column.
+   * @param {number} i3j1 - The value at the third row and first column.
+   * @param {number} i3j2 - The value at the third row and second column.
+   * @param {number} i3j3 - The value at the third row and third column.
+   * @param {number} i3j4 - The value at the third row and fourth column.
+   * @param {number} i4j1 - The value at the fourth row and first column.
+   * @param {number} i4j2 - The value at the fourth row and second column.
+   * @param {number} i4j3 - The value at the fourth row and third column.
+   * @param {number} i4j4 - The value at the fourth row and fourth column.
    * @returns {Mat4} The modified Mat4 instance.
    */
-  set(data: number[]): Mat4 {
-    this._data = data;
+  set(
+    i1j1: number,
+    i1j2: number,
+    i1j3: number,
+    i1j4: number,
+    i2j1: number,
+    i2j2: number,
+    i2j3: number,
+    i2j4: number,
+    i3j1: number,
+    i3j2: number,
+    i3j3: number,
+    i3j4: number,
+    i4j1: number,
+    i4j2: number,
+    i4j3: number,
+    i4j4: number
+  ): Mat4 {
+    this.#data[0] = i1j1;
+    this.#data[1] = i1j2;
+    this.#data[2] = i1j3;
+    this.#data[3] = i1j4;
+    this.#data[4] = i2j1;
+    this.#data[5] = i2j2;
+    this.#data[6] = i2j3;
+    this.#data[7] = i2j4;
+    this.#data[8] = i3j1;
+    this.#data[9] = i3j2;
+    this.#data[10] = i3j3;
+    this.#data[11] = i3j4;
+    this.#data[12] = i4j1;
+    this.#data[13] = i4j2;
+    this.#data[14] = i4j3;
+    this.#data[15] = i4j4;
 
     return this;
   }
@@ -31,7 +142,7 @@ export default class Mat4 {
    * @returns {Mat4} A new Mat4 instance with the same matrix data.
    */
   copy(): Mat4 {
-    return new Mat4().set(this._data);
+    return new Mat4(...this.#data);
   }
 
   /**
@@ -40,9 +151,26 @@ export default class Mat4 {
    * @returns {Mat4} The modified Mat4 instance.
    */
   multiply(m: Mat4): Mat4 {
-    const a = this._data;
-    const b = m._data;
-    const c = new Array(16);
+    const a = this.#data;
+    const b = m.#data;
+    const c: [
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number,
+      number
+    ] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     c[0] = a[0] * b[0] + a[1] * b[4] + a[2] * b[8] + a[3] * b[12];
     c[1] = a[0] * b[1] + a[1] * b[5] + a[2] * b[9] + a[3] * b[13];
@@ -61,7 +189,7 @@ export default class Mat4 {
     c[14] = a[12] * b[2] + a[13] * b[6] + a[14] * b[10] + a[15] * b[14];
     c[15] = a[12] * b[3] + a[13] * b[7] + a[14] * b[11] + a[15] * b[15];
 
-    this._data = c;
+    this.#data = c;
 
     return this;
   }
@@ -71,7 +199,7 @@ export default class Mat4 {
    * @returns {number[]} The matrix data.
    */
   get data(): number[] {
-    return this._data;
+    return this.#data;
   }
 
   /**
@@ -79,7 +207,7 @@ export default class Mat4 {
    * @returns {Mat4} A new Mat4 instance representing the identity matrix.
    */
   static identity(): Mat4 {
-    return new Mat4();
+    return new Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
   }
 
   /**
@@ -90,7 +218,7 @@ export default class Mat4 {
    * @returns {Mat4} A new Mat4 instance representing the translation matrix.
    */
   static translation(x: number, y: number, z: number): Mat4 {
-    return new Mat4([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1]);
+    return new Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1);
   }
 
   /**
@@ -102,7 +230,7 @@ export default class Mat4 {
     const c = Math.cos(theta);
     const s = Math.sin(theta);
 
-    return new Mat4([1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1]);
+    return new Mat4(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1);
   }
 
   /**
@@ -114,7 +242,7 @@ export default class Mat4 {
     const c = Math.cos(theta);
     const s = Math.sin(theta);
 
-    return new Mat4([c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1]);
+    return new Mat4(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1);
   }
 
   /**
@@ -126,7 +254,7 @@ export default class Mat4 {
     const c = Math.cos(theta);
     const s = Math.sin(theta);
 
-    return new Mat4([c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
+    return new Mat4(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
   }
 
   /**
@@ -137,7 +265,7 @@ export default class Mat4 {
    * @returns {Mat4} A new Mat4 instance representing the scaling matrix.
    */
   static scale(x: number, y: number, z: number): Mat4 {
-    return new Mat4([x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1]);
+    return new Mat4(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1);
   }
 
   /**
@@ -160,11 +288,23 @@ export default class Mat4 {
     const f = 1 / Math.tan(fieldOfView / 2);
     const q = far / (far - near);
 
-    return new Mat4([
-      (1 / aspect) * f, 0, 0, 0,
-      0, f, 0, 0,
-      0, 0, q, -q * near,
-      0, 0, 1, 0,
-    ]);
+    return new Mat4(
+      (1 / aspect) * f,
+      0,
+      0,
+      0,
+      0,
+      f,
+      0,
+      0,
+      0,
+      0,
+      q,
+      -q * near,
+      0,
+      0,
+      1,
+      0
+    );
   }
 }

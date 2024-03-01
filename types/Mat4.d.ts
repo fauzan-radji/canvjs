@@ -2,19 +2,48 @@
  * Represents a 4x4 matrix.
  */
 export default class Mat4 {
-    /** The matrix data. */
-    private _data;
+    #private;
     /**
      * Creates a new Mat4 instance.
-     * @param {number[]} matrix - The initial matrix data. Defaults to the identity matrix.
+     * @param {number} [i1j1] - The value at the first row and first column.
+     * @param {number} [i1j2] - The value at the first row and second column.
+     * @param {number} [i1j3] - The value at the first row and third column.
+     * @param {number} [i1j4] - The value at the first row and fourth column.
+     * @param {number} [i2j1] - The value at the second row and first column.
+     * @param {number} [i2j2] - The value at the second row and second column.
+     * @param {number} [i2j3] - The value at the second row and third column.
+     * @param {number} [i2j4] - The value at the second row and fourth column.
+     * @param {number} [i3j1] - The value at the third row and first column.
+     * @param {number} [i3j2] - The value at the third row and second column.
+     * @param {number} [i3j3] - The value at the third row and third column.
+     * @param {number} [i3j4] - The value at the third row and fourth column.
+     * @param {number} [i4j1] - The value at the fourth row and first column.
+     * @param {number} [i4j2] - The value at the fourth row and second column.
+     * @param {number} [i4j3] - The value at the fourth row and third column.
+     * @param {number} [i4j4] - The value at the fourth row and fourth column.
      */
-    constructor(matrix?: number[]);
+    constructor(i1j1: number, i1j2: number, i1j3: number, i1j4: number, i2j1: number, i2j2: number, i2j3: number, i2j4: number, i3j1: number, i3j2: number, i3j3: number, i3j4: number, i4j1: number, i4j2: number, i4j3: number, i4j4: number);
     /**
      * Sets the matrix data.
-     * @param {number[]} data - The new matrix data.
+     * @param {number} i1j1 - The value at the first row and first column.
+     * @param {number} i1j2 - The value at the first row and second column.
+     * @param {number} i1j3 - The value at the first row and third column.
+     * @param {number} i1j4 - The value at the first row and fourth column.
+     * @param {number} i2j1 - The value at the second row and first column.
+     * @param {number} i2j2 - The value at the second row and second column.
+     * @param {number} i2j3 - The value at the second row and third column.
+     * @param {number} i2j4 - The value at the second row and fourth column.
+     * @param {number} i3j1 - The value at the third row and first column.
+     * @param {number} i3j2 - The value at the third row and second column.
+     * @param {number} i3j3 - The value at the third row and third column.
+     * @param {number} i3j4 - The value at the third row and fourth column.
+     * @param {number} i4j1 - The value at the fourth row and first column.
+     * @param {number} i4j2 - The value at the fourth row and second column.
+     * @param {number} i4j3 - The value at the fourth row and third column.
+     * @param {number} i4j4 - The value at the fourth row and fourth column.
      * @returns {Mat4} The modified Mat4 instance.
      */
-    set(data: number[]): Mat4;
+    set(i1j1: number, i1j2: number, i1j3: number, i1j4: number, i2j1: number, i2j2: number, i2j3: number, i2j4: number, i3j1: number, i3j2: number, i3j3: number, i3j4: number, i4j1: number, i4j2: number, i4j3: number, i4j4: number): Mat4;
     /**
      * Creates a copy of the Mat4 instance.
      * @returns {Mat4} A new Mat4 instance with the same matrix data.

@@ -17,11 +17,16 @@
       - [Methods](#methods-1)
       - [Properties](#properties-1)
       - [Static Methods](#static-methods)
-    - [Vec2d](#vec2d)
+    - [Mat4](#mat4)
       - [Constructor](#constructor-2)
       - [Methods](#methods-2)
       - [Properties](#properties-2)
       - [Static Methods](#static-methods-1)
+    - [Vec2d](#vec2d)
+      - [Constructor](#constructor-3)
+      - [Methods](#methods-3)
+      - [Properties](#properties-3)
+      - [Static Methods](#static-methods-2)
   - [Type Aliases](#type-aliases)
     - [Point2d](#point2d)
     - [Color](#color)
@@ -599,7 +604,7 @@ Represents a 3x3 matrix.
    ```javascript
    const matrix = new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1);
    matrix.set(2, 0, 0, 0, 2, 0, 5, 6, 1);
-   console.log(matrix); // Mat3 { _data: [2, 0, 0, 0, 2, 0, 5, 6, 1] }
+   console.log(matrix.data); // [2, 0, 0, 0, 2, 0, 5, 6, 1]
    ```
 
 2. `copy()`
@@ -613,7 +618,7 @@ Represents a 3x3 matrix.
    ```javascript
    const matrix = new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1);
    const copy = matrix.copy();
-   console.log(copy); // Mat3 { _data: [1, 0, 0, 0, 1, 0, 5, 6, 1] }
+   console.log(copy.data); // [1, 0, 0, 0, 1, 0, 5, 6, 1]
    ```
 
 3. `multiply(m)`
@@ -634,7 +639,7 @@ Represents a 3x3 matrix.
    const matrix = new Mat3(1, 0, 0, 0, 1, 0, 5, 6, 1);
    const matrix2 = new Mat3(2, 0, 0, 0, 2, 0, 5, 6, 1);
    matrix.multiply(matrix2);
-   console.log(matrix); // Mat3 { _data: [2, 0, 0, 0, 2, 0, 15, 18, 1] }
+   console.log(matrix.data); // [2, 0, 0, 0, 2, 0, 15, 18, 1]
    ```
 
 [Back to Table of Contents :arrow_up:][Table of Contents]
@@ -719,6 +724,368 @@ Represents a 3x3 matrix.
    ```javascript
    const scalingMatrix = Mat3.scale(2, 3);
    console.log(scalingMatrix); // Mat3 { _data: [2, 0, 0, 0, 3, 0, 0, 0, 1] }
+   ```
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+<!-- /**
+ * Represents a 4x4 matrix.
+ */
+export default class Mat4 {
+    #private;
+    /**
+     * Creates a new Mat4 instance.
+     * @param {number} [i1j1] - The value at the first row and first column.
+     * @param {number} [i1j2] - The value at the first row and second column.
+     * @param {number} [i1j3] - The value at the first row and third column.
+     * @param {number} [i1j4] - The value at the first row and fourth column.
+     * @param {number} [i2j1] - The value at the second row and first column.
+     * @param {number} [i2j2] - The value at the second row and second column.
+     * @param {number} [i2j3] - The value at the second row and third column.
+     * @param {number} [i2j4] - The value at the second row and fourth column.
+     * @param {number} [i3j1] - The value at the third row and first column.
+     * @param {number} [i3j2] - The value at the third row and second column.
+     * @param {number} [i3j3] - The value at the third row and third column.
+     * @param {number} [i3j4] - The value at the third row and fourth column.
+     * @param {number} [i4j1] - The value at the fourth row and first column.
+     * @param {number} [i4j2] - The value at the fourth row and second column.
+     * @param {number} [i4j3] - The value at the fourth row and third column.
+     * @param {number} [i4j4] - The value at the fourth row and fourth column.
+     */
+    constructor(i1j1: number, i1j2: number, i1j3: number, i1j4: number, i2j1: number, i2j2: number, i2j3: number, i2j4: number, i3j1: number, i3j2: number, i3j3: number, i3j4: number, i4j1: number, i4j2: number, i4j3: number, i4j4: number);
+    /**
+     * Sets the matrix data.
+     * @param {number} i1j1 - The value at the first row and first column.
+     * @param {number} i1j2 - The value at the first row and second column.
+     * @param {number} i1j3 - The value at the first row and third column.
+     * @param {number} i1j4 - The value at the first row and fourth column.
+     * @param {number} i2j1 - The value at the second row and first column.
+     * @param {number} i2j2 - The value at the second row and second column.
+     * @param {number} i2j3 - The value at the second row and third column.
+     * @param {number} i2j4 - The value at the second row and fourth column.
+     * @param {number} i3j1 - The value at the third row and first column.
+     * @param {number} i3j2 - The value at the third row and second column.
+     * @param {number} i3j3 - The value at the third row and third column.
+     * @param {number} i3j4 - The value at the third row and fourth column.
+     * @param {number} i4j1 - The value at the fourth row and first column.
+     * @param {number} i4j2 - The value at the fourth row and second column.
+     * @param {number} i4j3 - The value at the fourth row and third column.
+     * @param {number} i4j4 - The value at the fourth row and fourth column.
+     * @returns {Mat4} The modified Mat4 instance.
+     */
+    set(i1j1: number, i1j2: number, i1j3: number, i1j4: number, i2j1: number, i2j2: number, i2j3: number, i2j4: number, i3j1: number, i3j2: number, i3j3: number, i3j4: number, i4j1: number, i4j2: number, i4j3: number, i4j4: number): Mat4;
+    /**
+     * Creates a copy of the Mat4 instance.
+     * @returns {Mat4} A new Mat4 instance with the same matrix data.
+     */
+    copy(): Mat4;
+    /**
+     * Multiplies this matrix with another matrix.
+     * @param {Mat4} m - The matrix to multiply with.
+     * @returns {Mat4} The modified Mat4 instance.
+     */
+    multiply(m: Mat4): Mat4;
+    /**
+     * Gets the matrix data.
+     * @returns {number[]} The matrix data.
+     */
+    get data(): number[];
+    /**
+     * Creates an identity matrix.
+     * @returns {Mat4} A new Mat4 instance representing the identity matrix.
+     */
+    static identity(): Mat4;
+    /**
+     * Creates a translation matrix.
+     * @param {number} x - The translation along the x-axis.
+     * @param {number} y - The translation along the y-axis.
+     * @param {number} z - The translation along the z-axis.
+     * @returns {Mat4} A new Mat4 instance representing the translation matrix.
+     */
+    static translation(x: number, y: number, z: number): Mat4;
+    /**
+     * Creates a rotation matrix around the x-axis.
+     * @param {number} theta - The rotation angle in radians.
+     * @returns {Mat4} A new Mat4 instance representing the rotation matrix.
+     */
+    static rotationX(theta: number): Mat4;
+    /**
+     * Creates a rotation matrix around the y-axis.
+     * @param {number} theta - The rotation angle in radians.
+     * @returns {Mat4} A new Mat4 instance representing the rotation matrix.
+     */
+    static rotationY(theta: number): Mat4;
+    /**
+     * Creates a rotation matrix around the z-axis.
+     * @param {number} theta - The rotation angle in radians.
+     * @returns {Mat4} A new Mat4 instance representing the rotation matrix.
+     */
+    static rotationZ(theta: number): Mat4;
+    /**
+     * Creates a scaling matrix.
+     * @param {number} x - The scaling factor along the x-axis.
+     * @param {number} y - The scaling factor along the y-axis.
+     * @param {number} z - The scaling factor along the z-axis.
+     * @returns {Mat4} A new Mat4 instance representing the scaling matrix.
+     */
+    static scale(x: number, y: number, z: number): Mat4;
+    /**
+     * Creates a perspective projection matrix.
+     * @param {number} fieldOfView - The field of view angle in degrees.
+     * @param {number} aspect - The aspect ratio of the viewport.
+     * @param {number} near - The distance to the near clipping plane.
+     * @param {number} far - The distance to the far clipping plane.
+     * @returns {Mat4} A new Mat4 instance representing the perspective projection matrix.
+     */
+    static perspective(fieldOfView: number, aspect: number, near: number, far: number): Mat4;
+}
+ -->
+
+### Mat4
+
+Represents a 4x4 matrix.
+
+#### Constructor
+
+**Parameters**:
+
+| Name   | Type   | Description                                    | Required | Default |
+| ------ | ------ | ---------------------------------------------- | -------- | ------- |
+| `i1j1` | number | The value at the first row and first column.   | ✅       | -       |
+| `i1j2` | number | The value at the first row and second column.  | ✅       | -       |
+| `i1j3` | number | The value at the first row and third column.   | ✅       | -       |
+| `i1j4` | number | The value at the first row and fourth column.  | ✅       | -       |
+| `i2j1` | number | The value at the second row and first column.  | ✅       | -       |
+| `i2j2` | number | The value at the second row and second column. | ✅       | -       |
+| `i2j3` | number | The value at the second row and third column.  | ✅       | -       |
+| `i2j4` | number | The value at the second row and fourth column. | ✅       | -       |
+| `i3j1` | number | The value at the third row and first column.   | ✅       | -       |
+| `i3j2` | number | The value at the third row and second column.  | ✅       | -       |
+| `i3j3` | number | The value at the third row and third column.   | ✅       | -       |
+| `i3j4` | number | The value at the third row and fourth column.  | ✅       | -       |
+| `i4j1` | number | The value at the fourth row and first column.  | ✅       | -       |
+| `i4j2` | number | The value at the fourth row and second column. | ✅       | -       |
+| `i4j3` | number | The value at the fourth row and third column.  | ✅       | -       |
+| `i4j4` | number | The value at the fourth row and fourth column. | ✅       | -       |
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Methods
+
+1. `set(i1j1, i1j2, i1j3, i1j4, i2j1, i2j2, i2j3, i2j4, i3j1, i3j2, i3j3, i3j4, i4j1, i4j2, i4j3, i4j4)`
+
+   Sets the matrix data.
+
+   **Parameters**:
+
+   | Name   | Type   | Description                                    | Required | Default |
+   | ------ | ------ | ---------------------------------------------- | -------- | ------- |
+   | `i1j1` | number | The value at the first row and first column.   | ✅       | -       |
+   | `i1j2` | number | The value at the first row and second column.  | ✅       | -       |
+   | `i1j3` | number | The value at the first row and third column.   | ✅       | -       |
+   | `i1j4` | number | The value at the first row and fourth column.  | ✅       | -       |
+   | `i2j1` | number | The value at the second row and first column.  | ✅       | -       |
+   | `i2j2` | number | The value at the second row and second column. | ✅       | -       |
+   | `i2j3` | number | The value at the second row and third column.  | ✅       | -       |
+   | `i2j4` | number | The value at the second row and fourth column. | ✅       | -       |
+   | `i3j1` | number | The value at the third row and first column.   | ✅       | -       |
+   | `i3j2` | number | The value at the third row and second column.  | ✅       | -       |
+   | `i3j3` | number | The value at the third row and third column.   | ✅       | -       |
+   | `i3j4` | number | The value at the third row and fourth column.  | ✅       | -       |
+   | `i4j1` | number | The value at the fourth row and first column.  | ✅       | -       |
+   | `i4j2` | number | The value at the fourth row and second column. | ✅       | -       |
+   | `i4j3` | number | The value at the fourth row and third column.  | ✅       | -       |
+   | `i4j4` | number | The value at the fourth row and fourth column. | ✅       | -       |
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const matrix = new Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 6, 7, 1);
+   matrix.set(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 5, 6, 7, 1);
+   console.log(matrix.data); // [2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 5, 6, 7, 1]
+   ```
+
+2. `copy()`
+
+   Creates a copy of the Mat4 instance.
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const matrix = new Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 6, 7, 1);
+   const copy = matrix.copy();
+   console.log(copy.data); // [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 6, 7, 1]
+   ```
+
+3. `multiply(m)`
+
+   Multiplies this matrix with another matrix.
+
+   **Parameters**:
+
+   | Name | Type   | Description             | Required | Default |
+   | ---- | ------ | ----------------------- | -------- | ------- |
+   | `m`  | [Mat4] | The matrix to multiply. | ✅       | -       |
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const matrix = new Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 6, 7, 1);
+   const matrix2 = new Mat4(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 5, 6, 7, 1);
+   matrix.multiply(matrix2);
+   console.log(matrix.data); // [2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 15, 18, 21, 1]
+   ```
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Properties
+
+| Name | Type     | Description      | Setter | Getter |
+| ---- | -------- | ---------------- | ------ | ------ |
+| data | `number` | The matrix data. | ❌     | ✅     |
+
+[Back to Table of Contents :arrow_up:][Table of Contents]
+
+#### Static Methods
+
+1. `identity()`
+
+   Creates an identity matrix.
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const identityMatrix = Mat4.identity();
+   console.log(identityMatrix.data); // [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+   ```
+
+2. `translation(x, y, z)`
+
+   Creates a translation matrix.
+
+   **Parameters**:
+
+   | Name | Type   | Description                       | Required | Default |
+   | ---- | ------ | --------------------------------- | -------- | ------- |
+   | `x`  | number | The translation along the x-axis. | ✅       | -       |
+   | `y`  | number | The translation along the y-axis. | ✅       | -       |
+   | `z`  | number | The translation along the z-axis. | ✅       | -       |
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const translationMatrix = Mat4.translation(5, 6, 7);
+   console.log(translationMatrix.data); // [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 6, 7, 1]
+   ```
+
+3. `rotationX(theta)`
+
+   Creates a rotation matrix around the x-axis.
+
+   **Parameters**:
+
+   | Name    | Type   | Description                    | Required | Default |
+   | ------- | ------ | ------------------------------ | -------- | ------- |
+   | `theta` | number | The rotation angle in radians. | ✅       | -       |
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const rotationMatrix = Mat4.rotationX(Math.PI / 2);
+   console.log(rotationMatrix.data); // [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1]
+   ```
+
+4. `rotationY(theta)`
+
+   Creates a rotation matrix around the y-axis.
+
+   **Parameters**:
+
+   | Name    | Type   | Description                    | Required | Default |
+   | ------- | ------ | ------------------------------ | -------- | ------- |
+   | `theta` | number | The rotation angle in radians. | ✅       | -       |
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const rotationMatrix = Mat4.rotationY(Math.PI / 2);
+   console.log(rotationMatrix.data); // [0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1]
+   ```
+
+5. `rotationZ(theta)`
+
+   Creates a rotation matrix around the z-axis.
+
+   **Parameters**:
+
+   | Name    | Type   | Description                    | Required | Default |
+   | ------- | ------ | ------------------------------ | -------- | ------- |
+   | `theta` | number | The rotation angle in radians. | ✅       | -       |
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const rotationMatrix = Mat4.rotationZ(Math.PI / 2);
+   console.log(rotationMatrix.data); // [0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+   ```
+
+6. `scale(x, y, z)`
+
+   Creates a scaling matrix.
+
+   **Parameters**:
+
+   | Name | Type   | Description                          | Required | Default |
+   | ---- | ------ | ------------------------------------ | -------- | ------- |
+   | `x`  | number | The scaling factor along the x-axis. | ✅       | -       |
+   | `y`  | number | The scaling factor along the y-axis. | ✅       | -       |
+   | `z`  | number | The scaling factor along the z-axis. | ✅       | -       |
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const scalingMatrix = Mat4.scale(2, 3, 4);
+   console.log(scalingMatrix.data); // [2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 1]
+   ```
+
+7. `perspective(fieldOfView, aspect, near, far)`
+
+   Creates a perspective projection matrix.
+
+   **Parameters**:
+
+   | Name          | Type   | Description                              | Required | Default |
+   | ------------- | ------ | ---------------------------------------- | -------- | ------- |
+   | `fieldOfView` | number | The field of view angle in degrees.      | ✅       | -       |
+   | `aspect`      | number | The aspect ratio of the viewport.        | ✅       | -       |
+   | `near`        | number | The distance to the near clipping plane. | ✅       | -       |
+   | `far`         | number | The distance to the far clipping plane.  | ✅       | -       |
+
+   **Returns**: [`Mat4`][Mat4]
+
+   **Example**:
+
+   ```javascript
+   const perspectiveMatrix = Mat4.perspective(60, 16 / 9, 0.1, 100);
+   console.log(perspectiveMatrix.data); // [0.9742785792574935, 0, 0, 0, 0, 1.7320508075688774, 0, 0, 0, 0, 1.0010010010010009, -0.10010010010010009, 0, 0, 1, 0]
    ```
 
 [Back to Table of Contents :arrow_up:][Table of Contents]
