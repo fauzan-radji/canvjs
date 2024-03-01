@@ -38,7 +38,7 @@ npm install kanvasgl
 
 ## Documentation
 
-See the [documentation](DOCS.md) for more information.
+See the [documentation](docs/DOCS.md) for more information. See the [examples](docs/index.html) for more examples. See the [demo](https://fauzan-radji.github.io/kanvasgl/) for a live demo.
 
 ## License
 
