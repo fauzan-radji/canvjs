@@ -27,8 +27,14 @@
       - [Methods](#methods-3)
       - [Properties](#properties-3)
       - [Static Methods](#static-methods-2)
+    - [Vec3d](#vec3d)
+      - [Constructor](#constructor-4)
+      - [Methods](#methods-4)
+      - [Properties](#properties-4)
+      - [Static Methods](#static-methods-3)
   - [Type Aliases](#type-aliases)
     - [Point2d](#point2d)
+    - [Point3d](#point3d)
     - [Color](#color)
 
 ## Getting Started
@@ -1732,6 +1738,644 @@ Represents a 2D vector.
 
 [Back to Table of Contents :arrow_up:][Table of Contents]
 
+### Vec3d
+
+Represents a 3-dimensional vector.
+
+#### Constructor
+
+**Parameters**:
+
+| Name | Type   | Description                     |
+| ---- | ------ | ------------------------------- |
+| `x`  | number | The x-coordinate of the vector. |
+| `y`  | number | The y-coordinate of the vector. |
+| `z`  | number | The z-coordinate of the vector. |
+
+**Example**:
+
+```javascript
+const vector = new Vec3d(3, 4, 5);
+console.log(vector); // Vec3d { x: 3, y: 4, z: 5 }
+```
+
+#### Methods
+
+1. `set(v)`
+
+   Sets the vector to the values of another vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v`  | [Point3d] | The vector to copy | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   vector.set({ x: 5, y: 6, z: 7 });
+   console.log(vector); // Vec3d { x: 5, y: 6, z: 7 }
+   ```
+
+2. `copy(options)`
+
+   Creates a copy of the vector.
+
+   **Parameters**:
+
+   | Name        | Type   | Description                                           | Required | Default  |
+   | ----------- | ------ | ----------------------------------------------------- | -------- | -------- |
+   | `options`   | Object | The optional values to override in the copied vector. | ❌       | `{}`     |
+   | `options.x` | number | The x-coordinate of the copied vector.                | ❌       | `this.x` |
+   | `options.y` | number | The y-coordinate of the copied vector.                | ❌       | `this.y` |
+   | `options.z` | number | The z-coordinate of the copied vector.                | ❌       | `this.z` |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   const copy = vector.copy({ x: 5, y: 6, z: 7 });
+   console.log(copy); // Vec3d { x: 5, y: 6, z: 7 }
+   ```
+
+3. `add(v)`
+
+   Adds another vector to this vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description       | Required | Default |
+   | ---- | --------- | ----------------- | -------- | ------- |
+   | `v`  | [Point3d] | The vector to add | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   vector.add({ x: 5, y: 6, z: 7 });
+   console.log(vector); // Vec3d { x: 8, y: 10, z: 12 }
+   ```
+
+4. `subtract(v)`
+
+   Subtracts another vector from this vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description            | Required | Default |
+   | ---- | --------- | ---------------------- | -------- | ------- |
+   | `v`  | [Point3d] | The vector to subtract | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   vector.subtract({ x: 5, y: 6, z: 7 });
+   console.log(vector); // Vec3d { x: -2, y: -2, z: -2 }
+   ```
+
+5. `multiply(scalar)`
+
+   Multiplies the vector by a scalar value.
+
+   **Parameters**:
+
+   | Name     | Type   | Description                     | Required | Default |
+   | -------- | ------ | ------------------------------- | -------- | ------- |
+   | `scalar` | number | The scalar value to multiply by | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   vector.multiply(2);
+   console.log(vector); // Vec3d { x: 6, y: 8, z: 10 }
+   ```
+
+6. `divide(scalar)`
+
+   Divides the vector by a scalar value.
+
+   **Parameters**:
+
+   | Name     | Type   | Description                   | Required | Default |
+   | -------- | ------ | ----------------------------- | -------- | ------- |
+   | `scalar` | number | The scalar value to divide by | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   vector.divide(2);
+   console.log(vector); // Vec3d { x: 1.5, y: 2, z: 2.5 }
+   ```
+
+7. `dot(v)`
+
+   Calculates the dot product of this vector and another vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description       | Required | Default |
+   | ---- | --------- | ----------------- | -------- | ------- |
+   | `v`  | [Point3d] | The other vector. | ✅       | -       |
+
+   **Returns**: `number`
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   const dotProduct = vector.dot({ x: 5, y: 6, z: 7 });
+   console.log(dotProduct); // 74
+   ```
+
+8. `cross(v)`
+
+   Calculates the cross product of this vector and another vector.
+
+   **Parameters**:
+
+   | Name | Type      | Description       | Required | Default |
+   | ---- | --------- | ----------------- | -------- | ------- |
+   | `v`  | [Point3d] | The other vector. | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   const crossProduct = vector.cross({ x: 5, y: 6, z: 7 });
+   console.log(crossProduct); // Vec3d { x: -2, y: 4, z: -2 }
+   ```
+
+9. `transform(m)`
+
+   Transforms the vector by a 4x4 matrix.
+
+   **Parameters**:
+
+   | Name | Type           | Description                | Required | Default |
+   | ---- | -------------- | -------------------------- | -------- | ------- |
+   | `m`  | [`Mat4`][Mat4] | The transformation matrix. | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = new Vec3d(3, 4, 5);
+   vector.transform(new Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 6, 7, 1));
+   console.log(vector); // Vec3d { x: 8, y: 10, z: 12 }
+   ```
+
+10. `project(fieldOfView, aspectRatio, near, far, width, height)`
+
+    Projects the vector onto a 2-dimensional plane.
+
+    **Parameters**:
+
+    | Name          | Type   | Description                             | Required | Default |
+    | ------------- | ------ | --------------------------------------- | -------- | ------- |
+    | `fieldOfView` | number | The field of view angle in degrees      | ✅       | -       |
+    | `aspectRatio` | number | The aspect ratio of the viewport        | ✅       | -       |
+    | `near`        | number | The distance to the near clipping plane | ✅       | -       |
+    | `far`         | number | The distance to the far clipping plane  | ✅       | -       |
+    | `width`       | number | The width of the viewport               | ✅       | -       |
+    | `height`      | number | The height of the viewport              | ✅       | -       |
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec3d(3, 4, 5);
+    const projected = vector.project(90, 16 / 9, 0.1, 100, 1920, 1080);
+    console.log(projected); // Vec2d { x: 0.5, y: 0.5 }
+    ```
+
+11. `translate(v)`
+
+    Translates the vector by another vector.
+
+    **Parameters**:
+
+    | Name | Type      | Description            | Required | Default |
+    | ---- | --------- | ---------------------- | -------- | ------- |
+    | `v`  | [Point3d] | The translation vector | ✅       | -       |
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec3d(3, 4, 5);
+    vector.translate({ x: 5, y: 6, z: 7 });
+    console.log(vector); // Vec3d { x: 8, y: 10, z: 12 }
+    ```
+
+12. `rotateX(theta)`
+
+    Rotates the vector around the x-axis.
+
+    **Parameters**:
+
+    | Name    | Type   | Description                   | Required | Default |
+    | ------- | ------ | ----------------------------- | -------- | ------- |
+    | `theta` | number | The rotation angle in radians | ✅       | -       |
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec3d(3, 4, 5);
+    vector.rotateX(Math.PI / 2);
+    console.log(vector); // Vec3d { x: 3, y: -5, z: 4 }
+    ```
+
+13. `rotateY(theta)`
+
+    Rotates the vector around the y-axis.
+
+    **Parameters**:
+
+    | Name    | Type   | Description                   | Required | Default |
+    | ------- | ------ | ----------------------------- | -------- | ------- |
+    | `theta` | number | The rotation angle in radians | ✅       | -       |
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec3d(3, 4, 5);
+    vector.rotateY(Math.PI / 2);
+    console.log(vector); // Vec3d { x: 5, y: 4, z: -3 }
+    ```
+
+14. `rotateZ(theta)`
+
+    Rotates the vector around the z-axis.
+
+    **Parameters**:
+
+    | Name    | Type   | Description                   | Required | Default |
+    | ------- | ------ | ----------------------------- | -------- | ------- |
+    | `theta` | number | The rotation angle in radians | ✅       | -       |
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec3d(3, 4, 5);
+    vector.rotateZ(Math.PI / 2);
+    console.log(vector); // Vec3d { x: -4, y: 3, z: 5 }
+    ```
+
+15. `scale(v)`
+
+    Scales the vector by another vector.
+
+    **Parameters**:
+
+    | Name | Type      | Description        | Required | Default |
+    | ---- | --------- | ------------------ | -------- | ------- |
+    | `v`  | [Point3d] | The scaling vector | ✅       | -       |
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec3d(3, 4, 5);
+    vector.scale({ x: 5, y: 6, z: 7 });
+    console.log(vector); // Vec3d { x: 15, y: 24, z: 35 }
+    ```
+
+16. `normalize()`
+
+    Normalizes the vector to have a magnitude of 1.
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec3d(3, 4, 5);
+    vector.normalize();
+    console.log(vector); // Vec3d { x: 0.4242640687119285, y: 0.565685424949238, z: 0.7071067811865475 }
+    ```
+
+17. `toVec2d()`
+
+    Converts the vector to a 2-dimensional vector.
+
+    **Returns**: [`Vec2d`][Vec2d]
+
+    **Example**:
+
+    ```javascript
+    const vector = new Vec3d(3, 4, 5);
+    const vec2d = vector.toVec2d();
+    console.log(vec2d); // Vec2d { x: 3, y: 4 }
+    ```
+
+#### Properties
+
+| Name        | Type   | Description                                          | Setter | Getter |
+| ----------- | ------ | ---------------------------------------------------- | ------ | ------ |
+| `x`         | number | The x-coordinate of the vector.                      | ✅     | ✅     |
+| `y`         | number | The y-coordinate of the vector.                      | ✅     | ✅     |
+| `z`         | number | The z-coordinate of the vector.                      | ✅     | ✅     |
+| `phi`       | number | The angle in the x-y plane (radians).                | ✅     | ✅     |
+| `theta`     | number | The angle in the x-z plane (radians).                | ✅     | ✅     |
+| `magnitude` | number | The magnitude of the vector.                         | ✅     | ✅     |
+| `r`         | number | The magnitude of the vector (alias for `magnitude`). | ✅     | ✅     |
+
+#### Static Methods
+
+1. `add(v1, v2)`
+
+   Adds two vectors together without modifying the original vectors.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v1` | [Point3d] | The first vector.  | ✅       | -       |
+   | `v2` | [Point3d] | The second vector. | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec3d.add({ x: 3, y: 4, z: 5 }, { x: 5, y: 6, z: 7 });
+   console.log(vector); // Vec3d { x: 8, y: 10, z: 12 }
+   ```
+
+2. `subtract(v1, v2)`
+
+   Subtracts one vector from another without modifying the original vectors.
+
+   **Parameters**:
+
+   | Name | Type      | Description                  | Required | Default |
+   | ---- | --------- | ---------------------------- | -------- | ------- |
+   | `v1` | [Point3d] | The vector to subtract from. | ✅       | -       |
+   | `v2` | [Point3d] | The vector to subtract.      | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec3d.subtract({ x: 3, y: 4, z: 5 }, { x: 5, y: 6, z: 7 });
+   console.log(vector); // Vec3d { x: -2, y: -2, z: -2 }
+   ```
+
+3. `multiply(v, scalar)`
+
+   Multiplies a vector by a scalar value without modifying the original vector.
+
+   **Parameters**:
+
+   | Name     | Type      | Description             | Required | Default |
+   | -------- | --------- | ----------------------- | -------- | ------- |
+   | `v`      | [Point3d] | The vector to multiply. | ✅       | -       |
+   | `scalar` | number    | The scalar value.       | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec3d.multiply({ x: 3, y: 4, z: 5 }, 2);
+   console.log(vector); // Vec3d { x: 6, y: 8, z: 10 }
+   ```
+
+4. `divide(v, scalar)`
+
+   Divides a vector by a scalar value without modifying the original vector.
+
+   **Parameters**:
+
+   | Name     | Type      | Description           | Required | Default |
+   | -------- | --------- | --------------------- | -------- | ------- |
+   | `v`      | [Point3d] | The vector to divide. | ✅       | -       |
+   | `scalar` | number    | The scalar value.     | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec3d.divide({ x: 3, y: 4, z: 5 }, 2);
+   console.log(vector); // Vec3d { x: 1.5, y: 2, z: 2.5 }
+   ```
+
+5. `dot(v1, v2)`
+
+   Calculates the dot product of two vectors.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v1` | [Point3d] | The first vector.  | ✅       | -       |
+   | `v2` | [Point3d] | The second vector. | ✅       | -       |
+
+   **Returns**: `number`
+
+   **Example**:
+
+   ```javascript
+   const dotProduct = Vec3d.dot({ x: 3, y: 4, z: 5 }, { x: 5, y: 6, z: 7 });
+   console.log(dotProduct); // 74
+   ```
+
+6. `cross(v1, v2)`
+
+   Calculates the cross product of two vectors.
+
+   **Parameters**:
+
+   | Name | Type      | Description        | Required | Default |
+   | ---- | --------- | ------------------ | -------- | ------- |
+   | `v1` | [Point3d] | The first vector.  | ✅       | -       |
+   | `v2` | [Point3d] | The second vector. | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const crossProduct = Vec3d.cross({ x: 3, y: 4, z: 5 }, { x: 5, y: 6, z: 7 });
+   console.log(crossProduct); // Vec3d { x: -2, y: 4, z: -2 }
+   ```
+
+7. `transform(v, m)`
+
+   Transforms a vector by a 4x4 matrix without modifying the original vector.
+
+   **Parameters**:
+
+   | Name | Type           | Description                | Required | Default |
+   | ---- | -------------- | -------------------------- | -------- | ------- |
+   | `v`  | [Point3d]      | The vector to transform.   | ✅       | -       |
+   | `m`  | [`Mat4`][Mat4] | The transformation matrix. | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec3d.transform(
+     { x: 3, y: 4, z: 5 },
+     new Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 6, 7, 1)
+   );
+   console.log(vector); // Vec3d { x: 8, y: 10, z: 12 }
+   ```
+
+8. `translate(v, translation)`
+
+   Translates a vector by another vector without modifying the original vector.
+
+   **Parameters**:
+
+   | Name          | Type      | Description              | Required | Default |
+   | ------------- | --------- | ------------------------ | -------- | ------- |
+   | `v`           | [Point3d] | The vector to translate. | ✅       | -       |
+   | `translation` | [Point3d] | The translation vector.  | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec3d.translate({ x: 3, y: 4, z: 5 }, { x: 5, y: 6, z: 7 });
+   console.log(vector); // Vec3d { x: 8, y: 10, z: 12 }
+   ```
+
+9. `rotateX(v, theta)`
+
+   Rotates a vector around the x-axis without modifying the original vector.
+
+   **Parameters**:
+
+   | Name    | Type      | Description                   | Required | Default |
+   | ------- | --------- | ----------------------------- | -------- | ------- |
+   | `v`     | [Point3d] | The vector to rotate.         | ✅       | -       |
+   | `theta` | number    | The rotation angle in radians | ✅       | -       |
+
+   **Returns**: [`Vec3d`][Vec3d]
+
+   **Example**:
+
+   ```javascript
+   const vector = Vec3d.rotateX({ x: 3, y: 4, z: 5 }, Math.PI / 2);
+   console.log(vector); // Vec3d { x: 3, y: -5, z: 4 }
+   ```
+
+10. `rotateY(v, theta)`
+
+    Rotates a vector around the y-axis without modifying the original vector.
+
+    **Parameters**:
+
+    | Name    | Type      | Description                   | Required | Default |
+    | ------- | --------- | ----------------------------- | -------- | ------- |
+    | `v`     | [Point3d] | The vector to rotate.         | ✅       | -       |
+    | `theta` | number    | The rotation angle in radians | ✅       | -       |
+
+11. `rotateZ(v, theta)`
+
+    Rotates a vector around the z-axis without modifying the original vector.
+
+    **Parameters**:
+
+    | Name    | Type      | Description                   | Required | Default |
+    | ------- | --------- | ----------------------------- | -------- | ------- |
+    | `v`     | [Point3d] | The vector to rotate.         | ✅       | -       |
+    | `theta` | number    | The rotation angle in radians | ✅       | -       |
+
+12. `scale(v, scale)`
+
+    Scales a vector by another vector without modifying the original vector.
+
+    **Parameters**:
+
+    | Name    | Type      | Description         | Required | Default |
+    | ------- | --------- | ------------------- | -------- | ------- |
+    | `v`     | [Point3d] | The vector to scale | ✅       | -       |
+    | `scale` | [Point3d] | The scaling vector  | ✅       | -       |
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = Vec3d.scale({ x: 3, y: 4, z: 5 }, { x: 5, y: 6, z: 7 });
+    console.log(vector); // Vec3d { x: 15, y: 24, z: 35 }
+    ```
+
+13. `normalize(v)`
+
+    Normalizes a vector to have a magnitude of 1 without modifying the original vector.
+
+    **Parameters**:
+
+    | Name | Type      | Description             | Required | Default |
+    | ---- | --------- | ----------------------- | -------- | ------- |
+    | `v`  | [Point3d] | The vector to normalize | ✅       | -       |
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = Vec3d.normalize({ x: 3, y: 4, z: 5 });
+    console.log(vector); // Vec3d { x: 0.4242640687119285, y: 0.565685424949238, z: 0.7071067811865475 }
+    ```
+
+14. `fromPolar(magnitude, theta, phi)`
+
+    Creates a 3-dimensional vector from polar coordinates.
+
+    **Parameters**:
+
+    | Name        | Type   | Description                  | Required | Default |
+    | ----------- | ------ | ---------------------------- | -------- | ------- |
+    | `magnitude` | number | The magnitude of the vector. | ✅       | -       |
+    | `theta`     | number | The angle in the x-y plane.  | ✅       | -       |
+    | `phi`       | number | The angle in the x-z plane.  | ✅       | -       |
+
+    **Returns**: [`Vec3d`][Vec3d]
+
+    **Example**:
+
+    ```javascript
+    const vector = Vec3d.fromPolar(5, Math.PI / 2, Math.PI / 2);
+    console.log(vector); // Vec3d { x: 0, y: 5, z: 0 }
+    ```
+
 ## Type Aliases
 
 ### Point2d
@@ -1740,6 +2384,14 @@ Represents a point in 2D space.
 
 ```typescript
 type Point2d = Vec2d | { x: number; y: number };
+```
+
+### Point3d
+
+Represents a point in 3D space.
+
+```typescript
+type Point3d = Vec3d | { x: number; y: number; z: number };
 ```
 
 ### Color
@@ -1765,6 +2417,9 @@ type Color = string | CanvasGradient | CanvasPattern;
 [HTMLCanvasElement]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement
 [Kanvas]: #kanvas
 [Mat3]: #mat3
+[Mat4]: #mat4
 [Vec2d]: #vec2d
+[Vec3d]: #vec3d
 [Point2d]: #point2d
+[Point3d]: #point3d
 [Color]: #color
