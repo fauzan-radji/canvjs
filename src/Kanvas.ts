@@ -249,24 +249,31 @@ export default class Kanvas {
   text({
     text,
     at,
+    textAlign = "center",
+    textBaseline = "middle",
     fillStyle = this.#fillStyle,
     strokeStyle = this.#strokeStyle,
     size = 16,
+    font = "Arial",
   }: {
     text: string;
     at: Point2d;
+    textAlign?: CanvasTextAlign;
+    textBaseline?: CanvasTextBaseline;
     fillStyle?: Color;
     strokeStyle?: Color;
     size?: number;
+    font?: string;
   }): Kanvas {
-    this.beginPath();
-    this.textAlign = "center";
-    this.textBaseline = "middle";
-    this.fillStyle = fillStyle;
-    this.strokeStyle = strokeStyle;
-    this.font = `${size}px Arial`;
+    this.save();
+    this.context.textAlign = textAlign;
+    this.context.textBaseline = textBaseline;
+    this.context.fillStyle = fillStyle;
+    this.context.strokeStyle = strokeStyle;
+    this.context.font = `${size}px ${font}`;
     this.context.fillText(text, at.x, at.y);
     this.context.strokeText(text, at.x, at.y);
+    this.restore();
 
     return this;
   }
@@ -311,10 +318,12 @@ export default class Kanvas {
     width?: number;
     dash?: Iterable<number>;
   } = {}): Kanvas {
-    this.strokeStyle = color;
-    this.lineWidth = width;
-    this.lineDash = dash;
+    this.save();
+    this.context.strokeStyle = color;
+    this.context.lineWidth = width;
+    this.context.setLineDash(Array.from(dash));
     this.context.stroke();
+    this.restore();
 
     return this;
   }
@@ -326,8 +335,10 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   fill(color: Color = this.#fillStyle): Kanvas {
-    this.fillStyle = color;
+    this.save();
+    this.context.fillStyle = color;
     this.context.fill();
+    this.restore();
 
     return this;
   }
@@ -348,7 +359,8 @@ export default class Kanvas {
    * @return {Kanvas} this Kanvas object
    */
   clear(): Kanvas {
-    this.context.clearRect(0, 0, this.width, this.height);
+    this.#canvas.width = this.width;
+    this.#canvas.height = this.height;
 
     return this;
   }
