@@ -8,7 +8,8 @@
   "scripts": {
     "test": "npm run build && NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
     "build": "tsc -p .",
-    "dev": "tsc -w -p ."
+    "dev": "tsc -w -p .",
+    "preversion": "npm run build"
   },
   "repository": {
     "type": "git",

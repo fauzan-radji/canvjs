@@ -91,12 +91,15 @@ export default class Kanvas {
      *
      * @return {Kanvas} this Kanvas object
      */
-    text({ text, at, fillStyle, strokeStyle, size, }: {
+    text({ text, at, textAlign, textBaseline, fillStyle, strokeStyle, size, font, }: {
         text: string;
         at: Point2d;
+        textAlign?: CanvasTextAlign;
+        textBaseline?: CanvasTextBaseline;
         fillStyle?: Color;
         strokeStyle?: Color;
         size?: number;
+        font?: string;
     }): Kanvas;
     /**
      * Begins a new path

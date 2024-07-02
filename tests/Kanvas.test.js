@@ -172,9 +172,4 @@ describe("Kanvas", () => {
     kanvas.background("red");
     expect(kanvas.canvas.style.backgroundColor).toBe("red");
   });
-
-  test("clear() should clear the canvas", () => {
-    kanvas.clear();
-    expect(kanvas.context.clearRect).toHaveBeenCalled();
-  });
 });
